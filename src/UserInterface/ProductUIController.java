@@ -18,6 +18,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -70,6 +72,10 @@ public class ProductUIController implements Initializable {
     private boolean isEdit = false;
     @FXML
     private Button btnModify;
+    @FXML
+    private Button btnClear;
+    @FXML
+    private Button btnDelete;
 
     /**
      * Initializes the controller class.
@@ -129,12 +135,19 @@ public class ProductUIController implements Initializable {
         db.updateTable(query);
         db.disconnect();
         updateTable();
-        resetFileds();
+        resetFields();
     }
 
     @FXML
     private void btnModifyOnCliked(ActionEvent event) {
         Product curr = tvProduct.getSelectionModel().getSelectedItem();
+        if (curr == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a product from table to modify!");
+            alert.show();
+            return;
+        }
         tfProductID.setText(curr.getProductID() + "");
         tfBrand.setText(curr.getBrand());
         tfModel.setText(curr.getModel());
@@ -147,7 +160,7 @@ public class ProductUIController implements Initializable {
         btnInsertProduct.setText("Update Product");
     }
 
-    private void resetFileds() {
+    private void resetFields() {
         tfProductID.setText("");
         tfBrand.setText("");
         tfModel.setText("");
@@ -158,6 +171,29 @@ public class ProductUIController implements Initializable {
         isEdit = false;
         tfProductID.setEditable(true);
         btnInsertProduct.setText("Insert Product");
+    }
+
+    @FXML
+    private void btnClearOnClicked(ActionEvent event) {
+        resetFields();
+    }
+
+    @FXML
+    private void btnDeleteOnClicked(ActionEvent event) throws SQLException, ClassNotFoundException {
+        Product curr = tvProduct.getSelectionModel().getSelectedItem();
+        if (curr == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a product from table to delete!");
+            alert.show();
+            return;
+        }
+        String query = "DELETE FROM PRODUCT WHERE ProductID = " + curr.getProductID();
+        Database db = new Database();
+        db.connect();
+        db.updateTable(query);
+        db.disconnect();
+        updateTable();
     }
 
 }
