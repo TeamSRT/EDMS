@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,10 +22,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -60,6 +63,8 @@ public class CustomerUIController implements Initializable {
     private boolean modify = false;
     private Integer id = -1; 
     ObservableList <Customer> listCustomer = FXCollections.observableArrayList();   
+    @FXML
+    private Label lblAlert;
   
     
     
@@ -147,21 +152,22 @@ public class CustomerUIController implements Initializable {
                     {                       
                         query = "UPDATE CUSTOMER SET customerName = '"+name+"', customerPhone = '"+phone+"',addresses = '"+address+"'"+"WHERE customerID = "+id+"";
                     } 
-                    db.updateTable(query);                   
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Success");
+                    db.updateTable(query);                                 
                     if(!modify)
                     {
-                       alert.setContentText("Data inserted successfully");
+                       lblAlert.setText("Data inserted successfully!");                       
                     }
                     else
                     {
-                        alert.setContentText("Data updated successfully");                        
+                        lblAlert.setText("Data updated successfully!");                                                
                     }
-                    alert.show();
+                    lblAlert.setOpacity(1);
                     btnInsertCustomer.setText("Insert Customer");
+                    
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    pause.setOnFinished(e -> resetFields());
+                    pause.play();
                     showTable();
-                    resetFields();                    
                     db.disconnect();
                 }catch (ClassNotFoundException| SQLException ex) {
                     System.out.println("Exception in insert customer:"+ex);
@@ -208,15 +214,18 @@ public class CustomerUIController implements Initializable {
             }           
             String query = "DELETE FROM CUSTOMER WHERE customerID = "+selected.getCustomerID();
             db.updateTable(query);
-            db.disconnect();
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Successful");
-            alert.setContentText("Data deleted successfully");
-            alert.show();
+            db.disconnect();            
+            lblAlert.setText("Data deleted successfully!");
+            lblAlert.setOpacity(1);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> lblAlert.setOpacity(0));
+            pause.play();
             showTable();
+           
         }catch(ClassNotFoundException | SQLException ex) {
             System.out.println("Exception in btnDelete: "+ ex);
         }
+        
     }
 
     private void resetFields() {
@@ -225,6 +234,7 @@ public class CustomerUIController implements Initializable {
         tfAddress.setText("");
         modify = false;
         id = -1;
+        lblAlert.setOpacity(0);
     }
 
     

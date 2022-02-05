@@ -25,12 +25,12 @@
       <Label layoutX="520.0" layoutY="115.0" text="Name" />
       <Label layoutX="520.0" layoutY="165.0" text="Phone" />
       <Label layoutX="520.0" layoutY="215.0" text="Address" />
-      <Button fx:id="btnInsertCustomer" layoutX="570.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnInsertCustomerOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Customer">
+      <Button fx:id="btnInsertCustomer" layoutX="570.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnInsertCustomerOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Customer">
          <font>
             <Font size="13.0" />
          </font></Button>
       <Button fx:id="btnModify" layoutX="1141.0" layoutY="687.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Customer" />
-      <Button fx:id="btnClear" layoutX="705.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
+      <Button fx:id="btnClear" layoutX="705.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -48,5 +48,10 @@
       <ChoiceBox layoutX="1078.0" layoutY="38.0" prefWidth="150.0" />
       <TextField layoutX="29.0" layoutY="27.0" prefHeight="46.0" prefWidth="1003.0" promptText="Search" />
       <Label layoutX="1127.0" layoutY="18.0" text="Search By" />
+      <Label fx:id="lblAlert" layoutX="586.0" layoutY="312.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
