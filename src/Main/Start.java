@@ -19,11 +19,11 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/CustomerUI.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Electronic Devices Management System");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

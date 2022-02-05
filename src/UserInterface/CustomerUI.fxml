@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.CustomerUIController">
+   <children>
+      <TableView fx:id="tvCustomer" layoutX="19.0" layoutY="346.0" prefHeight="333.0" prefWidth="1243.0">
+         <columns>
+            <TableColumn fx:id="tcCustomerID" prefWidth="170.0" text="Customer ID" />
+            <TableColumn fx:id="tcName" prefWidth="366.0" text="Name" />
+            <TableColumn fx:id="tcPhone" prefWidth="293.0" text="Phone" />
+            <TableColumn fx:id="tcAddress" minWidth="0.0" prefWidth="413.0" text="Address" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfAddress" layoutX="639.0" layoutY="215.0" prefHeight="25.0" prefWidth="224.0" promptText="Address" />
+      <TextField fx:id="tfName" layoutX="639.0" layoutY="115.0" prefHeight="25.0" prefWidth="224.0" promptText="Full Name" />
+      <TextField fx:id="tfPhone" layoutX="639.0" layoutY="165.0" prefHeight="25.0" prefWidth="224.0" promptText="Phone" />
+      <Label layoutX="520.0" layoutY="115.0" text="Name" />
+      <Label layoutX="520.0" layoutY="165.0" text="Phone" />
+      <Label layoutX="520.0" layoutY="215.0" text="Address" />
+      <Button fx:id="btnInsertCustomer" layoutX="570.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnInsertCustomerOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Customer">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="btnModify" layoutX="1141.0" layoutY="687.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Customer" />
+      <Button fx:id="btnClear" layoutX="705.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="btnDelete" layoutX="1006.0" layoutY="687.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Customer" />
+      <Label layoutX="563.0" layoutY="115.0" text="*" textFill="#fc2929">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="563.0" layoutY="165.0" text="*" textFill="#fc2929">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ChoiceBox layoutX="1078.0" layoutY="38.0" prefWidth="150.0" />
+      <TextField layoutX="29.0" layoutY="27.0" prefHeight="46.0" prefWidth="1003.0" promptText="Search" />
+      <Label layoutX="1127.0" layoutY="18.0" text="Search By" />
+   </children>
+</AnchorPane>
