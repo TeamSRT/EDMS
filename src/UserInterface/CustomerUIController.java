@@ -23,10 +23,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 /**
@@ -60,13 +63,27 @@ public class CustomerUIController implements Initializable {
     private Button btnClear;
     @FXML
     private Button btnDelete;
-    private boolean modify = false;
-    private Integer id = -1; 
-    ObservableList <Customer> listCustomer = FXCollections.observableArrayList();   
     @FXML
     private Label lblAlert;
+    @FXML
+    private TextField tfSearch;
+    @FXML
+    private MenuButton menuBtnSearch;
+    @FXML
+    private MenuItem mitemID;
+    @FXML
+    private MenuItem mitemName;
+    @FXML
+    private MenuItem mitemPhone;
+    @FXML
+    private MenuItem mitemAddress;
+    @FXML
+    private MenuItem mitemKeyword;
   
-    
+    private boolean modify = false;
+    private Integer id = -1;
+    private String searchBy = "";
+    ObservableList <Customer> listCustomer = FXCollections.observableArrayList();   
     
   
     
@@ -77,26 +94,26 @@ public class CustomerUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-            showTable();      
+            showTable("SELECT * FROM CUSTOMER");
+            searchBy = "Keyword";
     }
 
-    private void showTable(){
+    private void showTable(String query){
         try {
             listCustomer.clear();
             modify = false;
             Database db = new Database();
-            db.connect();
-            String Query = "SELECT * FROM CUSTOMER";        
-            ResultSet rs = db.getResult(Query);                     
-            int count = 0;
+            db.connect();               
+            ResultSet rs = db.getResult(query);                     
+            boolean check = false;
             //need to work           
             while(rs.next())
             {
-               count++; 
+               check = true; 
                listCustomer.add(new Customer(rs.getInt("customerID"),rs.getString("customerName"),rs.getString("customerPhone"),rs.getString("addresses")));               
             }
             //System.out.println("count = "+count);
-            if(count == 0)
+            if(check == false)
             {
                 btnModify.setDisable(true);
                 btnDelete.setDisable(true);
@@ -167,7 +184,7 @@ public class CustomerUIController implements Initializable {
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
                     pause.setOnFinished(e -> resetFields());
                     pause.play();
-                    showTable();
+                    showTable("SELECT * FROM CUSTOMER");  
                     db.disconnect();
                 }catch (ClassNotFoundException| SQLException ex) {
                     System.out.println("Exception in insert customer:"+ex);
@@ -220,7 +237,7 @@ public class CustomerUIController implements Initializable {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(e -> lblAlert.setOpacity(0));
             pause.play();
-            showTable();
+            showTable("SELECT * FROM CUSTOMER");  
            
         }catch(ClassNotFoundException | SQLException ex) {
             System.out.println("Exception in btnDelete: "+ ex);
@@ -235,7 +252,87 @@ public class CustomerUIController implements Initializable {
         modify = false;
         id = -1;
         lblAlert.setOpacity(0);
+        tfSearch.setText("");
+       // searchBy = "Keyword";
     }
+
+    //by keywords (on key release)  
+    @FXML
+    private void search(KeyEvent event) {
+        if(tfSearch.getText().equals(""))
+        {
+            System.out.println("No text in the search field");
+            showTable("SELECT * FROM CUSTOMER");  
+        }
+        else
+        {
+            String query;
+            switch (searchBy) {
+                case "Id":
+                    query = "SELECT * FROM CUSTOMER WHERE customerID LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("ID chosen");
+                    break;
+                case "Name":
+                    query = "SELECT * FROM CUSTOMER WHERE customerName LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("Name chosen");
+                    break;
+                case "Phone":
+                    query = "SELECT * FROM CUSTOMER WHERE customerPhone LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("Phone Chosen");
+                    break;
+                case "Address":
+                    query = "SELECT * FROM CUSTOMER WHERE addresses LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("Address Chosen");
+                    break;
+                default:   
+                    query = "SELECT * FROM CUSTOMER WHERE customerID LIKE '%"+tfSearch.getText()+"%' OR "
+                            + "customerName LIKE '%"+tfSearch.getText()+"%' OR "
+                            + "addresses LIKE '%"+tfSearch.getText()+"%' OR "
+                            + "customerPhone LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("Keyword chosen");
+                    break;            
+            }
+            showTable(query);            
+        }
+    }
+
+    @FXML
+    private void searchByID(ActionEvent event) {
+        searchBy = "Id";
+        menuBtnSearch.setText("Id");
+        tfSearch.setPromptText("Search by ID");
+    }
+
+    @FXML
+    private void searchByName(ActionEvent event) {
+        searchBy = "Name";
+        menuBtnSearch.setText("Name");
+        tfSearch.setPromptText("Search by Name");
+    }
+
+    @FXML
+    private void searchByPhone(ActionEvent event) {
+        searchBy = "Phone";
+        menuBtnSearch.setText("Phone");
+        tfSearch.setPromptText("Search by Phone");
+    }
+
+    @FXML
+    private void searchByAddress(ActionEvent event) {
+        searchBy = "Address";
+        menuBtnSearch.setText("Address");
+        tfSearch.setPromptText("Search by Address");
+    }
+
+    @FXML
+    private void searchByKeyword(ActionEvent event) {
+        searchBy = "Keyword";
+        menuBtnSearch.setText("Keyword");
+        tfSearch.setPromptText("Search by Keyword");
+    }
+
+    
+  
 
     
     

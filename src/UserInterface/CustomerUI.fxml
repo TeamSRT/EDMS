@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -45,13 +46,21 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="1078.0" layoutY="38.0" prefWidth="150.0" />
-      <TextField layoutX="29.0" layoutY="27.0" prefHeight="46.0" prefWidth="1003.0" promptText="Search" />
+      <TextField fx:id="tfSearch" layoutX="110.0" layoutY="31.0" onKeyReleased="#search" prefHeight="39.0" prefWidth="820.0" promptText="Search by Keyword" />
       <Label layoutX="1127.0" layoutY="18.0" text="Search By" />
       <Label fx:id="lblAlert" layoutX="586.0" layoutY="312.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
+      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="1104.0" layoutY="38.0" mnemonicParsing="false" prefWidth="98.0" text="Search By">
+        <items>
+          <MenuItem fx:id="mitemID" mnemonicParsing="false" onAction="#searchByID" text="Id" />
+          <MenuItem fx:id="mitemName" mnemonicParsing="false" onAction="#searchByName" text="Name" />
+            <MenuItem fx:id="mitemPhone" mnemonicParsing="false" onAction="#searchByPhone" text="Phone" />
+            <MenuItem fx:id="mitemAddress" mnemonicParsing="false" onAction="#searchByAddress" text="Address" />
+            <MenuItem fx:id="mitemKeyword" mnemonicParsing="false" onAction="#searchByKeyword" text="Keyword" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>
