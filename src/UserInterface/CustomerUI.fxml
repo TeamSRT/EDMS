@@ -46,14 +46,17 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="tfSearch" layoutX="110.0" layoutY="31.0" onKeyReleased="#search" prefHeight="39.0" prefWidth="820.0" promptText="Search by Keyword" />
-      <Label layoutX="1127.0" layoutY="18.0" text="Search By" />
+      <TextField fx:id="tfSearch" layoutX="110.0" layoutY="31.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="820.0" promptText="Search by Keyword" />
+      <Label layoutX="1125.0" layoutY="22.0" text="Search By">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
       <Label fx:id="lblAlert" layoutX="586.0" layoutY="312.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="1104.0" layoutY="38.0" mnemonicParsing="false" prefWidth="98.0" text="Search By">
+      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="1104.0" layoutY="41.0" mnemonicParsing="false" prefWidth="98.0" text="Keyword">
         <items>
           <MenuItem fx:id="mitemID" mnemonicParsing="false" onAction="#searchByID" text="Id" />
           <MenuItem fx:id="mitemName" mnemonicParsing="false" onAction="#searchByName" text="Name" />

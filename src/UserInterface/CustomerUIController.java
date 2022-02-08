@@ -252,13 +252,11 @@ public class CustomerUIController implements Initializable {
         modify = false;
         id = -1;
         lblAlert.setOpacity(0);
-        tfSearch.setText("");
-       // searchBy = "Keyword";
+        tfSearch.setText("");      
     }
 
-    //by keywords (on key release)  
-    @FXML
-    private void search(KeyEvent event) {
+   
+    private void search() {
         if(tfSearch.getText().equals(""))
         {
             System.out.println("No text in the search field");
@@ -299,36 +297,47 @@ public class CustomerUIController implements Initializable {
     @FXML
     private void searchByID(ActionEvent event) {
         searchBy = "Id";
-        menuBtnSearch.setText("Id");
+        menuBtnSearch.setText("Id");       
         tfSearch.setPromptText("Search by ID");
+        search();
     }
 
     @FXML
     private void searchByName(ActionEvent event) {
         searchBy = "Name";
-        menuBtnSearch.setText("Name");
+        menuBtnSearch.setText("Name");           
         tfSearch.setPromptText("Search by Name");
+        search();
     }
 
     @FXML
     private void searchByPhone(ActionEvent event) {
         searchBy = "Phone";
-        menuBtnSearch.setText("Phone");
+        menuBtnSearch.setText("Phone");     
         tfSearch.setPromptText("Search by Phone");
+        search();
     }
 
     @FXML
     private void searchByAddress(ActionEvent event) {
         searchBy = "Address";
-        menuBtnSearch.setText("Address");
+        menuBtnSearch.setText("Address");    
         tfSearch.setPromptText("Search by Address");
+        search();
     }
 
     @FXML
     private void searchByKeyword(ActionEvent event) {
         searchBy = "Keyword";
-        menuBtnSearch.setText("Keyword");
+        menuBtnSearch.setText("Keyword");     
         tfSearch.setPromptText("Search by Keyword");
+        search();
+    }
+    
+     //by keywords (on key release)  
+    @FXML
+    private void searchOnKeyRelease(KeyEvent event) {
+        search();
     }
 
     
