@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="724.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SupplierUIController">
+    <stylesheets>
+        <URL value="@interfaceUI.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="tvSupplier" layoutX="19.0" layoutY="346.0" prefHeight="333.0" prefWidth="1243.0">
+         <columns>
+            <TableColumn fx:id="tcSupplierID" prefWidth="251.0" text="Supplier ID" />
+            <TableColumn fx:id="tcName" prefWidth="306.0" text="Supplier's Name" />
+            <TableColumn fx:id="tcPhone" prefWidth="266.0" text="Supplier's Phone" />
+            <TableColumn fx:id="tcMail" prefWidth="419.0" text="Supplier's Mail" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfName" layoutX="649.0" layoutY="125.0" prefHeight="25.0" prefWidth="224.0" promptText="Full Name" />
+      <TextField fx:id="tfPhone" layoutX="649.0" layoutY="175.0" prefHeight="25.0" prefWidth="224.0" promptText="Phone" />
+      <Label layoutX="530.0" layoutY="125.0" text="Name" />
+      <Label layoutX="530.0" layoutY="175.0" text="Phone" />
+      <Label layoutX="1135.0" layoutY="32.0" text="Search By">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAlert" layoutX="577.0" layoutY="310.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnInsertSupplier" layoutX="546.0" layoutY="272.0" mnemonicParsing="false" onAction="#btnInsertSupplierOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Supplier">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnModify" layoutX="1141.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Supplier" />
+      <Button fx:id="btnClear" layoutX="698.0" layoutY="272.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="573.0" layoutY="125.0" text="*" textFill="#fc2929">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="573.0" layoutY="175.0" text="*" textFill="#fc2929">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnDelete" layoutX="1008.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Supplier" />
+      <Label layoutX="530.0" layoutY="225.0" text="Email" />
+      <TextField fx:id="tfMail" layoutX="649.0" layoutY="225.0" prefHeight="25.0" prefWidth="224.0" promptText="Email" />
+      <TextField fx:id="tfSearch" layoutX="120.0" layoutY="41.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="820.0" promptText="Search by Keyword" />
+      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="1114.0" layoutY="51.0" mnemonicParsing="false" prefWidth="98.0" text="Keyword">
+         <items>
+            <MenuItem fx:id="mitemID" mnemonicParsing="false" onAction="#searchByID" text="Id" />
+            <MenuItem fx:id="mitemName" mnemonicParsing="false" onAction="#searchByName" text="Name" />
+            <MenuItem fx:id="mitemPhone" mnemonicParsing="false" onAction="#searchByPhone" text="Phone" />
+            <MenuItem fx:id="mitemMail" mnemonicParsing="false" onAction="#searchByMail" text="Mail" />
+            <MenuItem fx:id="mitemKeyword" mnemonicParsing="false" onAction="#searchByKeyword" text="Keyword" />
+         </items>
+      </MenuButton>
+   </children>
+</AnchorPane>

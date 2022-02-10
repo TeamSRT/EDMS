@@ -10,6 +10,7 @@ import Utility.Database;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -228,15 +230,28 @@ public class CustomerUIController implements Initializable {
                 alert.setTitle("Can't Delete");
                 alert.setContentText("You need to select a row to delete!");
                 alert.show();
-            }           
-            String query = "DELETE FROM CUSTOMER WHERE customerID = "+selected.getCustomerID();
-            db.updateTable(query);
-            db.disconnect();            
-            lblAlert.setText("Data deleted successfully!");
-            lblAlert.setOpacity(1);
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(e -> lblAlert.setOpacity(0));
-            pause.play();
+            }
+            else
+            {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setHeaderText("Are you sure?");
+                alert.setContentText("Do you really want to delete?This process can't be undone!");
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
+                alert.getButtonTypes().setAll(yes,no);
+                Optional<ButtonType> choice = alert.showAndWait();
+                if(choice.get() == yes)
+                {
+                    String query = "DELETE FROM CUSTOMER WHERE customerID = "+selected.getCustomerID();
+                    db.updateTable(query);
+                    db.disconnect();            
+                    lblAlert.setText("Data deleted successfully!");
+                    lblAlert.setOpacity(1);
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    pause.setOnFinished(e -> lblAlert.setOpacity(0));
+                    pause.play();
+                }
+            }
             showTable("SELECT * FROM CUSTOMER");  
            
         }catch(ClassNotFoundException | SQLException ex) {
@@ -252,7 +267,8 @@ public class CustomerUIController implements Initializable {
         modify = false;
         id = -1;
         lblAlert.setOpacity(0);
-        tfSearch.setText("");      
+        tfSearch.setText(""); 
+        btnInsertCustomer.setText("Insert Customer");
     }
 
    
