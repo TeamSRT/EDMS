@@ -31,7 +31,5 @@ public class SceneLoader {
         } catch (IOException ex) {
             System.out.println(ex);
         }
-
     }
-
 }
