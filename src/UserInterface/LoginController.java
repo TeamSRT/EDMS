@@ -56,7 +56,7 @@ public class LoginController implements Initializable {
         }
         if (count == 1) {
             System.out.println("LOGIN SUCCESSFULL");
-            new SceneLoader().LoadScene(event, "/UserInterface/ProductUI.fxml");
+            new SceneLoader().LoadScene(event, "/UserInterface/HomeUI.fxml");
         }
         else {
             lblInvalid.setOpacity(1);
