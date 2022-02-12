@@ -33,18 +33,18 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="lblAlert" layoutX="577.0" layoutY="310.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
+      <Label fx:id="lblAlert" layoutX="424.0" layoutY="306.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnInsertSupplier" layoutX="395.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnInsertSupplierOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Supplier">
+      <Button fx:id="btnInsertSupplier" layoutX="375.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnInsertSupplierOnClicked" prefHeight="25.0" prefWidth="120.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Supplier">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
       <Button fx:id="btnModify" layoutX="929.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Supplier" AnchorPane.rightAnchor="30.0" />
-      <Button fx:id="btnClear" layoutX="546.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
+      <Button fx:id="btnClear" layoutX="526.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="120.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
          <font>
             <Font size="13.0" />
          </font>

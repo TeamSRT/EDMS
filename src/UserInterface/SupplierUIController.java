@@ -169,6 +169,14 @@ public class SupplierUIController implements Initializable {
                 db.disconnect();
             } catch (ClassNotFoundException | SQLException ex) {
                 System.out.println("Exception in insert supplier:" + ex);
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Failed operation");
+                if (!modify) {
+                    alert.setContentText("Unable to insert data!Please check your inputs");
+                } else {
+                    alert.setContentText("Unable to update data!Please check your inputs");
+                }
+                alert.show();
             }
         }
     }
@@ -183,11 +191,14 @@ public class SupplierUIController implements Initializable {
             alert.setContentText("You need to select a row to modify!");
             alert.show();
         }
-        id = selected.getSupplierID();
-        tfName.setText(selected.getName());
-        tfPhone.setText(selected.getPhone());
-        tfMail.setText(selected.getMail());
-        btnInsertSupplier.setText("Update Supplier");
+        else
+        {    
+            id = selected.getSupplierID();
+            tfName.setText(selected.getName());
+            tfPhone.setText(selected.getPhone());
+            tfMail.setText(selected.getMail());
+            btnInsertSupplier.setText("Update Supplier");
+        }
     }
 
     @FXML
@@ -240,6 +251,10 @@ public class SupplierUIController implements Initializable {
 
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Exception in btnDelete: " + ex);
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Can't Delete");
+            alert.setContentText("Unable to delete data!");
+            alert.show();
         }
     }
 
@@ -251,7 +266,7 @@ public class SupplierUIController implements Initializable {
     @FXML
     private void searchByID(ActionEvent event) {
         searchBy = "Id";
-        menuBtnSearch.setText("Id");       
+        menuBtnSearch.setText("Id");
         tfSearch.setPromptText("Search by ID");
         search();
     }
@@ -259,7 +274,7 @@ public class SupplierUIController implements Initializable {
     @FXML
     private void searchByName(ActionEvent event) {
         searchBy = "Name";
-        menuBtnSearch.setText("Name");           
+        menuBtnSearch.setText("Name");
         tfSearch.setPromptText("Search by Name");
         search();
     }
@@ -267,23 +282,23 @@ public class SupplierUIController implements Initializable {
     @FXML
     private void searchByPhone(ActionEvent event) {
         searchBy = "Phone";
-        menuBtnSearch.setText("Phone");     
+        menuBtnSearch.setText("Phone");
         tfSearch.setPromptText("Search by Phone");
         search();
     }
-    
+
     @FXML
     private void searchByMail(ActionEvent event) {
         searchBy = "Mail";
-        menuBtnSearch.setText("Mail");    
+        menuBtnSearch.setText("Mail");
         tfSearch.setPromptText("Search by Mail");
         search();
     }
-    
+
     @FXML
     private void searchByKeyword(ActionEvent event) {
         searchBy = "Keyword";
-        menuBtnSearch.setText("Keyword");     
+        menuBtnSearch.setText("Keyword");
         tfSearch.setPromptText("Search by Keyword");
         search();
     }
@@ -322,6 +337,5 @@ public class SupplierUIController implements Initializable {
             showTable(query);
         }
     }
-
 
 }

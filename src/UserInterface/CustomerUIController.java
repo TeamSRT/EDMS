@@ -135,6 +135,10 @@ public class CustomerUIController implements Initializable {
             db.disconnect();            
         }catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Exception in show table:"+ex);
+             Alert alert = new Alert(AlertType.ERROR);
+             alert.setTitle("Can't Show");
+             alert.setContentText("Unable to show table!");
+             alert.show();
         }
        
     }
