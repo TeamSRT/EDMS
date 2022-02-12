@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Supply.SupplyUIController">
+   <children>
+      <TableView fx:id="supplies_table" layoutY="335.0" prefHeight="239.0" prefWidth="782.0">
+         <columns>
+            <TableColumn fx:id="col_SupplierID" prefWidth="204.0" text="SupplierID" />
+            <TableColumn fx:id="col_ProductID" prefWidth="197.0" text="ProductID" />
+            <TableColumn fx:id="col_date" prefWidth="182.0" text="Date" />
+            <TableColumn fx:id="col_Quantity" prefWidth="196.0" text="Quantity" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tf_supplierID" layoutX="129.0" layoutY="136.0" AnchorPane.topAnchor="136.0" />
+      <TextField fx:id="tf_productID" layoutX="129.0" layoutY="191.0" />
+      <TextField fx:id="tf_quantity" layoutX="129.0" layoutY="248.0" />
+      <Label fx:id="lbl_SupplierID" layoutX="36.0" layoutY="140.0" text="SupplierID" AnchorPane.leftAnchor="36.0" />
+      <Label fx:id="lbl_ProductID" layoutX="34.0" layoutY="195.0" text="ProductID" AnchorPane.leftAnchor="36.0" />
+      <Label fx:id="lbl_Quantity" layoutX="34.0" layoutY="252.0" text="Quantity" AnchorPane.leftAnchor="36.0" />
+      <Button fx:id="btn_insert" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#btn_insert_action" text="INSERT" />
+      <Button fx:id="btn_refresh_" layoutX="692.0" layoutY="287.0" mnemonicParsing="false" onAction="#btn_refresh_action" text="REFRESH" />
+      <Button fx:id="btn_search" layoutX="34.0" layoutY="84.0" mnemonicParsing="false" onAction="#search_action" text="SEARCH" />
+      <DatePicker fx:id="date_picker" layoutX="34.0" layoutY="34.0" promptText="DATE" AnchorPane.leftAnchor="36.0" />
+      <MenuButton fx:id="btn_searchBy" layoutX="672.0" layoutY="34.0" mnemonicParsing="false" text="Search by">
+        <items>
+          <MenuItem fx:id="mi_product" mnemonicParsing="false" onAction="#searchByProduct_action" text="ProductID" />
+            <MenuItem fx:id="mi_searchByDate" mnemonicParsing="false" onAction="#searchByDate_action" text="Date" />
+          <MenuItem fx:id="mi_productDate" mnemonicParsing="false" onAction="#searchByProductAndDate_action" text="ProductID and Date" />
+        </items>
+      </MenuButton>
+      <TextField fx:id="tf_productID_search" layoutX="365.0" layoutY="34.0" promptText="Enter ProductID" />
+   </children>
+</AnchorPane>

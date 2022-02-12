@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="transaction.TransactionUIController">
+   <children>
+      <TableView fx:id="Transaction_table" layoutX="10.0" layoutY="308.0" prefHeight="400.0" prefWidth="1060.0">
+        <columns>
+          <TableColumn fx:id="TransactionID_heading" prefWidth="194.0" text="TransactionID" />
+          <TableColumn fx:id="OrderID_heading" prefWidth="148.0" text="OrderID" />
+            <TableColumn fx:id="Type_heading" prefWidth="169.0" text="Type" />
+            <TableColumn fx:id="Date_heading" prefWidth="309.0" text="Date" />
+            <TableColumn fx:id="Amount_heading" minWidth="0.0" prefWidth="257.0" text="Amount" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tf_transactionID" layoutX="331.0" layoutY="60.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="60.0" />
+      <TextField fx:id="tf_orderID" layoutX="331.0" layoutY="107.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="107.0" />
+      <TextField fx:id="tf_type" layoutX="331.0" layoutY="159.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="159.0" />
+      <TextField fx:id="tf_amount" layoutX="331.0" layoutY="209.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="209.0" />
+      <Button fx:id="btn_insert" layoutX="229.0" layoutY="249.0" mnemonicParsing="false" onAction="#btn_insert_onclick" text="INSERT" AnchorPane.leftAnchor="229.0" />
+      <Label layoutX="229.0" layoutY="60.0" text="TransactionID" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="60.0" />
+      <Label layoutX="229.0" layoutY="107.0" text="OrderID" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="107.0" />
+      <Label layoutX="229.0" layoutY="159.0" prefHeight="17.0" prefWidth="32.0" text="Type" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="159.0" />
+      <Label layoutX="229.0" layoutY="209.0" text="Amount" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="209.0" />
+      <Button fx:id="btn_Show" layoutX="796.0" layoutY="249.0" mnemonicParsing="false" onAction="#btn_show_onclick" text="Refresh" />
+      <DatePicker fx:id="datePicker" layoutX="331.0" layoutY="14.0" AnchorPane.leftAnchor="331.0" />
+      <Button fx:id="btn_search" layoutX="229.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_search_onclick" text="SEARCH" AnchorPane.leftAnchor="229.0" />
+      <TextField fx:id="total_show" editable="false" layoutX="703.0" layoutY="18.0" />
+      <Label fx:id="lbl_total" alignment="CENTER" layoutX="569.0" layoutY="18.0" prefHeight="25.0" prefWidth="43.0" text="Total : " />
+      <Label fx:id="date_label" layoutX="416.0" layoutY="18.0" prefHeight="25.0" prefWidth="82.0" />
+      <Label fx:id="label_data_insert" layoutX="163.0" layoutY="253.0" opacity="0.0" text="DATA INSERTED !" textFill="#00ab33" />
+   </children>
+</AnchorPane>
