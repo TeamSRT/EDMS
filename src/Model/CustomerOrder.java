@@ -11,18 +11,22 @@ package Model;
  */
 public class CustomerOrder {
     int orderID;
+    String date;
     int productID;
-    String Model;
     String Brand;
+    String Model;
+   
     public CustomerOrder()
     {
         
     }
-    public CustomerOrder(int orderID, int productID, String Model, String Brand) {
+
+    public CustomerOrder(int orderID, String date, int productID, String Brand, String Model) {
         this.orderID = orderID;
+        this.date = date;
         this.productID = productID;
-        this.Model = Model;
         this.Brand = Brand;
+        this.Model = Model;
     }
 
     public int getOrderID() {
@@ -33,12 +37,28 @@ public class CustomerOrder {
         this.orderID = orderID;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public int getProductID() {
         return productID;
     }
 
     public void setProductID(int productID) {
         this.productID = productID;
+    }
+
+    public String getBrand() {
+        return Brand;
+    }
+
+    public void setBrand(String Brand) {
+        this.Brand = Brand;
     }
 
     public String getModel() {
@@ -49,14 +69,6 @@ public class CustomerOrder {
         this.Model = Model;
     }
 
-    public String getBrand() {
-        return Brand;
-    }
-
-    public void setBrand(String Brand) {
-        this.Brand = Brand;
-    }
-        
     
     
 }

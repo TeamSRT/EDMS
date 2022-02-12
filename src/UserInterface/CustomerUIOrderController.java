@@ -40,10 +40,13 @@ public class CustomerUIOrderController implements Initializable {
     @FXML
     private TableColumn<CustomerOrder, Integer> tcProductID;
     @FXML
-    private TableColumn<CustomerOrder, String> tcBrand;  
+    private TableColumn<CustomerOrder, String> tcBrand;
     @FXML
+    private TableColumn<CustomerOrder, String> tcDate;
+    @FXML    
     private TextField tfCustomerID;
     ObservableList<CustomerOrder> listCustomerOrder = FXCollections.observableArrayList();
+    
     
     /**
      * Initializes the controller class.
@@ -57,18 +60,18 @@ public class CustomerUIOrderController implements Initializable {
         listCustomerOrder.clear();
         tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
         try {
-            String query = "SELECT Orders.orderID,Product.productID,Product.Brand,Product.Model from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
+            String query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,Product.Model from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Order = " + query);
             Database db = new Database();
             db.connect();
             ResultSet rs = db.getResult(query);
-            while (rs.next()) {
-                System.out.println("Print in show Total Order:");
-                listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model")));
+            while (rs.next()) {                
+                listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model")));
                 System.out.println("OrderId = " +rs.getInt("orderID") + "ProductID = "+rs.getInt("productID"));    
             }
             
             tcOrderID.setCellValueFactory(new PropertyValueFactory("orderID"));
+            tcDate.setCellValueFactory(new PropertyValueFactory("date"));
             tcProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcBrand.setCellValueFactory(new PropertyValueFactory("Brand"));
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
