@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -65,6 +66,8 @@ public class ProductUIController implements Initializable {
     private TableColumn<Product, String> tcStock;
     @FXML
     private TableColumn<Product, String> tcProductID;
+    @FXML
+    private TableColumn<Product, String> tcType;
 
     ObservableList<Product> listProduct = FXCollections.observableArrayList();
     @FXML
@@ -95,6 +98,8 @@ public class ProductUIController implements Initializable {
     private Button btnOrder;
     @FXML
     private ComboBox<String> cbType;
+    @FXML
+    private Label lblProductID;
 
     /**
      * Initializes the controller class.
@@ -104,6 +109,10 @@ public class ProductUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lblProductID.setVisible(false);
+        tfProductID.setVisible(false);
+        tfProductID.setDisable(true);
+        
         cbType.getItems().add("Processor");
         cbType.getItems().add("Motherboard");
         cbType.getItems().add("RAM");
@@ -124,7 +133,8 @@ public class ProductUIController implements Initializable {
             rsProduct = db.getResult(query);
             while (rsProduct.next()) {
                 listProduct.add(new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3),
-                        rsProduct.getInt(4), rsProduct.getInt(5), rsProduct.getString(6), rsProduct.getString(7)));
+                        rsProduct.getInt(4), rsProduct.getInt(5), rsProduct.getString(6), rsProduct.getString(7),
+                        rsProduct.getString(8)));
             }
             db.disconnect();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -134,6 +144,7 @@ public class ProductUIController implements Initializable {
         tcBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         tcModel.setCellValueFactory(new PropertyValueFactory<>("model"));
         tcWarranty.setCellValueFactory(new PropertyValueFactory<>("warranty"));
+        tcType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tcPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         tcStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -150,11 +161,13 @@ public class ProductUIController implements Initializable {
         String price = tfPrice.getText();
         String description = tfDescription.getText();
         String stock = tfStock.getText();
+        String type = cbType.getSelectionModel().getSelectedItem();
         String query;
         if (isEdit) {
-            query = "UPDATE PRODUCT SET Brand = '" + brand + "', Model = '" + model + "', Warranty = " + warranty + ", Price = " + price + ", Details = '" + description + "', Stock = " + stock + " WHERE ProductID = " + productID;
+            query = "UPDATE PRODUCT SET Brand = '" + brand + "', Model = '" + model + "', Warranty = " + warranty + ", Price = " + price + ", Details = '" + description + "', Stock = " + stock + ", productType = '" + type + "' WHERE ProductID = " + productID;
         } else {
-            query = "INSERT INTO PRODUCT VALUES (" + productID + ",'" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "'," + stock + ")";
+            query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details, Stock) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "'," + stock + ")";
+            
         }
         Database db = new Database();
         db.connect();
@@ -174,6 +187,9 @@ public class ProductUIController implements Initializable {
             alert.show();
             return;
         }
+        lblProductID.setVisible(true);
+        tfProductID.setVisible(true);
+        tfProductID.setDisable(false);
         tfProductID.setText(curr.getProductID() + "");
         tfBrand.setText(curr.getBrand());
         tfModel.setText(curr.getModel());
@@ -187,7 +203,10 @@ public class ProductUIController implements Initializable {
     }
 
     private void resetFields() {
-        tfProductID.setText("");
+        
+        lblProductID.setVisible(false);
+        tfProductID.setVisible(false);
+        tfProductID.setDisable(true);
         tfBrand.setText("");
         tfModel.setText("");
         tfWarranty.setText("");
@@ -232,7 +251,7 @@ public class ProductUIController implements Initializable {
         Scene dialogScene = new Scene(rootPane);
         dialog.setScene(dialogScene);
         dialog.show();
-        
+
     }
 
 }

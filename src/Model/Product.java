@@ -17,9 +17,10 @@ public class Product {
     int warranty;
     int price;
     String description;
+    String type;
     String stock;
 
-    public Product(int productID, String brand, String model, int warranty, int price, String description, String stock) {
+    public Product(int productID, String brand, String model, int warranty, int price, String description, String stock, String type) {
         this.productID = productID;
         this.brand = brand;
         this.model = model;
@@ -27,6 +28,7 @@ public class Product {
         this.price = price;
         this.description = description;
         this.stock = stock;
+        this.type = type;
     }
 
     public int getProductID() {
@@ -83,6 +85,14 @@ public class Product {
 
     public void setStock(String stock) {
         this.stock = stock;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     

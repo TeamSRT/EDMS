@@ -85,6 +85,16 @@ public class ProductUIOrderController implements Initializable {
                 }
             }
         });
+        
+        tfTransactionType.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(!newValue.matches("[A-Za-z]")) {
+                    tfTransactionType.setText(newValue.replaceAll("[^A-Za-z]", ""));
+                }
+            }
+            
+        });
 
     }
 
@@ -140,23 +150,29 @@ public class ProductUIOrderController implements Initializable {
 
         if (!isCustomer) {
             String queryCustomer = "INSERT INTO CUSTOMER(customerName, customerPhone, addresses) VALUES "
-                    + "(" + tfName.getText()
-                    + "," + tfCustomerPhone.getText()
-                    + "," + tfAddress.getText() + ")";
+                    + "('" + tfName.getText()
+                    + "','" + tfCustomerPhone.getText()
+                    + "','" + tfAddress.getText() + "')";
             db.updateTable(queryCustomer);
         }
         String queryOrder = "INSERT INTO ORDERS(customerID, ProductID, quantity) VALUES "
                 + "(" + tfCustomerID.getText()
                 + "," + tfProductID.getText()
                 + "," + tfQuantity.getText() + ")";
-        if (cbMakeTransaction.isSelected()) {
-            String queryTrx = "INSERT INTO TRANSACTION_(TransactionID, OrderID, Type, Amount)";
-        }
+        
         ResultSet rsOrderID = db.updateTableWithKeys(queryOrder);
         int orderID = 0;
         if (rsOrderID.next()) {
             orderID = rsOrderID.getInt(1);
             System.out.println(orderID);
+        }
+        if (cbMakeTransaction.isSelected()) {
+            String queryTrx = "INSERT INTO TRANSACTION_(TransactionID, OrderID, Type_, Amount) VALUES"
+                    + "(" + tfTransactionID.getText()
+                    + "," + orderID
+                    + ",'" + tfTransactionType.getText()
+                    + "'," + tfTransactionAmount.getText() + ")";
+            db.updateTable(queryTrx);
         }
         db.disconnect();
         ((Stage) tfAddress.getScene().getWindow()).close();

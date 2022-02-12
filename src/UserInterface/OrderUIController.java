@@ -125,7 +125,21 @@ public class OrderUIController implements Initializable {
     }
 
     @FXML
-    private void btnDeleteOnClick(ActionEvent event) {
+    private void btnDeleteOnClick(ActionEvent event) throws ClassNotFoundException, SQLException {
+        Order curr = tvOrder.getSelectionModel().getSelectedItem();
+        if (curr == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a product from table to delete!");
+            alert.show();
+            return;
+        }
+        String query = "DELETE FROM ORDERS WHERE orderID = " + curr.getOrderID();
+        Database db = new Database();
+        db.connect();
+        db.updateTable(query);
+        db.disconnect();
+        loadOrderTable("SELECT * FROM ORDERS");
     }
 
     @FXML
@@ -134,7 +148,7 @@ public class OrderUIController implements Initializable {
         if (curr == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
-            alert.setContentText("Select a product from table to delete!");
+            alert.setContentText("Select a product from table to modify!");
             alert.show();
             return;
         }
@@ -151,7 +165,6 @@ public class OrderUIController implements Initializable {
         
         isEdit = true;
         btnInsert.setText("Modify");
-        
     }
     
     private void resetFields() {
