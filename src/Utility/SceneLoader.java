@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -31,5 +33,12 @@ public class SceneLoader {
         } catch (IOException ex) {
             System.out.println(ex);
         }
+    }
+    
+    public void showAlert(AlertType errorType, String title, String text) {
+        Alert alert = new Alert(errorType);
+        alert.setTitle(title);
+        alert.setContentText(text);
+        alert.show();
     }
 }

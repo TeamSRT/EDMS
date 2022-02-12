@@ -6,7 +6,6 @@
 package UserInterface;
 
 import Model.Order;
-import Model.Product;
 import Utility.Database;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -14,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,6 +75,16 @@ public class OrderUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         loadOrderTable("SELECT * FROM ORDERS");
+
+        tfQuantity.setText("0");
+        tfQuantity.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfQuantity.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     private void loadOrderTable(String query) {
@@ -107,17 +118,31 @@ public class OrderUIController implements Initializable {
         String productID = tfProductID.getText();
         String customerID = tfCustomerID.getText();
         String quantity = tfQuantity.getText();
+        int stock = 0;
         System.out.println(orderID);
         String query;
-        if (isEdit) {
-            query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + " WHERE orderID = " + tfOrderID.getText();
-        } else {
-            query = "INSERT INTO ORDERS (customerID, productID, quantity) VALUES (" + customerID + "," + productID + "," + quantity + ")";
-        }
-        System.out.println(query);
         Database db = new Database();
         db.connect();
         try {
+            query = "SELECT Stock FROM PRODUCT WHERE ProductID = " + productID;
+            ResultSet rs = db.getResult(query);
+            if (rs.next()) {
+                stock = rs.getInt("Stock");
+            }
+            if (stock < Integer.parseInt(quantity) || Integer.parseInt(quantity) == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Input");
+                alert.setContentText("Invalid quantity amount!");
+                alert.show();
+                return;
+            }
+            if (isEdit) {
+                query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + " WHERE orderID = " + tfOrderID.getText();
+            } else {
+                query = "INSERT INTO ORDERS (customerID, productID, quantity) VALUES (" + customerID + "," + productID + "," + quantity + ")";
+            }
+            System.out.println(query);
+
             db.updateTable(query);
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -128,6 +153,18 @@ public class OrderUIController implements Initializable {
                 alert.setContentText("Insertion failed. Insert valid data!");
             }
             alert.show();
+            return;
+        }
+        try {
+            stock -= Integer.parseInt(quantity);
+            query = "UPDATE PRODUCT SET Stock = " + stock + " WHERE ProductID = " + productID;
+            db.updateTable(query);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Stock Update Error");
+            alert.setContentText("There was a problem updating stock in Product table!");
+            alert.show();
+            return;
         }
         db.disconnect();
         loadOrderTable("SELECT * FROM ORDERS");

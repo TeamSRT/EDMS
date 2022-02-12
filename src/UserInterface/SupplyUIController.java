@@ -98,13 +98,11 @@ public class SupplyUIController implements Initializable {
     }
 
     @FXML
-    private void btn_insert_action(ActionEvent event) {
-
+    private void btn_insert_action(ActionEvent event) throws ClassNotFoundException {
+        String supplierID = tf_supplierID.getText();
+        String productID = tf_productID.getText();
+        String quantity = tf_quantity.getText();
         try {
-            String supplierID = tf_supplierID.getText();
-            String productID = tf_productID.getText();
-            String quantity = tf_quantity.getText();
-
             String query;
             query = "INSERT INTO  SUPPLIES(SupplierID,ProductID,Quantity) VALUES('" + supplierID + "', '" + productID + "' ,'" + quantity + "')";
             Database dbc = new Database();
@@ -121,6 +119,26 @@ public class SupplyUIController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("");
             alert.setContentText("Unable to insert");
+            alert.show();
+        }
+        //Updating stock value in PRODUCT Table
+        try {
+            String query = "SELECT Stock FROM PRODUCT WHERE ProductID = " + productID;
+            Database db = new Database();
+            db.connect();
+            ResultSet rs = db.getResult(query);
+            int stock = 0;
+            if (rs.next()) {
+                stock = rs.getInt("Stock");
+            }
+            stock += Integer.parseInt(quantity);
+            query = "UPDATE PRODUCT SET Stock = " + stock + " WHERE ProductID = " + productID;
+            db.updateTable(query);
+            db.disconnect();
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Stock Update Error");
+            alert.setContentText("There was a problem updating stock in Product table!");
             alert.show();
         }
 

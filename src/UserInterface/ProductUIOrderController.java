@@ -60,6 +60,8 @@ public class ProductUIOrderController implements Initializable {
     private Text lblCustomerName;
     @FXML
     private Text lblAddress;
+    
+    private ProductUIController productTableView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -178,8 +180,22 @@ public class ProductUIOrderController implements Initializable {
                     + "'," + tfTransactionAmount.getText() + ")";
             db.updateTable(queryTrx);
         }
+        int stock = Integer.parseInt(DataManager.product.getStock());
+        try {
+            stock -= Integer.parseInt(tfQuantity.getText());
+            System.out.println("CHECK STOCK: " + stock);
+            String query = "UPDATE PRODUCT SET Stock = " + stock + " WHERE ProductID = " + tfProductID.getText();
+            db.updateTable(query);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Stock Update Error");
+            alert.setContentText("There was a problem updating stock in Product table!");
+            alert.show();
+            return;
+        }
         db.disconnect();
         ((Stage) tfAddress.getScene().getWindow()).close();
+        productTableView.updateTable();
     }
 
     @FXML
@@ -227,5 +243,11 @@ public class ProductUIOrderController implements Initializable {
         }
         return "Okay!";
     }
+
+    public void setProductTableView(ProductUIController productTableView) {
+        this.productTableView = productTableView;
+    }
+    
+    
 
 }

@@ -123,7 +123,7 @@ public class ProductUIController implements Initializable {
         updateTable();
     }
 
-    private void updateTable() {
+    public void updateTable() {
         listProduct.clear();
         ResultSet rsProduct = null;
         try {
@@ -253,11 +253,16 @@ public class ProductUIController implements Initializable {
 
     @FXML
     private void btnOrderOnClicked(ActionEvent event) throws IOException {
+
         DataManager.product = tvProduct.getSelectionModel().getSelectedItem();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent rootPane = FXMLLoader.load(getClass().getResource("/UserInterface/ProductUIOrder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ProductUIOrder.fxml"));
+
+        Parent rootPane = (Parent) loader.load();
+        ProductUIOrderController controller = loader.getController();
+        controller.setProductTableView(this);
         Scene dialogScene = new Scene(rootPane);
         dialog.setScene(dialogScene);
         dialog.show();

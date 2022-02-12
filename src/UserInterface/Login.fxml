@@ -11,7 +11,7 @@
    <children>
       <TextField fx:id="tfUsername" layoutX="212.0" layoutY="152.0" onMouseClicked="#tfUsernameOnClicked" prefHeight="25.0" prefWidth="211.0" promptText="Username" />
       <PasswordField fx:id="pfPassword" layoutX="213.0" layoutY="192.0" onMouseClicked="#tfPasswordOnClicked" prefHeight="25.0" prefWidth="211.0" promptText="Password" />
-      <Button fx:id="btnLogin" layoutX="275.0" layoutY="242.0" mnemonicParsing="false" onAction="#btnLoginOnAction" text="Log In" />
+      <Button fx:id="btnLogin" layoutX="271.0" layoutY="230.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="25.0" prefWidth="58.0" text="Sign In" />
       <Label fx:id="lblInvalid" alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="217.0" opacity="0.0" prefHeight="25.0" prefWidth="230.0" text="Invalid User or Password" textAlignment="CENTER" textFill="#cd3131" />
       <Label alignment="CENTER" layoutX="81.0" layoutY="14.0" prefHeight="89.0" prefWidth="438.0" text="Electronic Devices Management System" textAlignment="CENTER">
          <font>
@@ -20,5 +20,6 @@
       </Label>
       <Label layoutX="148.0" layoutY="156.0" text="Username" />
       <Label layoutX="152.0" layoutY="196.0" text="Password" />
+      <Button layoutX="251.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnCreateAccountOnClick" text="Create Account" />
    </children>
 </AnchorPane>

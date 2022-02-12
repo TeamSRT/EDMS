@@ -117,7 +117,6 @@ public class CustomerUIController implements Initializable {
             db.connect();               
             ResultSet rs = db.getResult(query);                     
             boolean check = false;
-            //need to work           
             while(rs.next())
             {
                check = true; 
@@ -131,7 +130,7 @@ public class CustomerUIController implements Initializable {
             }
             else
             {
-                 btnModify.setDisable(false);
+                btnModify.setDisable(false);
                 btnDelete.setDisable(false);
             }
             tcCustomerID.setCellValueFactory(new PropertyValueFactory("customerID"));
