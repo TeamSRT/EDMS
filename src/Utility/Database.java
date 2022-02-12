@@ -8,6 +8,7 @@ package Utility;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,4 +45,8 @@ public class Database {
         statement.executeUpdate(query);
     }
     
+    public ResultSet updateTableWithKeys(String query)  throws SQLException {
+        statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        return statement.getGeneratedKeys();
+    }
 }

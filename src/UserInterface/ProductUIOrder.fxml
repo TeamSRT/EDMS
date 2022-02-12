@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="275.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.ProductUIOrderController">
+<AnchorPane id="AnchorPane" prefHeight="401.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.ProductUIOrderController">
    <children>
-      <TextField fx:id="tfProductID" layoutX="107.0" layoutY="14.0" prefHeight="25.0" prefWidth="220.0" />
-      <TextField fx:id="tfQuantity" layoutX="107.0" layoutY="51.0" prefHeight="25.0" prefWidth="220.0" />
-      <Text layoutX="31.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product ID" />
-      <Text layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
-      <TextField fx:id="tfCustomerPhone" layoutX="107.0" layoutY="89.0" prefHeight="25.0" prefWidth="220.0" />
-      <Text layoutX="14.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Phone" />
-      <Button layoutX="338.0" layoutY="89.0" mnemonicParsing="false" onAction="#btnSearchOnClick" prefHeight="25.0" prefWidth="52.0" text="Search" />
-      <TextField fx:id="tfCustomerID" layoutX="107.0" layoutY="128.0" prefHeight="25.0" prefWidth="220.0" />
-      <TextField fx:id="tfName" layoutX="107.0" layoutY="163.0" prefHeight="25.0" prefWidth="220.0" />
-      <TextField fx:id="tfAddress" layoutX="107.0" layoutY="198.0" prefHeight="25.0" prefWidth="220.0" />
-      <Text layoutX="25.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID" />
-      <Text layoutX="42.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-      <Text layoutX="36.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
-      <Button layoutX="242.0" layoutY="236.0" mnemonicParsing="false" onAction="#btnOrderOnClick" text="Create Order" />
-      <Button layoutX="338.0" layoutY="236.0" mnemonicParsing="false" onAction="#btnCancelOnClick" text="Cancel" />
+      <TextField fx:id="tfProductID" layoutX="115.0" layoutY="14.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="tfQuantity" layoutX="115.0" layoutY="51.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text layoutX="15.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product ID" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <Text layoutX="15.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <TextField fx:id="tfCustomerPhone" layoutX="115.0" layoutY="89.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text layoutX="14.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Phone" textAlignment="RIGHT" />
+      <Button layoutX="346.0" layoutY="89.0" mnemonicParsing="false" onAction="#btnSearchOnClick" prefHeight="25.0" prefWidth="52.0" text="Search" />
+      <TextField fx:id="tfCustomerID" editable="false" layoutX="115.0" layoutY="128.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="tfName" editable="false" layoutX="115.0" layoutY="163.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="tfAddress" editable="false" layoutX="115.0" layoutY="198.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text fx:id="lblCustomerID" layoutX="15.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <Text fx:id="lblCustomerName" layoutX="13.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <Text fx:id="lblAddress" layoutX="15.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <Button layoutX="250.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnOrderOnClick" text="Create Order" />
+      <Button layoutX="346.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnCancelOnClick" text="Cancel" />
+      <CheckBox fx:id="cbMakeTransaction" layoutX="220.0" layoutY="233.0" mnemonicParsing="false" onAction="#cbTransactionOnClicked" text="Make Transaction" />
+      <TextField fx:id="tfTransactionID" disable="true" layoutX="115.0" layoutY="263.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text layoutX="15.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction ID" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <TextField fx:id="tfTransactionType" disable="true" layoutX="115.0" layoutY="296.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text layoutX="15.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
+      <TextField fx:id="tfTransactionAmount" disable="true" layoutX="113.0" layoutY="330.0" prefHeight="25.0" prefWidth="220.0" />
+      <Text layoutX="13.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount" textAlignment="RIGHT" wrappingWidth="88.08985255658627" />
    </children>
 </AnchorPane>

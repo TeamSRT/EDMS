@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -63,13 +64,15 @@ public class OrderUIController implements Initializable {
     private Button btnModify;
     
     private boolean isEdit = false;
+    @FXML
+    private Label lblOrderID;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadOrderTable() 
+        loadOrderTable();
         // TODO
     }
 
@@ -102,16 +105,18 @@ public class OrderUIController implements Initializable {
 
     @FXML
     private void btnInsertOnClick(ActionEvent event) throws ClassNotFoundException, SQLException {
+        String orderID = tfOrderID.getText();
         String productID = tfProductID.getText();
         String customerID = tfCustomerID.getText();
         String quantity = tfQuantity.getText();
-        
+        System.out.println(orderID);
         String query;
         if (isEdit) {
-            query = "UPDATE PRODUCT SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + " WHERE orderID = " + tfOrderID.getText();
+            query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + " WHERE orderID = " + tfOrderID.getText();
         } else {
             query = "INSERT INTO ORDERS (customerID, productID, quantity) VALUES (" + customerID + "," + productID + "," + quantity + ")";
         }
+        System.out.println(query);
         Database db = new Database();
         db.connect();
         db.updateTable(query);
@@ -142,6 +147,8 @@ public class OrderUIController implements Initializable {
         tfOrderID.setOpacity(1);
         tfOrderID.setEditable(false);
         tfOrderID.setText(curr.getOrderID() + "");
+        lblOrderID.setDisable(false);
+        lblOrderID.setOpacity(1);
         
         isEdit = true;
         btnInsert.setText("Modify");
@@ -155,6 +162,8 @@ public class OrderUIController implements Initializable {
         isEdit = false;
         tfOrderID.setDisable(true);
         tfOrderID.setOpacity(0);
+        lblOrderID.setDisable(true);
+        lblOrderID.setOpacity(0);
         btnInsert.setText("Insert");
     }
 }
