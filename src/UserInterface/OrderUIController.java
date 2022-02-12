@@ -72,15 +72,15 @@ public class OrderUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadOrderTable();
-        // TODO
+
+        loadOrderTable("SELECT * FROM ORDERS") ;
     }
 
-    private void loadOrderTable() {
+
+    private void loadOrderTable(String query) {
         listOrder.clear();
         ResultSet rsOrder = null;
-        try {
-            String query = "SELECT * FROM ORDERS";
+        try {            
             Database db = new Database();
             db.connect();
             rsOrder = db.getResult(query);
@@ -97,8 +97,7 @@ public class OrderUIController implements Initializable {
         tcCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         tcProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         tcQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
-        
+        tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));        
         tvOrder.setItems(listOrder);
         
     }
@@ -121,7 +120,7 @@ public class OrderUIController implements Initializable {
         db.connect();
         db.updateTable(query);
         db.disconnect();
-        loadOrderTable();
+        loadOrderTable("SELECT * FROM ORDERS");
         resetFields();
     }
 
@@ -165,5 +164,24 @@ public class OrderUIController implements Initializable {
         lblOrderID.setDisable(true);
         lblOrderID.setOpacity(0);
         btnInsert.setText("Insert");
+    }
+
+    @FXML
+    private void btnShowOrderOnClicked(ActionEvent event) {
+        Order curr = tvOrder.getSelectionModel().getSelectedItem();
+        String query;
+        if (curr == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a customer from table to see his order!");
+            alert.show();
+            query = "SELECT * FROM ORDERS";
+        }
+        else
+        {   
+           query = "SELECT * FROM ORDERS WHERE customerID = "+curr.getCustomerID();                        
+        }
+        loadOrderTable(query);
     }
 }

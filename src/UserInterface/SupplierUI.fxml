@@ -16,7 +16,7 @@
         <URL value="@interfaceUI.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="tvSupplier" layoutX="19.0" layoutY="346.0" prefHeight="333.0" prefWidth="1009.0">
+      <TableView fx:id="tvSupplier" layoutX="32.0" layoutY="335.0" prefHeight="333.0" prefWidth="1009.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
          <columns>
             <TableColumn fx:id="tcSupplierID" prefWidth="251.0" text="Supplier ID" />
             <TableColumn fx:id="tcName" prefWidth="230.0" text="Supplier's Name" />
@@ -24,11 +24,11 @@
             <TableColumn fx:id="tcMail" prefWidth="260.0" text="Supplier's Mail" />
          </columns>
       </TableView>
-      <TextField fx:id="tfName" layoutX="471.0" layoutY="134.0" prefHeight="25.0" prefWidth="224.0" promptText="Full Name" />
-      <TextField fx:id="tfPhone" layoutX="471.0" layoutY="184.0" prefHeight="25.0" prefWidth="224.0" promptText="Phone" />
-      <Label layoutX="352.0" layoutY="134.0" text="Name" />
-      <Label layoutX="352.0" layoutY="184.0" text="Phone" />
-      <Label layoutX="891.0" layoutY="32.0" text="Search By">
+      <TextField fx:id="tfName" layoutX="462.0" layoutY="124.0" prefHeight="25.0" prefWidth="224.0" promptText="Full Name" />
+      <TextField fx:id="tfPhone" layoutX="462.0" layoutY="174.0" prefHeight="25.0" prefWidth="224.0" promptText="Phone" />
+      <Label layoutX="360.0" layoutY="124.0" text="Name" />
+      <Label layoutX="360.0" layoutY="174.0" text="Phone" />
+      <Label layoutX="912.0" layoutY="12.0" text="Search By">
          <font>
             <Font size="13.0" />
          </font>
@@ -38,32 +38,32 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnInsertSupplier" layoutX="368.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnInsertSupplierOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Supplier">
+      <Button fx:id="btnInsertSupplier" layoutX="395.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnInsertSupplierOnClicked" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Supplier">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="btnModify" layoutX="907.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Supplier" />
-      <Button fx:id="btnClear" layoutX="520.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
+      <Button fx:id="btnModify" layoutX="929.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Supplier" AnchorPane.rightAnchor="30.0" />
+      <Button fx:id="btnClear" layoutX="546.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear Fields">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Label layoutX="395.0" layoutY="134.0" text="*" textFill="#fc2929">
+      <Label layoutX="395.0" layoutY="124.0" text="*" textFill="#fc2929">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="395.0" layoutY="184.0" text="*" textFill="#fc2929">
+      <Label layoutX="395.0" layoutY="174.0" text="*" textFill="#fc2929">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnDelete" layoutX="774.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Supplier" />
-      <Label layoutX="352.0" layoutY="234.0" text="Email" />
-      <TextField fx:id="tfMail" layoutX="471.0" layoutY="234.0" prefHeight="25.0" prefWidth="224.0" promptText="Email" />
-      <TextField fx:id="tfSearch" layoutX="39.0" layoutY="41.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="820.0" promptText="Search by Keyword" />
-      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="870.0" layoutY="51.0" mnemonicParsing="false" prefWidth="98.0" text="Keyword">
+      <Button fx:id="btnDelete" layoutX="792.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Supplier" AnchorPane.rightAnchor="167.0" />
+      <Label layoutX="360.0" layoutY="224.0" text="Email" />
+      <TextField fx:id="tfMail" layoutX="462.0" layoutY="224.0" prefHeight="25.0" prefWidth="224.0" promptText="Email" />
+      <TextField fx:id="tfSearch" layoutX="202.0" layoutY="22.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="647.0" promptText="Search by Keyword" AnchorPane.topAnchor="22.0" />
+      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="891.0" layoutY="29.0" mnemonicParsing="false" prefWidth="98.0" text="Keyword">
          <items>
             <MenuItem fx:id="mitemID" mnemonicParsing="false" onAction="#searchByID" text="Id" />
             <MenuItem fx:id="mitemName" mnemonicParsing="false" onAction="#searchByName" text="Name" />

@@ -7,6 +7,7 @@ package UserInterface;
 
 import Model.Customer;
 import Utility.Database;
+import Utility.SceneLoader;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,6 +84,7 @@ public class CustomerUIController implements Initializable {
     private MenuItem mitemKeyword;
   
     private boolean modify = false;
+    private int count = 0;
     private Integer id = -1;
     private String searchBy = "";
     ObservableList <Customer> listCustomer = FXCollections.observableArrayList();   
@@ -190,6 +192,17 @@ public class CustomerUIController implements Initializable {
                     db.disconnect();
                 }catch (ClassNotFoundException| SQLException ex) {
                     System.out.println("Exception in insert customer:"+ex);
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Failed operation");
+                    if(!modify)
+                    {
+                        alert.setContentText("Unable to insert data!Please check your inputs");
+                    }
+                    else
+                    {
+                        alert.setContentText("Unable to update data!Please check your inputs");
+                    }
+                    alert.show();
                 }
             }            
        
@@ -205,12 +218,15 @@ public class CustomerUIController implements Initializable {
           alert.setTitle("Can't modify");
           alert.setContentText("You need to select a row to modify!");
           alert.show();
-      }      
-      id = selected.getCustomerID();
-      tfName.setText(selected.getName());
-      tfPhone.setText(selected.getPhone());
-      tfAddress.setText(selected.getAddress());
-      btnInsertCustomer.setText("Update Customer");
+      }
+      else
+      {    
+        id = selected.getCustomerID();
+        tfName.setText(selected.getName());
+        tfPhone.setText(selected.getPhone());
+        tfAddress.setText(selected.getAddress());
+        btnInsertCustomer.setText("Update Customer");
+      }
     }
 
     @FXML
@@ -256,6 +272,10 @@ public class CustomerUIController implements Initializable {
            
         }catch(ClassNotFoundException | SQLException ex) {
             System.out.println("Exception in btnDelete: "+ ex);
+             Alert alert = new Alert(AlertType.ERROR);
+             alert.setTitle("Can't Delete");
+             alert.setContentText("Unable to delete data!");
+             alert.show();
         }
         
     }
@@ -356,9 +376,7 @@ public class CustomerUIController implements Initializable {
         search();
     }
 
-    
-  
-
+ 
     
     
 }
