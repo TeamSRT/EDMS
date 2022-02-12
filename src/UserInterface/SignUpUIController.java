@@ -57,7 +57,7 @@ public class SignUpUIController implements Initializable {
                     + ",'" + tfPassword.getText() + "')";
             System.out.println(query);
             db.updateTable(query);
-            new SceneLoader().LoadScene(event, "/UserInterface/PendingApproval.fxml");
+            new SceneLoader().LoadScene(event, "/UserInterface/PendingApprovalUI.fxml");
             
         } catch (SQLException ex) {
             if (ex.toString().contains("pk_username")) {
@@ -72,6 +72,11 @@ public class SignUpUIController implements Initializable {
             System.out.println(ex);
         }
         db.disconnect();
+    }
+
+    @FXML
+    private void btnBackOnAction(ActionEvent event) {
+        new SceneLoader().LoadScene(event, "/UserInterface/Login.fxml");
     }
 
 }

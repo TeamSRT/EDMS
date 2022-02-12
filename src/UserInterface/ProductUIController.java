@@ -12,12 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,11 +34,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -168,6 +162,7 @@ public class ProductUIController implements Initializable {
         } else {
             query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details, Stock) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "'," + stock + ")";
         }
+        System.out.println(query);
         Database db = new Database();
         db.connect();
         try {

@@ -5,6 +5,7 @@
  */
 package UserInterface;
 
+import Utility.DataManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +37,8 @@ public class HomeUIController implements Initializable {
     private Button btnTransaction;
     @FXML
     private Button btnOrder;
+    @FXML
+    private Button btnAdmin;
 
     /**
      * Initializes the controller class.
@@ -43,8 +46,12 @@ public class HomeUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        if (!DataManager.permission.equalsIgnoreCase("ADMIN")) {
+            btnAdmin.setDisable(true);
+            btnAdmin.setVisible(false);
+        }
     }
-    
+
     public void loadScene(String filePath) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(filePath));
         bpHome.getChildren().remove(bpHome.getCenter()); //remove existing fxml from center.
@@ -84,5 +91,10 @@ public class HomeUIController implements Initializable {
     @FXML
     private void btnOrderOnClick(ActionEvent event) {
         loadScene("/UserInterface/OrderUI.fxml");
+    }
+
+    @FXML
+    private void btnAdminOnClick(ActionEvent event) {
+        loadScene("/UserInterface/AdminPanelUI.fxml");
     }
 }
