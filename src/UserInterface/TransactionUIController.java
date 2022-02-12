@@ -7,7 +7,7 @@ package UserInterface;
 
 import Utility.Database;
 import java.io.IOException;
-import table_model.Transaction;
+import Model.Transaction;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -175,8 +175,8 @@ public class TransactionUIController implements Initializable {
         Transaction_table.setItems(transaction_list);
 
 //String total_amount_query = "SELECT SUM(amount) AS Total FROM TRANSACTIONN WHERE CONVERT (DATE,datee)='" + now + "'";
-        String username = "Admin";
-        String password = "1234567";
+        String username = "ktoufiquee";
+        String password = "p@ssw0rd16";
 
         String user_query = "SELECT COUNT(UserName) FROM Users WHERE UserName = '" + username + "' AND UserPassword = '" + password + "'";
 

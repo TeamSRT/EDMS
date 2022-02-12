@@ -190,9 +190,7 @@ public class SupplierUIController implements Initializable {
             alert.setTitle("Can't modify");
             alert.setContentText("You need to select a row to modify!");
             alert.show();
-        }
-        else
-        {    
+        } else {
             id = selected.getSupplierID();
             tfName.setText(selected.getName());
             tfPhone.setText(selected.getPhone());

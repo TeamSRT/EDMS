@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="UserInterface.CustomerUIOrderController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.CustomerUIOrderController">
    <children>
-      <TableView layoutX="14.0" layoutY="121.0" prefHeight="263.0" prefWidth="367.0">
+      <TableView fx:id="tvCustomerOrder" layoutX="14.0" layoutY="121.0" prefHeight="263.0" prefWidth="420.0">
         <columns>
-            <TableColumn fx:id="tcOrderrID" prefWidth="109.0" text="OrderID" />
+            <TableColumn fx:id="tcOrderID" prefWidth="109.0" text="OrderID" />
             <TableColumn fx:id="tcProductID" prefWidth="104.0" text="ProductID" />
-          <TableColumn fx:id="tcQuantity" prefWidth="153.0" text="ProductName" />
+          <TableColumn fx:id="tcBrand" prefWidth="107.0" text="Brand" />
+            <TableColumn fx:id="tcModel" prefWidth="99.0" text="Model" />
         </columns>
       </TableView>
       <Label layoutX="64.0" layoutY="51.0" text="Customer ID:">

@@ -6,21 +6,24 @@
 package UserInterface;
 
 import Model.Customer;
+import Utility.DataManager;
 import Utility.Database;
-import Utility.SceneLoader;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,6 +36,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -88,6 +93,8 @@ public class CustomerUIController implements Initializable {
     private Integer id = -1;
     private String searchBy = "";
     ObservableList <Customer> listCustomer = FXCollections.observableArrayList();   
+    @FXML
+    private Button btnShowOrder;
     
   
     
@@ -378,6 +385,25 @@ public class CustomerUIController implements Initializable {
     @FXML
     private void searchOnKeyRelease(KeyEvent event) {
         search();
+    }
+
+    @FXML
+    private void btnShowOrderOnClicked(ActionEvent event) throws IOException {
+        DataManager.selected = tvCustomer.getSelectionModel().getSelectedItem();
+        if (DataManager.selected == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("You need to select a customer to show his order!");
+            alert.show();
+        } else {
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+            Parent rootPane = FXMLLoader.load(getClass().getResource("/UserInterface/CustomerUIOrder.fxml"));
+            Scene dialogScene = new Scene(rootPane);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        }
     }
 
  

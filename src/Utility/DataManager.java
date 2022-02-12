@@ -6,6 +6,8 @@
 
 package Utility;
 
+
+import Model.Customer;
 import Model.Product;
 
 /**
@@ -14,4 +16,5 @@ import Model.Product;
  */
 public class DataManager {
     public static Product product;
+    public static Customer selected;
 }

@@ -17,7 +17,7 @@
             <TableColumn fx:id="tcCustomerID" prefWidth="170.0" text="Customer ID" />
             <TableColumn fx:id="tcName" prefWidth="273.0" text="Name" />
             <TableColumn fx:id="tcPhone" prefWidth="242.0" text="Phone" />
-            <TableColumn fx:id="tcAddress" minWidth="0.0" prefWidth="286.0" text="Address" />
+            <TableColumn fx:id="tcAddress" minWidth="0.0" prefWidth="333.0" text="Address" />
          </columns>
       </TableView>
       <TextField fx:id="tfAddress" layoutX="462.0" layoutY="203.0" prefHeight="25.0" prefWidth="224.0" promptText="Address" />
@@ -65,5 +65,6 @@
             <MenuItem fx:id="mitemKeyword" mnemonicParsing="false" onAction="#searchByKeyword" text="Keyword" />
         </items>
       </MenuButton>
+      <Button fx:id="btnShowOrder" layoutX="655.0" layoutY="672.0" mnemonicParsing="false" onAction="#btnShowOrderOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Order" />
    </children>
 </AnchorPane>

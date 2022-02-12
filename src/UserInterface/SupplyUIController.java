@@ -29,7 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import table_model.Supply;
+import Model.Supply;
 
 /**
  * FXML Controller class
