@@ -255,7 +255,7 @@ public class CustomerUIController implements Initializable {
             {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setHeaderText("Are you sure?");
-                alert.setContentText("Do you really want to delete?This process can't be undone!");
+                alert.setContentText("Do you really want to delete? This process can't be undone!");
                 ButtonType yes = new ButtonType("Yes");
                 ButtonType no = new ButtonType("No");
                 alert.getButtonTypes().setAll(yes,no);

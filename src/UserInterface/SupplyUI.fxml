@@ -10,9 +10,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Supply.SupplyUIController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SupplyUIController">
    <children>
-      <TableView fx:id="supplies_table" layoutY="335.0" prefHeight="239.0" prefWidth="782.0">
+      <TableView fx:id="supplies_table" layoutX="149.0" layoutY="341.0" prefHeight="239.0" prefWidth="782.0">
          <columns>
             <TableColumn fx:id="col_SupplierID" prefWidth="204.0" text="SupplierID" />
             <TableColumn fx:id="col_ProductID" prefWidth="197.0" text="ProductID" />
@@ -20,24 +20,24 @@
             <TableColumn fx:id="col_Quantity" prefWidth="196.0" text="Quantity" />
          </columns>
       </TableView>
-      <TextField fx:id="tf_supplierID" layoutX="129.0" layoutY="136.0" AnchorPane.topAnchor="136.0" />
-      <TextField fx:id="tf_productID" layoutX="129.0" layoutY="191.0" />
-      <TextField fx:id="tf_quantity" layoutX="129.0" layoutY="248.0" />
-      <Label fx:id="lbl_SupplierID" layoutX="36.0" layoutY="140.0" text="SupplierID" AnchorPane.leftAnchor="36.0" />
-      <Label fx:id="lbl_ProductID" layoutX="34.0" layoutY="195.0" text="ProductID" AnchorPane.leftAnchor="36.0" />
-      <Label fx:id="lbl_Quantity" layoutX="34.0" layoutY="252.0" text="Quantity" AnchorPane.leftAnchor="36.0" />
-      <Button fx:id="btn_insert" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#btn_insert_action" text="INSERT" />
-      <Button fx:id="btn_refresh_" layoutX="692.0" layoutY="287.0" mnemonicParsing="false" onAction="#btn_refresh_action" text="REFRESH" />
-      <Button fx:id="btn_search" layoutX="34.0" layoutY="84.0" mnemonicParsing="false" onAction="#search_action" text="SEARCH" />
-      <DatePicker fx:id="date_picker" layoutX="34.0" layoutY="34.0" promptText="DATE" AnchorPane.leftAnchor="36.0" />
-      <MenuButton fx:id="btn_searchBy" layoutX="672.0" layoutY="59.0" mnemonicParsing="false">
+      <TextField fx:id="tf_supplierID" layoutX="278.0" layoutY="142.0" AnchorPane.topAnchor="142.0" />
+      <TextField fx:id="tf_productID" layoutX="278.0" layoutY="197.0" />
+      <TextField fx:id="tf_quantity" layoutX="278.0" layoutY="254.0" />
+      <Label fx:id="lbl_SupplierID" layoutX="185.0" layoutY="146.0" text="SupplierID" AnchorPane.leftAnchor="185.0" />
+      <Label fx:id="lbl_ProductID" layoutX="185.0" layoutY="201.0" text="ProductID" AnchorPane.leftAnchor="185.0" />
+      <Label fx:id="lbl_Quantity" layoutX="185.0" layoutY="258.0" text="Quantity" AnchorPane.leftAnchor="185.0" />
+      <Button fx:id="btn_insert" layoutX="181.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_insert_action" text="INSERT" />
+      <Button fx:id="btn_refresh_" layoutX="841.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_refresh_action" text="REFRESH" />
+      <Button fx:id="btn_search" layoutX="183.0" layoutY="90.0" mnemonicParsing="false" onAction="#search_action" text="SEARCH" />
+      <DatePicker fx:id="date_picker" layoutX="185.0" layoutY="40.0" promptText="DATE" AnchorPane.leftAnchor="185.0" />
+      <MenuButton fx:id="btn_searchBy" layoutX="583.0" layoutY="41.0" mnemonicParsing="false">
         <items>
           <MenuItem fx:id="mi_product" mnemonicParsing="false" onAction="#searchByProduct_action" text="ProductID" />
             <MenuItem fx:id="mi_searchByDate" mnemonicParsing="false" onAction="#searchByDate_action" text="Date" />
           <MenuItem fx:id="mi_productDate" mnemonicParsing="false" onAction="#searchByProductAndDate_action" text="ProductID and Date" />
         </items>
       </MenuButton>
-      <TextField fx:id="tf_productID_search" layoutX="365.0" layoutY="34.0" promptText="Enter ProductID" />
-      <Label layoutX="674.0" layoutY="38.0" text="Search by" />
+      <TextField fx:id="tf_productID_search" layoutX="384.0" layoutY="41.0" prefHeight="25.0" prefWidth="174.0" promptText="Enter ProductID" />
+      <Label layoutX="583.0" layoutY="23.0" text="Search by" />
    </children>
 </AnchorPane>

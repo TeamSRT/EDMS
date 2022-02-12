@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Supply;
+package UserInterface;
 
 import Utility.Database;
 import java.net.URL;
@@ -29,10 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javax.swing.JOptionPane;
 import table_model.Supply;
-import table_model.Transaction;
-import transaction.TransactionUIController;
 
 /**
  * FXML Controller class

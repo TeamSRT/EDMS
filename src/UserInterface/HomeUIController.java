@@ -73,10 +73,12 @@ public class HomeUIController implements Initializable {
 
     @FXML
     private void btnSupplyOnClick(ActionEvent event) {
+        loadScene("/UserInterface/SupplyUI.fxml");
     }
 
     @FXML
     private void btnTransactionOnClick(ActionEvent event) {
+        loadScene("/UserInterface/TransactionUI.fxml");
     }
 
     @FXML
