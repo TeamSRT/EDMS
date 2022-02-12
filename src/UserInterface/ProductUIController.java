@@ -112,7 +112,7 @@ public class ProductUIController implements Initializable {
         lblProductID.setVisible(false);
         tfProductID.setVisible(false);
         tfProductID.setDisable(true);
-        
+
         cbType.getItems().add("Processor");
         cbType.getItems().add("Motherboard");
         cbType.getItems().add("RAM");
@@ -167,11 +167,21 @@ public class ProductUIController implements Initializable {
             query = "UPDATE PRODUCT SET Brand = '" + brand + "', Model = '" + model + "', Warranty = " + warranty + ", Price = " + price + ", Details = '" + description + "', Stock = " + stock + ", productType = '" + type + "' WHERE ProductID = " + productID;
         } else {
             query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details, Stock) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "'," + stock + ")";
-            
         }
         Database db = new Database();
         db.connect();
-        db.updateTable(query);
+        try {
+            db.updateTable(query);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            if (isEdit) {
+                alert.setContentText("Modification failed. Insert valid data!");
+            } else {
+                alert.setContentText("Insertion failed. Insert valid data!");
+            }
+            alert.show();
+        }
         db.disconnect();
         updateTable();
         resetFields();
@@ -203,7 +213,7 @@ public class ProductUIController implements Initializable {
     }
 
     private void resetFields() {
-        
+
         lblProductID.setVisible(false);
         tfProductID.setVisible(false);
         tfProductID.setDisable(true);

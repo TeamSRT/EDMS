@@ -93,7 +93,6 @@ public class ProductUIOrderController implements Initializable {
                     tfTransactionType.setText(newValue.replaceAll("[^A-Za-z]", ""));
                 }
             }
-            
         });
 
     }
@@ -107,6 +106,7 @@ public class ProductUIOrderController implements Initializable {
             alert.show();
             return;
         }
+        isCustomer = false;
         String query = "SELECT * FROM CUSTOMER WHERE customerPhone = " + tfCustomerPhone.getText().trim();
         Database db = new Database();
         db.connect();
@@ -147,16 +147,20 @@ public class ProductUIOrderController implements Initializable {
             alert.show();
             return;
         }
-
+        String customerID = tfCustomerID.getText();
         if (!isCustomer) {
             String queryCustomer = "INSERT INTO CUSTOMER(customerName, customerPhone, addresses) VALUES "
                     + "('" + tfName.getText()
                     + "','" + tfCustomerPhone.getText()
                     + "','" + tfAddress.getText() + "')";
-            db.updateTable(queryCustomer);
+            ResultSet rs = db.updateTableWithKeys(queryCustomer);
+            if (rs.next()) {
+                customerID = rs.getInt(1) + "";
+                System.out.println("CustomerID = " + customerID);
+            }
         }
         String queryOrder = "INSERT INTO ORDERS(customerID, ProductID, quantity) VALUES "
-                + "(" + tfCustomerID.getText()
+                + "(" + customerID
                 + "," + tfProductID.getText()
                 + "," + tfQuantity.getText() + ")";
         
@@ -164,7 +168,7 @@ public class ProductUIOrderController implements Initializable {
         int orderID = 0;
         if (rsOrderID.next()) {
             orderID = rsOrderID.getInt(1);
-            System.out.println(orderID);
+            System.out.println("orderID = " + orderID);
         }
         if (cbMakeTransaction.isSelected()) {
             String queryTrx = "INSERT INTO TRANSACTION_(TransactionID, OrderID, Type_, Amount) VALUES"

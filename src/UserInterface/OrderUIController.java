@@ -62,7 +62,7 @@ public class OrderUIController implements Initializable {
     private TextField tfQuantity;
     @FXML
     private Button btnModify;
-    
+
     private boolean isEdit = false;
     @FXML
     private Label lblOrderID;
@@ -73,14 +73,13 @@ public class OrderUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        loadOrderTable("SELECT * FROM ORDERS") ;
+        loadOrderTable("SELECT * FROM ORDERS");
     }
-
 
     private void loadOrderTable(String query) {
         listOrder.clear();
         ResultSet rsOrder = null;
-        try {            
+        try {
             Database db = new Database();
             db.connect();
             rsOrder = db.getResult(query);
@@ -92,14 +91,14 @@ public class OrderUIController implements Initializable {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ProductUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         tcOrderID.setCellValueFactory(new PropertyValueFactory<>("orderID"));
         tcCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         tcProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         tcQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));        
+        tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
         tvOrder.setItems(listOrder);
-        
+
     }
 
     @FXML
@@ -118,7 +117,18 @@ public class OrderUIController implements Initializable {
         System.out.println(query);
         Database db = new Database();
         db.connect();
-        db.updateTable(query);
+        try {
+            db.updateTable(query);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            if (isEdit) {
+                alert.setContentText("Modification failed. Insert valid data!");
+            } else {
+                alert.setContentText("Insertion failed. Insert valid data!");
+            }
+            alert.show();
+        }
         db.disconnect();
         loadOrderTable("SELECT * FROM ORDERS");
         resetFields();
@@ -155,18 +165,18 @@ public class OrderUIController implements Initializable {
         tfProductID.setText(curr.getProductID() + "");
         tfCustomerID.setText(curr.getCustomerID() + "");
         tfQuantity.setText(curr.getQuantity() + "");
-        
+
         tfOrderID.setDisable(false);
         tfOrderID.setOpacity(1);
         tfOrderID.setEditable(false);
         tfOrderID.setText(curr.getOrderID() + "");
         lblOrderID.setDisable(false);
         lblOrderID.setOpacity(1);
-        
+
         isEdit = true;
         btnInsert.setText("Modify");
     }
-    
+
     private void resetFields() {
         tfProductID.setText("");
         tfCustomerID.setText("");
@@ -183,17 +193,14 @@ public class OrderUIController implements Initializable {
     private void btnShowOrderOnClicked(ActionEvent event) {
         Order curr = tvOrder.getSelectionModel().getSelectedItem();
         String query;
-        if (curr == null)
-        {
+        if (curr == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
             alert.setContentText("Select a customer from table to see his order!");
             alert.show();
             query = "SELECT * FROM ORDERS";
-        }
-        else
-        {   
-           query = "SELECT * FROM ORDERS WHERE customerID = "+curr.getCustomerID();                        
+        } else {
+            query = "SELECT * FROM ORDERS WHERE customerID = " + curr.getCustomerID();
         }
         loadOrderTable(query);
     }
