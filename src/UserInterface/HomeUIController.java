@@ -81,5 +81,6 @@ public class HomeUIController implements Initializable {
 
     @FXML
     private void btnOrderOnClick(ActionEvent event) {
+        loadScene("/UserInterface/OrderUI.fxml");
     }
 }
