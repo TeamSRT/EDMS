@@ -30,7 +30,7 @@
       <Button fx:id="btn_refresh_" layoutX="692.0" layoutY="287.0" mnemonicParsing="false" onAction="#btn_refresh_action" text="REFRESH" />
       <Button fx:id="btn_search" layoutX="34.0" layoutY="84.0" mnemonicParsing="false" onAction="#search_action" text="SEARCH" />
       <DatePicker fx:id="date_picker" layoutX="34.0" layoutY="34.0" promptText="DATE" AnchorPane.leftAnchor="36.0" />
-      <MenuButton fx:id="btn_searchBy" layoutX="672.0" layoutY="34.0" mnemonicParsing="false" text="Search by">
+      <MenuButton fx:id="btn_searchBy" layoutX="672.0" layoutY="59.0" mnemonicParsing="false">
         <items>
           <MenuItem fx:id="mi_product" mnemonicParsing="false" onAction="#searchByProduct_action" text="ProductID" />
             <MenuItem fx:id="mi_searchByDate" mnemonicParsing="false" onAction="#searchByDate_action" text="Date" />
@@ -38,5 +38,6 @@
         </items>
       </MenuButton>
       <TextField fx:id="tf_productID_search" layoutX="365.0" layoutY="34.0" promptText="Enter ProductID" />
+      <Label layoutX="674.0" layoutY="38.0" text="Search by" />
    </children>
 </AnchorPane>

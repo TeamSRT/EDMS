@@ -86,12 +86,16 @@ public class SupplyUIController implements Initializable {
     @FXML
     private Button btn_search;
 
+    private boolean pressed = false;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        searchOption = 1;
+        btn_searchBy.setText("ProductID");
         updateTable("SELECT * FROM SUPPLIES");
 
     }
@@ -127,6 +131,10 @@ public class SupplyUIController implements Initializable {
 
     @FXML
     private void btn_refresh_action(ActionEvent event) {
+
+        //pressed = false;
+        searchOption = 1;
+        btn_searchBy.setText("ProductID");
 
         tf_productID_search.clear();
         date_picker.getEditor().clear();
@@ -191,7 +199,8 @@ public class SupplyUIController implements Initializable {
     private void searchByProduct_action(ActionEvent event) {
 
         searchOption = 1;
-        // btn_searchBy.setText("ProductID");
+        // pressed = true;
+        btn_searchBy.setText("ProductID");
 
     }
 
@@ -199,26 +208,22 @@ public class SupplyUIController implements Initializable {
     private void searchByProductAndDate_action(ActionEvent event) {
 
         searchOption = 2;
-        //btn_searchBy.setText("ProductID And Date");
+        //pressed = true;
+        btn_searchBy.setText("ProductID And Date");
     }
 
     @FXML
     private void searchByDate_action(ActionEvent event) {
 
         searchOption = 3;
-
+        // pressed = true;
+        btn_searchBy.setText("Date");
     }
 
     @FXML
     private void search_action(ActionEvent event) {
 
-        if (searchOption == 0) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("");
-            alert.setContentText("Select what to search");
-            alert.show();
-        }
-
+        //if (pressed == true) {
         if (searchOption == 1) {
 
             if (tf_productID_search.getText().equals("")) {
@@ -233,9 +238,7 @@ public class SupplyUIController implements Initializable {
             }
         } else if (searchOption == 2) {
 
-            tf_productID_search.clear();
-            date_picker.getEditor().clear();
-            if (tf_productID_search.getText().equals("") && date_picker.getEditor().getText().toString().equals(null)) {
+            if (tf_productID_search.getText().equals("") || date_picker.getEditor() == null) {
 
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("");
@@ -248,7 +251,7 @@ public class SupplyUIController implements Initializable {
             }
         } else if (searchOption == 3) {
 
-            if (date_picker.getValue().equals(null)) {
+            if (date_picker.getValue() == null) {
 
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("");
@@ -263,8 +266,15 @@ public class SupplyUIController implements Initializable {
             searchBy();
         }
 
-        searchOption = 0;
+        /* else {
 
+            searchBy();
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("Select what to search");
+            alert.show();
+            searchBy();
+            // searchOption = 0;
+        }*/
     }
 
     public void clearTextFields() {

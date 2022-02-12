@@ -187,7 +187,7 @@ public class TransactionUIController implements Initializable {
 
             rsProduct = dbc.getResult(user_query);
 
-            int count = 0;
+            int count = 1;
 
             while (rsProduct.next()) {
                 count = rsProduct.getInt(1);
@@ -222,9 +222,10 @@ public class TransactionUIController implements Initializable {
                     }
 
                 }
-            } else {
-                total_show.setVisible(false);
-                lbl_total.setVisible(false);
+            }
+        else {
+                //total_show.setVisible(false);
+                //lbl_total.setVisible(false);
             }
 
             dbc.disconnect();
