@@ -5,6 +5,7 @@
  */
 package UserInterface;
 
+import Utility.DataManager;
 import Utility.Database;
 import Utility.SceneLoader;
 import java.net.URL;
@@ -54,6 +55,7 @@ public class LoginController implements Initializable {
         while (rs.next()) {
             permission = rs.getString(1);
         }
+        DataManager.permission = permission;
         if (permission.equals("INVALID")) {
             
             lblInvalid.setOpacity(1);

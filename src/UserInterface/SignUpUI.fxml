@@ -8,12 +8,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SignUpUIController">
    <children>
-      <TextField fx:id="tfUsername" layoutX="309.0" layoutY="140.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="170.0" layoutY="144.0" prefHeight="17.0" prefWidth="106.0" text="Username" textAlignment="RIGHT" />
-      <Label alignment="CENTER_RIGHT" layoutX="170.0" layoutY="176.0" prefHeight="17.0" prefWidth="106.0" text="Password" textAlignment="RIGHT" />
-      <Label alignment="CENTER_RIGHT" layoutX="170.0" layoutY="207.0" prefHeight="17.0" prefWidth="106.0" text="Confirm Password" textAlignment="RIGHT" />
-      <Button layoutX="269.0" layoutY="260.0" mnemonicParsing="false" onAction="#btnCreateAccountOnAction" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Create Account" />
-      <PasswordField fx:id="tfPassword" layoutX="309.0" layoutY="172.0" />
-      <PasswordField fx:id="tfConfrimPassword" layoutX="309.0" layoutY="203.0" />
+      <TextField fx:id="tfUsername" layoutX="259.0" layoutY="140.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="144.0" prefHeight="17.0" prefWidth="106.0" text="Username" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="176.0" prefHeight="17.0" prefWidth="106.0" text="Password" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="207.0" prefHeight="17.0" prefWidth="106.0" text="Confirm Password" textAlignment="RIGHT" />
+      <Button layoutX="284.0" layoutY="235.0" mnemonicParsing="false" onAction="#btnCreateAccountOnAction" text="Create Account" />
+      <PasswordField fx:id="tfPassword" layoutX="259.0" layoutY="172.0" />
+      <PasswordField fx:id="tfConfrimPassword" layoutX="259.0" layoutY="203.0" />
+      <Button layoutX="313.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnBackOnAction" text="Back" />
    </children>
 </AnchorPane>

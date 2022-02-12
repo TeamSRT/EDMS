@@ -17,4 +17,5 @@ import Model.Product;
 public class DataManager {
     public static Product product;
     public static Customer selected;
+    public static String permission;
 }
