@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -56,7 +57,7 @@ public class CustomerUIOrderController implements Initializable {
         listCustomerOrder.clear();
         tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
         try {
-            String query = "SELECT Orders.orderID,Product.productID,Product.Brand,Product.Model from ORDERS INNER JOIN PRODUCT ON ORDERS.orderID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
+            String query = "SELECT Orders.orderID,Product.productID,Product.Brand,Product.Model from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Order = " + query);
             Database db = new Database();
             db.connect();
@@ -73,7 +74,10 @@ public class CustomerUIOrderController implements Initializable {
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
             tvCustomerOrder.setItems(listCustomerOrder);
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Exception in show total order = "+ex);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Unable to show total orders by a customer");
+            alert.show();
         }
     }
 
