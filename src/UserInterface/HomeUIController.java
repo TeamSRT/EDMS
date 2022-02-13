@@ -6,6 +6,7 @@
 package UserInterface;
 
 import Utility.DataManager;
+import Utility.SceneLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,6 +40,8 @@ public class HomeUIController implements Initializable {
     private Button btnOrder;
     @FXML
     private Button btnAdmin;
+    @FXML
+    private Button btnSignOut;
 
     /**
      * Initializes the controller class.
@@ -96,5 +99,13 @@ public class HomeUIController implements Initializable {
     @FXML
     private void btnAdminOnClick(ActionEvent event) {
         loadScene("/UserInterface/AdminPanelUI.fxml");
+    }
+
+    @FXML
+    private void btnSignOutOnClick(ActionEvent event) {
+        new SceneLoader().LoadScene(event, "/UserInterface/Login.fxml");
+        DataManager.product = null;
+        DataManager.selected = null;
+        DataManager.permission = "";
     }
 }

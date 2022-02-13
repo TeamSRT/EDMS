@@ -64,6 +64,14 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="btnSignOut" layoutX="10.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnSignOutOnClick" prefHeight="35.0" prefWidth="200.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Sign Out">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Button>
                </children></VBox>
          </children>
       </Pane>
