@@ -29,11 +29,11 @@
       <Label layoutX="229.0" layoutY="159.0" prefHeight="17.0" prefWidth="32.0" text="Type" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="159.0" />
       <Label layoutX="229.0" layoutY="209.0" text="Amount" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="209.0" />
       <Button fx:id="btn_Show" layoutX="796.0" layoutY="249.0" mnemonicParsing="false" onAction="#btn_show_onclick" text="Refresh" />
-      <DatePicker fx:id="datePicker" layoutX="331.0" layoutY="14.0" AnchorPane.leftAnchor="331.0" />
-      <Button fx:id="btn_search" layoutX="229.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_search_onclick" text="SEARCH" AnchorPane.leftAnchor="229.0" />
-      <TextField fx:id="total_show" editable="false" layoutX="703.0" layoutY="18.0" />
-      <Label fx:id="lbl_total" alignment="CENTER" layoutX="569.0" layoutY="18.0" prefHeight="25.0" prefWidth="43.0" text="Total : " />
-      <Label fx:id="date_label" layoutX="416.0" layoutY="18.0" prefHeight="25.0" prefWidth="82.0" />
+      <DatePicker fx:id="datePicker" layoutX="595.0" layoutY="56.0" AnchorPane.leftAnchor="595.0" />
+      <Button fx:id="btn_search" layoutX="595.0" layoutY="90.0" mnemonicParsing="false" onAction="#btn_search_onclick" text="SEARCH" AnchorPane.leftAnchor="595.0" />
+      <TextField fx:id="total_show" editable="false" layoutX="917.0" layoutY="56.0" />
+      <Label fx:id="lbl_total" alignment="CENTER" layoutX="783.0" layoutY="56.0" prefHeight="25.0" prefWidth="43.0" text="Total : " />
+      <Label fx:id="date_label" layoutX="826.0" layoutY="56.0" prefHeight="25.0" prefWidth="82.0" />
       <Label fx:id="label_data_insert" layoutX="163.0" layoutY="253.0" opacity="0.0" text="DATA INSERTED !" textFill="#00ab33" />
    </children>
 </AnchorPane>

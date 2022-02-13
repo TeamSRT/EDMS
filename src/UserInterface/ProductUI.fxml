@@ -16,10 +16,10 @@
             <TableColumn fx:id="tcProductID" prefWidth="81.0" text="Product ID" />
             <TableColumn fx:id="tcBrand" prefWidth="77.0" text="Brand" />
             <TableColumn fx:id="tcModel" prefWidth="200.0" text="Model" />
-            <TableColumn fx:id="tcType" prefWidth="56.0" text="Type" />
-            <TableColumn fx:id="tcWarranty" prefWidth="77.0" text="Warranty" />
-            <TableColumn fx:id="tcPrice" prefWidth="56.0" text="Price" />
-            <TableColumn fx:id="tcDescription" prefWidth="413.0" text="Description" />
+            <TableColumn fx:id="tcType" prefWidth="82.0" text="Type" />
+            <TableColumn fx:id="tcWarranty" prefWidth="68.0" text="Warranty" />
+            <TableColumn fx:id="tcPrice" prefWidth="62.0" text="Price" />
+            <TableColumn fx:id="tcDescription" prefWidth="390.0" text="Description" />
             <TableColumn fx:id="tcStock" minWidth="0.0" prefWidth="65.0" text="Stock" />
          </columns>
       </TableView>
