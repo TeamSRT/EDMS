@@ -29,6 +29,6 @@
       <Button fx:id="btnInsert" layoutX="514.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnInsertOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert" />
       <Button fx:id="btnDelete" layoutX="1010.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnDeleteOnClick" prefWidth="60.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete" />
       <Button fx:id="btnModify" layoutX="940.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnModifyOnClick" prefWidth="60.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify" />
-      <Button layoutX="842.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnShowOrderOnClicked" prefHeight="25.0" prefWidth="87.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Order" />
+      <Button disable="true" layoutX="842.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnShowOrderOnClicked" prefHeight="25.0" prefWidth="87.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Order" visible="false" />
    </children>
 </AnchorPane>

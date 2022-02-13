@@ -101,6 +101,8 @@ public class ProductUIOrderController implements Initializable {
 
     @FXML
     private void btnSearchOnClick(ActionEvent event) throws ClassNotFoundException, SQLException {
+        tfName.setText("");
+        tfAddress.setText("");
         if (tfCustomerPhone.getText().trim().length() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
@@ -195,7 +197,7 @@ public class ProductUIOrderController implements Initializable {
         }
         db.disconnect();
         ((Stage) tfAddress.getScene().getWindow()).close();
-        productTableView.updateTable();
+        productTableView.loadProductTable("SELECT * FROM PRODUCT");
     }
 
     @FXML

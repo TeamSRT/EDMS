@@ -49,7 +49,9 @@ public class HomeUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        loadScene("/UserInterface/ProductUI.fxml");
         if (!DataManager.permission.equalsIgnoreCase("ADMIN")) {
+            
             btnAdmin.setDisable(true);
             btnAdmin.setVisible(false);
         }

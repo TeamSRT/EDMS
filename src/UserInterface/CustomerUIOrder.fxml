@@ -15,7 +15,7 @@
             <TableColumn fx:id="tcProductID" prefWidth="104.0" text="ProductID" />
           <TableColumn fx:id="tcBrand" prefWidth="107.0" text="Brand" />
             <TableColumn fx:id="tcModel" prefWidth="112.0" text="Model" />
-            <TableColumn fx:id="tcDate" prefWidth="139.0" text="Order Date" />
+            <TableColumn fx:id="tcDate" prefWidth="168.0" text="Order Date" />
         </columns>
       </TableView>
       <Label layoutX="247.0" layoutY="15.0" text="Customer ID:">

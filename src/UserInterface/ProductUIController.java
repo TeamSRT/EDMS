@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -94,6 +95,8 @@ public class ProductUIController implements Initializable {
     private ComboBox<String> cbType;
     @FXML
     private Label lblProductID;
+    @FXML
+    private CheckBox cbInStock;
 
     /**
      * Initializes the controller class.
@@ -114,14 +117,14 @@ public class ProductUIController implements Initializable {
         cbType.getItems().add("PSU");
         cbType.getItems().add("Other");
         cbType.getSelectionModel().selectFirst();
-        updateTable();
+        loadProductTable("SELECT * FROM PRODUCT");
     }
 
-    public void updateTable() {
+    public void loadProductTable(String query) {
         listProduct.clear();
         ResultSet rsProduct = null;
         try {
-            String query = "SELECT * FROM PRODUCT";
+            //String query = "SELECT * FROM PRODUCT";
             Database db = new Database();
             db.connect();
             rsProduct = db.getResult(query);
@@ -178,7 +181,7 @@ public class ProductUIController implements Initializable {
             alert.show();
         }
         db.disconnect();
-        updateTable();
+        loadProductTable("SELECT * FROM PRODUCT");
         resetFields();
     }
 
@@ -243,7 +246,7 @@ public class ProductUIController implements Initializable {
         db.connect();
         db.updateTable(query);
         db.disconnect();
-        updateTable();
+        loadProductTable("SELECT * FROM PRODUCT");
     }
 
     @FXML
@@ -264,4 +267,12 @@ public class ProductUIController implements Initializable {
 
     }
 
+    @FXML
+    private void cbInStockOnAction(ActionEvent event) {
+        if (cbInStock.isSelected()) {
+            loadProductTable("SELECT * FROM PRODUCT WHERE Stock > 0");
+        } else {
+            loadProductTable("SELECT * FROM PRODUCT");
+        }
+    }
 }
