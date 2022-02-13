@@ -29,6 +29,7 @@ public class SceneLoader {
             Scene dashboard = new Scene(root);
             Stage window = (Stage) ((Node) ev.getSource()).getScene().getWindow();
             window.setScene(dashboard);
+            window.setResizable(false);
             window.show();
         } catch (IOException ex) {
             System.out.println(ex);

@@ -96,8 +96,9 @@ public class AdminPanelUIController implements Initializable {
         try {
             Database db = new Database();
             db.connect();
-            db.updateTable("DELETE FROM USERS WHERE UserName =" + curr.getUsername());
+            db.updateTable("DELETE FROM USERS WHERE UserName ='" + curr.getUsername()+"'");
             db.disconnect();
+            loadUserTable();
         } catch (SQLException | ClassNotFoundException ex) {
             new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Failed to delete!");
         }
