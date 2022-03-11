@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.ProductUIController">
    <children>
-      <TableView fx:id="tvProduct" layoutX="14.0" layoutY="335.0" prefHeight="333.0" prefWidth="1027.0">
+      <TableView fx:id="tvProduct" layoutX="27.0" layoutY="334.0" prefHeight="333.0" prefWidth="1027.0">
          <columns>
             <TableColumn fx:id="tcProductID" prefWidth="81.0" text="Product ID" />
             <TableColumn fx:id="tcBrand" prefWidth="77.0" text="Brand" />
@@ -24,27 +24,27 @@
             <TableColumn fx:id="tcStock" minWidth="0.0" prefWidth="65.0" text="Stock" />
          </columns>
       </TableView>
-      <TextField fx:id="tfProductID" layoutX="82.0" layoutY="34.0" prefHeight="25.0" prefWidth="224.0" promptText="Product ID" />
-      <TextField fx:id="tfBrand" layoutX="82.0" layoutY="72.0" prefHeight="25.0" prefWidth="224.0" promptText="Brand" />
-      <TextField fx:id="tfModel" layoutX="82.0" layoutY="111.0" prefHeight="25.0" prefWidth="224.0" promptText="Model" />
-      <TextField fx:id="tfWarranty" layoutX="82.0" layoutY="151.0" prefHeight="25.0" prefWidth="224.0" promptText="Warranty" />
-      <TextField fx:id="tfPrice" layoutX="82.0" layoutY="187.0" prefHeight="25.0" prefWidth="224.0" promptText="Price" />
-      <TextField fx:id="tfStock" layoutX="82.0" layoutY="221.0" prefHeight="25.0" prefWidth="224.0" promptText="Stock" />
-      <TextArea fx:id="tfDescription" layoutX="405.0" layoutY="72.0" prefHeight="209.0" prefWidth="348.0" promptText="Description" />
+      <TextField fx:id="tfProductID" layoutX="82.0" layoutY="34.0" prefHeight="25.0" prefWidth="180.0" promptText="Product ID" />
+      <TextField fx:id="tfBrand" layoutX="82.0" layoutY="72.0" prefHeight="25.0" prefWidth="180.0" promptText="Brand" />
+      <TextField fx:id="tfModel" layoutX="82.0" layoutY="111.0" prefHeight="25.0" prefWidth="180.0" promptText="Model" />
+      <TextField fx:id="tfWarranty" layoutX="82.0" layoutY="151.0" prefHeight="25.0" prefWidth="180.0" promptText="Warranty" />
+      <TextField fx:id="tfPrice" layoutX="82.0" layoutY="187.0" prefHeight="25.0" prefWidth="180.0" promptText="Price" />
+      <TextField fx:id="tfStock" layoutX="82.0" layoutY="221.0" prefHeight="25.0" prefWidth="180.0" promptText="Stock" />
+      <TextArea fx:id="tfDescription" layoutX="340.0" layoutY="34.0" prefHeight="247.0" prefWidth="200.0" promptText="Description" />
       <Label fx:id="lblProductID" layoutX="14.0" layoutY="38.0" text="Product ID" />
       <Label layoutX="14.0" layoutY="76.0" text="Brand" />
       <Label layoutX="14.0" layoutY="115.0" text="Model" />
       <Label layoutX="14.0" layoutY="155.0" text="Warranty" />
       <Label layoutX="14.0" layoutY="191.0" text="Price" />
       <Label layoutX="14.0" layoutY="225.0" text="Stock" />
-      <Label layoutX="337.0" layoutY="72.0" text="Description" />
-      <Button fx:id="btnInsertProduct" layoutX="260.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnInsertProductOnClicked" text="Insert Product" />
-      <Button fx:id="btnModify" layoutX="942.0" layoutY="675.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" text="Modify Product" />
-      <Button fx:id="btnClear" layoutX="373.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" text="Clear Fields" />
-      <Button fx:id="btnDelete" layoutX="828.0" layoutY="675.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="99.0" text="Delete Product" />
-      <Button fx:id="btnOrder" layoutX="711.0" layoutY="675.0" mnemonicParsing="false" onAction="#btnOrderOnClicked" prefHeight="25.0" prefWidth="99.0" text="Order Product" />
+      <Label layoutX="272.0" layoutY="38.0" text="Description" />
+      <Button fx:id="btnInsertProduct" layoutX="201.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnInsertProductOnClicked" text="Insert Product" />
+      <Button fx:id="btnModify" layoutX="955.0" layoutY="674.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" text="Modify Product" />
+      <Button fx:id="btnClear" layoutX="314.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnClearOnClicked" prefHeight="25.0" prefWidth="91.0" text="Clear Fields" />
+      <Button fx:id="btnDelete" layoutX="841.0" layoutY="674.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="99.0" text="Delete Product" />
+      <Button fx:id="btnOrder" layoutX="724.0" layoutY="674.0" mnemonicParsing="false" onAction="#btnOrderOnClicked" prefHeight="25.0" prefWidth="99.0" text="Order Product" />
       <Label layoutX="14.0" layoutY="260.0" text="Type" />
-      <ComboBox fx:id="cbType" layoutX="82.0" layoutY="256.0" prefHeight="25.0" prefWidth="224.0" />
-      <CheckBox fx:id="cbInStock" layoutX="977.0" layoutY="72.0" mnemonicParsing="false" onAction="#cbInStockOnAction" text="In Stock" />
+      <ComboBox fx:id="cbType" layoutX="82.0" layoutY="256.0" prefHeight="25.0" prefWidth="180.0" />
+      <CheckBox fx:id="cbInStock" layoutX="1002.0" layoutY="38.0" mnemonicParsing="false" onAction="#cbInStockOnAction" text="In Stock" />
    </children>
 </AnchorPane>
