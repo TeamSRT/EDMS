@@ -18,8 +18,8 @@
           <TableColumn fx:id="tcBrand" prefWidth="144.0" text="Brand" />
             <TableColumn fx:id="tcModel" prefWidth="120.0" text="Model" />
             <TableColumn fx:id="tcDate" prefWidth="153.0" text="Order Date" />
-            <TableColumn prefWidth="137.0" text="Warranty Left" />
-            <TableColumn prefWidth="161.0" text="Due" />
+            <TableColumn fx:id="tcWarrantyLeft" prefWidth="137.0" text="Warranty Left" />
+            <TableColumn fx:id="tcDue" prefWidth="161.0" text="Due" />
         </columns>
       </TableView>
       <Label layoutX="247.0" layoutY="15.0" text="Customer ID:">

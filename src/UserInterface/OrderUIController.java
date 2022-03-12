@@ -173,7 +173,7 @@ public class OrderUIController implements Initializable {
             if (isEdit) {
                 query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + ", Cost = " + cost + " WHERE orderID = " + tfOrderID.getText();
             } else {
-                query = "INSERT INTO ORDERS (customerID, productID, quantity, Cost) VALUES (" + customerID + "," + productID + "," + quantity + ")";
+                query = "INSERT INTO ORDERS (customerID, productID, quantity, Cost) VALUES (" + customerID + "," + productID + "," + quantity + "," +cost+")";
             }
             System.out.println(query);
 

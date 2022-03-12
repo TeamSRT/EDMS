@@ -44,9 +44,26 @@ public class CustomerUIOrderController implements Initializable {
     private TableColumn<CustomerOrder, String> tcBrand;
     @FXML
     private TableColumn<CustomerOrder, String> tcDate;
+    @FXML
+    private TableColumn<CustomerOrder, String> tcWarrantyLeft;
+    @FXML
+    private TableColumn<CustomerOrder, String> tcDue;
     @FXML    
     private TextField tfCustomerID;
     ObservableList<CustomerOrder> listCustomerOrder = FXCollections.observableArrayList();
+   
+    @FXML
+    private TableView<?> tvCustomerService;
+    @FXML
+    private TableColumn<?, ?> tcServiceProductID;
+    @FXML
+    private TableColumn<?, ?> tcServiceBrand;
+    @FXML
+    private TableColumn<?, ?> tcServiceModel;
+    @FXML
+    private TableColumn<?, ?> tcServiceCharge;
+    @FXML
+    private TableColumn<?, ?> tcServiceStatus;
     
     
     /**
@@ -70,7 +87,7 @@ public class CustomerUIOrderController implements Initializable {
             db.connect();
             ResultSet rs = db.getResult(query);
             while (rs.next()) {
-                int warranty = Integer.parseInt(rs.getString("Product.warranty"));
+                int warranty = Integer.parseInt(rs.getString("Product.Warranty"));
                 int count = Integer.parseInt(rs.getString("dayDiff"));
                 System.out.println("count = "+count);
                 if(warranty * 365 > count)
@@ -92,6 +109,8 @@ public class CustomerUIOrderController implements Initializable {
             tcDate.setCellValueFactory(new PropertyValueFactory("date"));
             tcProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcBrand.setCellValueFactory(new PropertyValueFactory("Brand"));
+            tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
+            tcDue.setCellValueFactory(new PropertyValueFactory("due"));
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
             tvCustomerOrder.setItems(listCustomerOrder);
             
