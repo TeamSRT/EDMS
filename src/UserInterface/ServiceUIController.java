@@ -72,6 +72,10 @@ public class ServiceUIController implements Initializable {
     private TableColumn<Service, String> tcDetails;
     @FXML
     private TableColumn<Service, Integer> tcServiceCharge;
+      @FXML
+    private TableColumn<Service, String> tcServiceStatus;
+    @FXML
+    private TableColumn<Service, String> tcGivenDate;
     @FXML
     private Button btnInsert;
     @FXML
@@ -97,6 +101,7 @@ public class ServiceUIController implements Initializable {
     private MenuItem mitemDetails;
     @FXML
     private MenuItem mitemServiceCharge;
+  
 
     /**
      * Initializes the controller class.
@@ -117,7 +122,7 @@ public class ServiceUIController implements Initializable {
             boolean check = false;
             while (rs.next()) {
                 check = true;
-                listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge")));
+                listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"),rs.getString("givenDate")));
             }
             if (check == false) {
                 btnModify.setDisable(true);
@@ -129,8 +134,10 @@ public class ServiceUIController implements Initializable {
             tcServiceID.setCellValueFactory(new PropertyValueFactory("serviceID"));
             tcProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcCustomerID.setCellValueFactory(new PropertyValueFactory("customerID"));
-            tcDetails.setCellValueFactory(new PropertyValueFactory("details"));
+            tcDetails.setCellValueFactory(new PropertyValueFactory("details"));           
+            tcServiceStatus.setCellValueFactory(new PropertyValueFactory("serviceStatus"));
             tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
+            tcGivenDate.setCellValueFactory(new PropertyValueFactory("givenDate"));
             tvService.setItems(listService);
             db.disconnect();
         } catch (ClassNotFoundException | SQLException ex) {

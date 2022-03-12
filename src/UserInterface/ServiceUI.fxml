@@ -15,11 +15,13 @@
    <children>
       <TableView fx:id="tvService" layoutX="-219.0" layoutY="298.0" prefHeight="350.0" prefWidth="976.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
         <columns>
-          <TableColumn fx:id="tcServiceID" prefWidth="159.0" text="Service ID" />
-          <TableColumn fx:id="tcProductID" prefWidth="158.0" text="Product ID" />
-            <TableColumn fx:id="tcCustomerID" prefWidth="173.0" text="Customer ID" />
-            <TableColumn fx:id="tcDetails" prefWidth="306.0" text="Details" />
-            <TableColumn fx:id="tcServiceCharge" prefWidth="223.0" text="Service Charge" />
+          <TableColumn fx:id="tcServiceID" prefWidth="102.0" text="Service ID" />
+          <TableColumn fx:id="tcProductID" prefWidth="125.0" text="Product ID" />
+            <TableColumn fx:id="tcCustomerID" prefWidth="122.0" text="Customer ID" />
+            <TableColumn fx:id="tcDetails" prefWidth="256.0" text="Details" />
+            <TableColumn fx:id="tcServiceCharge" prefWidth="134.0" text="Service Charge" />
+            <TableColumn fx:id="tcServiceStatus" prefWidth="129.0" text="Service Status" />
+            <TableColumn fx:id="tcGivenDate" prefWidth="151.0" text="Add Date " />
         </columns>
       </TableView>
       <TextField fx:id="tfProductID" layoutX="219.0" layoutY="100.0" />

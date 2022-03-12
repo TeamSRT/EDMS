@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -61,14 +62,17 @@ public class CustomerUIOrderController implements Initializable {
         tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
         try {
             String query;
-            query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,Product.Model,Product.Warranty,DATEDIFF(day, orderDate, Convert(DATE, getDate())) as dayDiff,(Product.Price - Orders.cost) as due from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
+            query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
+                    + "Product.Model,Product.Warranty,DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price - Orders.cost) as due "
+                    + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Order = " + query);
             Database db = new Database();
             db.connect();
             ResultSet rs = db.getResult(query);
             while (rs.next()) {
                 int warranty = Integer.parseInt(rs.getString("Product.warranty"));
-                int count = Integer.parseInt(rs.getString("dayDiff"));              
+                int count = Integer.parseInt(rs.getString("dayDiff"));
+                System.out.println("count = "+count);
                 if(warranty * 365 > count)
                 {
                    listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model"),rs.getString(count+" days"),rs.getInt("due")));
@@ -99,6 +103,8 @@ public class CustomerUIOrderController implements Initializable {
             alert.setTitle("Invalid Action");
             alert.setContentText("Unable to show total orders by a customer");
             alert.show();
+            //
+            ((Stage) tfCustomerID.getScene().getWindow()).close();
         }
     }
 
