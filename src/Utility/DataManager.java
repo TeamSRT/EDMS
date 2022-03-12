@@ -7,8 +7,11 @@
 package Utility;
 
 
+import Model.CartItem;
 import Model.Customer;
 import Model.Product;
+import UserInterface.ProductUIController;
+import java.util.List;
 
 /**
  *
@@ -23,5 +26,10 @@ public class DataManager {
     public static int createProductId;
     public static String createProdType;
     public static boolean createProdIsView;
+    
+    public static ProductUIController prodController;
+    public static Product orderSelect;
+    
+    public static List<CartItem> orderList;
     
 }

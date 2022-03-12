@@ -29,6 +29,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -295,7 +296,6 @@ public class CreateProductController implements Initializable {
         }
     }
 
-
     @FXML
     private void btnCreateProductOnClick(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (tfBrand.getText().trim().length() <= 0) {
@@ -520,6 +520,7 @@ public class CreateProductController implements Initializable {
 
     @FXML
     private void btnCancelOnClick(ActionEvent event) {
+        ((Stage) tfDescription.getScene().getWindow()).close();
     }
 
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="1080.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="UserInterface.CartUIController">
+   <children>
+      <Label alignment="CENTER_RIGHT" layoutX="272.0" layoutY="18.0" prefHeight="17.0" prefWidth="70.0" text="Phone: " />
+      <TextField fx:id="tfSearchPhone" layoutX="342.0" layoutY="14.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="548.0" layoutY="18.0" prefHeight="17.0" prefWidth="70.0" text="ID: " />
+      <TextField fx:id="tfSearchID" layoutX="618.0" layoutY="14.0" prefHeight="25.0" prefWidth="190.0" />
+      <Button layoutX="427.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnSearchPhoneOnClick" text="Search By Phone" />
+      <Button layoutX="725.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnSearchIDOnClick" text="Search By ID" />
+      <Label alignment="CENTER_RIGHT" layoutX="402.0" layoutY="103.0" prefHeight="17.0" prefWidth="70.0" text="Name: " />
+      <TextField fx:id="tfName" layoutX="472.0" layoutY="99.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="402.0" layoutY="136.0" prefHeight="17.0" prefWidth="70.0" text="Phone: " />
+      <TextField fx:id="tfPhone" layoutX="472.0" layoutY="132.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="402.0" layoutY="168.0" prefHeight="17.0" prefWidth="70.0" text="Address: " />
+      <TextField fx:id="tfAddress" layoutX="472.0" layoutY="164.0" prefHeight="25.0" prefWidth="190.0" />
+      <Button fx:id="btnInsert" layoutX="458.0" layoutY="196.0" mnemonicParsing="false" onAction="#btnInsertNewOnAction" text="Insert New Customer" />
+      <TableView fx:id="tvOrders" layoutX="15.0" layoutY="246.0" prefHeight="319.0" prefWidth="1050.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <columns>
+          <TableColumn fx:id="tcProductID" prefWidth="277.0" text="Product ID" />
+          <TableColumn fx:id="tcQuantity" prefWidth="249.0" text="Quantity" />
+            <TableColumn fx:id="tcPaidAmount" prefWidth="304.0" text="Paid Amount" />
+        </columns>
+      </TableView>
+      <Button layoutX="987.0" layoutY="572.0" mnemonicParsing="false" onAction="#btnPlaceOrderOnClick" text="Place Order" />
+      <Button layoutX="872.0" layoutY="572.0" mnemonicParsing="false" onAction="#btnDeleteSelectedOnAction" text="Delete Selected" />
+      <Button layoutX="796.0" layoutY="572.0" mnemonicParsing="false" onAction="#btnClearAllOnAction" text="Clear All" />
+      <Button fx:id="btnClearFields" layoutX="600.0" layoutY="196.0" mnemonicParsing="false" onAction="#btnClearFieldsOnClick" text="Clear Fields" />
+   </children>
+</AnchorPane>

@@ -3,37 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Model;
 
 /**
  *
- * @author SaMiR
+ * @author ktoufiquee
  */
-public class Supply {
-    
-    int supplierID;
+public class CartItem {
     int productID;
-    String date;
     int quantity;
-    int cost;
+    int payment;
 
-    public Supply(int supplierID, int productID, String date, int quantity, int cost) {
-        this.supplierID = supplierID;
+    public CartItem(int productID, int quantity, int payment) {
         this.productID = productID;
-        this.date = date;
         this.quantity = quantity;
-        this.cost = cost;
-    }
-    
-    
-    
-
-    public int getSupplierID() {
-        return supplierID;
-    }
-
-    public void setSupplierID(int supplierID) {
-        this.supplierID = supplierID;
+        this.payment = payment;
     }
 
     public int getProductID() {
@@ -44,14 +29,6 @@ public class Supply {
         this.productID = productID;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -60,8 +37,12 @@ public class Supply {
         this.quantity = quantity;
     }
 
-    public int getCost() {
-        return cost;
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
     }
     
     
