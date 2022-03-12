@@ -8,6 +8,7 @@ package UserInterface;
 import Model.Customer;
 import Utility.DataManager;
 import Utility.Database;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -150,11 +151,11 @@ public class CustomerUIController implements Initializable {
     }
 
     @FXML
-    private void btnInsertCustomerOnClicked(ActionEvent event) {
+    private void btnInsertCustomerOnClicked(ActionEvent event) throws ClassNotFoundException {
        
-            String name = tfName.getText();
-            String phone = tfPhone.getText();
-            String address = tfAddress.getText();
+            String name = tfName.getText().trim();
+            String phone = tfPhone.getText().trim();
+            String address = tfAddress.getText().trim();
             if(name.equals(""))
             {
                 Alert alert = new Alert(AlertType.ERROR);
@@ -200,20 +201,36 @@ public class CustomerUIController implements Initializable {
                     pause.play();
                     showTable("SELECT * FROM CUSTOMER");  
                     db.disconnect();
-                }catch (ClassNotFoundException| SQLException ex) {
-                    System.out.println("Exception in insert customer:"+ex);
+                }catch (SQLException ex) {
+                    System.out.println("Exception in insert customer:"+ex.getErrorCode());
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Failed operation");
-                    if(!modify)
+                    if(ex.toString().contains("check_cusName"))
                     {
-                        alert.setContentText("Unable to insert data!Please check your inputs");
+                        alert.setContentText("Please match the requested format in name field");                   
+                    }
+                    else if(ex.toString().contains("check_phone"))
+                    {
+                        alert.setContentText("Please match the requested format and length in phone field"); 
+                    }
+                    else if(ex.toString().contains("uc_phone"))
+                    {
+                        alert.setContentText("Phone number needs to be unique!!");
                     }
                     else
                     {
-                        alert.setContentText("Unable to update data!Please check your inputs");
+                        if(!modify)
+                        {
+                            alert.setContentText("Unable to insert data!");
+                        }
+                        else
+                        {
+                            alert.setContentText("Unable to modify data!");
+                        }
                     }
                     alert.show();
                 }
+                
             }            
        
     }
@@ -246,6 +263,7 @@ public class CustomerUIController implements Initializable {
     
     @FXML
     private void btnDeleteOnClicked(ActionEvent event) {
+        resetFields();
         try {
             Database db = new Database();
             db.connect();
@@ -281,7 +299,7 @@ public class CustomerUIController implements Initializable {
             showTable("SELECT * FROM CUSTOMER");  
            
         }catch(ClassNotFoundException | SQLException ex) {
-            System.out.println("Exception in btnDelete: "+ ex);
+             System.out.println("Exception in btnDelete: "+ ex);
              Alert alert = new Alert(AlertType.ERROR);
              alert.setTitle("Can't Delete");
              alert.setContentText("Unable to delete data!");

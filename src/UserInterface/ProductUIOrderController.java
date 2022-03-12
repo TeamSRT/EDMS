@@ -59,8 +59,7 @@ public class ProductUIOrderController implements Initializable {
     @FXML
     private Text lblCustomerName;
     @FXML
-    private Text lblAddress;
-    
+    private Text lblAddress;    
     private ProductUIController productTableView;
 
     @Override
