@@ -5,6 +5,7 @@
  */
 package UserInterface;
 
+import Model.CartItem;
 import Model.Product;
 import Utility.DataManager;
 import Utility.Database;
@@ -13,6 +14,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +38,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
@@ -91,6 +95,9 @@ public class ProductUIController implements Initializable {
     private TextField tfPriceMin;
     @FXML
     private TextField tfpriceMax;
+    @FXML
+    private Button btnAddToOrder;
+    public List<CartItem> orderList = new ArrayList<CartItem>();
 
     /**
      * Initializes the controller class.
@@ -126,7 +133,8 @@ public class ProductUIController implements Initializable {
             }
             db.disconnect();
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProductUIController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductUIController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         tcProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         tcBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
@@ -270,7 +278,7 @@ public class ProductUIController implements Initializable {
                 + "AND productType LIKE '" + type + "' "
                 + "AND Price >= " + priceMin + " "
                 + "AND Price <= " + priceMax;
-        if(cbInStock.isSelected()) {
+        if (cbInStock.isSelected()) {
             query += " AND Stock > 0";
         }
         loadProductTable(query);
@@ -285,5 +293,28 @@ public class ProductUIController implements Initializable {
     @FXML
     private void btnRefreshOnClick(ActionEvent event) {
         loadProductTable("SELECT * FROM PRODUCT");
+    }
+
+    @FXML
+    private void btnAddToOrderOnAction(ActionEvent event) throws IOException {
+        Product curr = tvProduct.getSelectionModel().getSelectedItem();
+        if (curr == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a product from table to add!");
+            alert.show();
+            return;
+        }
+        DataManager.prodController = this;
+        DataManager.orderSelect = curr;
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ProductQuantityUI.fxml"));
+
+        Parent rootPane = (Parent) loader.load();
+        Scene dialogScene = new Scene(rootPane);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 }

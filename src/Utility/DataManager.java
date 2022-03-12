@@ -9,6 +9,7 @@ package Utility;
 
 import Model.Customer;
 import Model.Product;
+import UserInterface.ProductUIController;
 
 /**
  *
@@ -23,5 +24,8 @@ public class DataManager {
     public static int createProductId;
     public static String createProdType;
     public static boolean createProdIsView;
+    
+    public static ProductUIController prodController;
+    public static Product orderSelect;
     
 }
