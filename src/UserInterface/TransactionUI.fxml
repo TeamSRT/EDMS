@@ -3,40 +3,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="btn_modify" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#btnModifyOnCliked" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.TransactionUIController">
-   <children>
-      <TableView fx:id="Transaction_table" layoutX="-4.0" layoutY="294.0" prefHeight="333.0" prefWidth="981.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-        <columns>
-          <TableColumn fx:id="TransactionID_heading" prefWidth="266.0" text="TransactionID" />
-          <TableColumn fx:id="OrderID_heading" prefWidth="184.0" text="OrderID" />
-            <TableColumn fx:id="Type_heading" prefWidth="258.0" text="Type" />
-            <TableColumn fx:id="Date_heading" minWidth="0.0" prefWidth="266.0" text="Date" />
-            <TableColumn fx:id="Amount_heading" minWidth="0.0" prefWidth="245.0" text="Amount" />
-        </columns>
-      </TableView>
-      <TextField fx:id="tf_transactionID" layoutX="331.0" layoutY="60.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="60.0" />
-      <TextField fx:id="tf_orderID" layoutX="331.0" layoutY="107.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="107.0" />
-      <TextField fx:id="tf_type" layoutX="331.0" layoutY="159.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="159.0" />
-      <TextField fx:id="tf_amount" layoutX="331.0" layoutY="209.0" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="209.0" />
-      <Button fx:id="btn_insert" layoutX="229.0" layoutY="249.0" mnemonicParsing="false" onAction="#btn_insert_onclick" text="INSERT" AnchorPane.leftAnchor="229.0" />
-      <Label fx:id="lblTransactionID" layoutX="229.0" layoutY="60.0" text="TransactionID" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="60.0" />
-      <Label layoutX="229.0" layoutY="107.0" text="OrderID" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="107.0" />
-      <Label layoutX="229.0" layoutY="159.0" prefHeight="17.0" prefWidth="32.0" text="Type" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="159.0" />
-      <Label layoutX="229.0" layoutY="209.0" text="Amount" AnchorPane.leftAnchor="229.0" AnchorPane.topAnchor="209.0" />
-      <Button fx:id="btn_Show" layoutX="595.0" layoutY="249.0" mnemonicParsing="false" onAction="#btnRefreshonclick" text="Refresh" />
-      <DatePicker fx:id="datePicker" layoutX="595.0" layoutY="56.0" AnchorPane.leftAnchor="595.0" />
-      <Button fx:id="btn_search" layoutX="595.0" layoutY="90.0" mnemonicParsing="false" onAction="#btn_search_onclick" text="SEARCH" AnchorPane.leftAnchor="595.0" />
-      <TextField fx:id="total_show" editable="false" layoutX="917.0" layoutY="56.0" />
-      <Label fx:id="lbl_total" alignment="CENTER" layoutX="783.0" layoutY="56.0" prefHeight="25.0" prefWidth="43.0" text="Total : " />
-      <Label fx:id="date_label" layoutX="826.0" layoutY="56.0" prefHeight="25.0" prefWidth="82.0" />
-      <Label fx:id="label_data_insert" layoutX="163.0" layoutY="253.0" opacity="0.0" text="DATA INSERTED !" textFill="#00ab33" />
-      <Button fx:id="btn_delete" layoutX="600.0" layoutY="644.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" text="Delete" />
-      <Button fx:id="btnModify" layoutX="742.0" layoutY="644.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" text="Modify" />
-      <Label fx:id="lblAlert" layoutX="655.0" layoutY="168.0" text="Label" />
-   </children>
-</AnchorPane>
+<ScrollPane id="ScrollPane" fx:id="btn_modify" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#btnModifyOnCliked" prefHeight="1000.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.TransactionUIController">
+    <AnchorPane id="AnchorPane" prefHeight="845.0" prefWidth="1080.0">
+        <children>
+            <DatePicker fx:id="dpFrom" layoutX="294.0" layoutY="14.0" />
+            <Label layoutX="260.0" layoutY="18.0" text="From: " />
+            <DatePicker fx:id="dpTo" layoutX="517.0" layoutY="14.0" />
+            <Label layoutX="497.0" layoutY="18.0" text="To: " />
+            <Button layoutX="712.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSearchOnClick" text="Search" />
+            <TableView fx:id="tvOrder" layoutX="10.0" layoutY="77.0" prefHeight="240.0" prefWidth="1060.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                <columns>
+                    <TableColumn fx:id="tcOrderID" prefWidth="115.0" text="Order ID" />
+                    <TableColumn fx:id="tcCustomerID" prefWidth="132.0" text="Customer ID" />
+                    <TableColumn fx:id="tcProductID" prefWidth="165.0" text="Product ID" />
+                    <TableColumn fx:id="tcQuantity" prefWidth="171.0" text="Quantity" />
+                    <TableColumn fx:id="tcTime" prefWidth="277.0" text="Time" />
+                    <TableColumn fx:id="tcCost" prefWidth="198.0" text="Cost" />
+                </columns>
+            </TableView>
+            <TableView fx:id="supplies_table" layoutX="10.0" layoutY="360.0" prefHeight="240.0" prefWidth="1030.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                <columns>
+                    <TableColumn fx:id="col_SupplierID" prefWidth="206.0" text="SupplierID" />
+                    <TableColumn fx:id="col_ProductID" prefWidth="195.0" text="ProductID" />
+                    <TableColumn fx:id="col_date" prefWidth="195.0" text="Date" />
+                    <TableColumn fx:id="col_Quantity" prefWidth="204.0" text="Quantity" />
+                    <TableColumn fx:id="col_cost" prefWidth="258.0" text="Cost" />
+                </columns>
+            </TableView>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="50.0" prefHeight="17.0" prefWidth="1060.0" text="Orders Placed">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="333.0" prefHeight="17.0" prefWidth="1060.0" text="Supplies Bought">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="611.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Orders:" />
+            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="628.0" prefHeight="17.0" prefWidth="140.0" text="Expanse From Supplies:" />
+            <Label layoutX="913.0" layoutY="611.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+            <Label layoutX="913.0" layoutY="628.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+        </children>
+    </AnchorPane>
+
+</ScrollPane>

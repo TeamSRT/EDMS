@@ -160,8 +160,9 @@ public class CartUIController implements Initializable {
             return;
         }
         for (int i = 0; i < orderList.size(); ++i) {
-            String query = "INSERT INTO ORDERS (customerID, productID, quantity) VALUES "
-                    + "(" + customerID + "," + orderList.get(i).getProductID() + "," + orderList.get(i).getQuantity() + ")";
+            String query = "INSERT INTO ORDERS (customerID, productID, quantity, Cost) VALUES "
+                    + "(" + customerID + "," + orderList.get(i).getProductID() + "," + orderList.get(i).getQuantity() + ", " + orderList.get(i).getPayment()
+                    + ")";
 
             Database db = new Database();
             db.connect();
