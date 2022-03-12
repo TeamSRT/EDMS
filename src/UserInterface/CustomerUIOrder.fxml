@@ -38,8 +38,9 @@
             <TableColumn fx:id="tcServiceProductID" prefWidth="127.0" text="ProductID" />
             <TableColumn fx:id="tcServiceBrand" prefWidth="171.0" text="Brand" />
             <TableColumn fx:id="tcServiceModel" prefWidth="186.0" text="Model" />
-            <TableColumn fx:id="tcServiceCharge" prefWidth="185.0" text="Service Charge" />
-            <TableColumn fx:id="tcServiceStatus" prefWidth="232.0" text="Service Status" />
+            <TableColumn fx:id="tcServiceCharge" prefWidth="136.0" text="Service Charge" />
+            <TableColumn fx:id="tcServiceStatus" prefWidth="138.0" text="Service Status" />
+            <TableColumn fx:id="tcServiceReceive" prefWidth="143.0" text="Receive Date " />
          </columns>
       </TableView>
       <TextField layoutX="538.0" layoutY="67.0" prefHeight="27.0" prefWidth="179.0" />

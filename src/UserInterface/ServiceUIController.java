@@ -28,10 +28,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -101,6 +103,12 @@ public class ServiceUIController implements Initializable {
     private MenuItem mitemDetails;
     @FXML
     private MenuItem mitemServiceCharge;
+    @FXML
+    private RadioButton rbStatusResolved;
+    @FXML
+    private ToggleGroup searchStatus;
+    @FXML
+    private RadioButton rbStatusUnresolved;
   
 
     /**

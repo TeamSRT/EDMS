@@ -17,6 +17,9 @@ public class CustomerOrder {
     String Model;
     String warrantyRemain;
     int due;
+    int serviceCharge;
+    String status;
+    String givenDate;
     public CustomerOrder()
     {
         
@@ -29,6 +32,15 @@ public class CustomerOrder {
         this.Model = Model;
         this.warrantyRemain = warrantyRemain;
         this.due = due;
+    }
+    public CustomerOrder(int productID, String Brand, String Model, int serviceCharge, String status, String givenDate)
+    {
+        this.productID = productID;
+        this.Brand = Brand;
+        this.Model = Model;
+        this.serviceCharge = serviceCharge;
+        this.status = status;
+        this.givenDate = givenDate;
     }
 
     public int getOrderID() {

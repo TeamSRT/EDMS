@@ -47,23 +47,25 @@ public class CustomerUIOrderController implements Initializable {
     @FXML
     private TableColumn<CustomerOrder, String> tcWarrantyLeft;
     @FXML
-    private TableColumn<CustomerOrder, String> tcDue;
+    private TableColumn<CustomerOrder, Integer> tcDue;
     @FXML    
     private TextField tfCustomerID;
     ObservableList<CustomerOrder> listCustomerOrder = FXCollections.observableArrayList();
-   
+    ObservableList<CustomerOrder> listCustomerService = FXCollections.observableArrayList();
     @FXML
-    private TableView<?> tvCustomerService;
+    private TableView<CustomerOrder> tvCustomerService;
     @FXML
-    private TableColumn<?, ?> tcServiceProductID;
+    private TableColumn<CustomerOrder, Integer> tcServiceProductID;
     @FXML
-    private TableColumn<?, ?> tcServiceBrand;
+    private TableColumn<CustomerOrder, String> tcServiceBrand;
     @FXML
-    private TableColumn<?, ?> tcServiceModel;
+    private TableColumn<CustomerOrder, String> tcServiceModel;
     @FXML
-    private TableColumn<?, ?> tcServiceCharge;
+    private TableColumn<CustomerOrder, Integer> tcServiceCharge;
     @FXML
-    private TableColumn<?, ?> tcServiceStatus;
+    private TableColumn<CustomerOrder, String> tcServiceStatus;
+    @FXML
+    private TableColumn<CustomerOrder, String> tcServiceReceive;
     
     
     /**
@@ -71,16 +73,17 @@ public class CustomerUIOrderController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
         showTotalOrder();
+        showTotalServices();
     }
 
     private void showTotalOrder() {
-        listCustomerOrder.clear();
-        tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
+        listCustomerOrder.clear();        
         try {
             String query;
             query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
-                    + "Product.Model,Product.Warranty,DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price - Orders.cost) as due "
+                    + "Product.Model,,Product.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price - Orders.cost) as due "
                     + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Order = " + query);
             Database db = new Database();
@@ -101,8 +104,7 @@ public class CustomerUIOrderController implements Initializable {
                     listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model"),"Expired",rs.getInt("due")));
                     System.out.println("OrderId = " +rs.getInt("orderID") + "ProductID = "+rs.getInt("productID"));
                     System.out.println("Query = "+query); 
-                }
-                
+                }               
               
             }            
             tcOrderID.setCellValueFactory(new PropertyValueFactory("orderID"));
@@ -112,9 +114,7 @@ public class CustomerUIOrderController implements Initializable {
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
             tcDue.setCellValueFactory(new PropertyValueFactory("due"));
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
-            tvCustomerOrder.setItems(listCustomerOrder);
-            
-           
+            tvCustomerOrder.setItems(listCustomerOrder);                      
             
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("exception in showing total order:"+ex);
@@ -122,8 +122,40 @@ public class CustomerUIOrderController implements Initializable {
             alert.setTitle("Invalid Action");
             alert.setContentText("Unable to show total orders by a customer");
             alert.show();
-            //
-            ((Stage) tfCustomerID.getScene().getWindow()).close();
+            //((Stage) tfCustomerID.getScene().getWindow()).close();
+        }
+    }
+
+    private void showTotalServices() {
+        listCustomerService.clear();        
+        try {
+            String query;
+            query = "SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate FROM (SELECT * FROM ORDERS where customerID = "+DataManager.selected.getCustomerID()+") as ORDERS"+
+                    "INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.productID"+
+                    "INNER JOIN Service_ ON SERVICE_.productID = ORDERS.productID";
+            System.out.println("Button Show Total Service = " + query);
+            Database db = new Database();
+            db.connect();
+            ResultSet rs = db.getResult(query);
+            while (rs.next()) {              
+               listCustomerService.add(new CustomerOrder(rs.getInt("productID"),rs.getString("Brand"), rs.getString("Model"),rs.getInt("serviceCharge"),rs.getString("serviceStatus"),rs.getString("givenDate")));              
+               System.out.println("Query Service= "+query);                              
+            }            
+            tcServiceProductID.setCellValueFactory(new PropertyValueFactory("productID"));
+            tcServiceBrand.setCellValueFactory(new PropertyValueFactory("Brand"));                      
+            tcServiceModel.setCellValueFactory(new PropertyValueFactory("Model"));
+            tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
+            tcServiceStatus.setCellValueFactory(new PropertyValueFactory("status"));
+            tcServiceReceive.setCellValueFactory(new PropertyValueFactory("givenDate"));
+            tvCustomerOrder.setItems(listCustomerService);                     
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("exception in showing total order:"+ex);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Unable to show total services by a customer");
+            alert.show();
+            //((Stage) tfCustomerID.getScene().getWindow()).close();
         }
     }
 
