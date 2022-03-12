@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.LoginController">
    <children>
       <TextField fx:id="tfUsername" layoutX="360.0" layoutY="152.0" onMouseClicked="#tfUsernameOnClicked" prefHeight="25.0" prefWidth="211.0" promptText="Your username" />
       <PasswordField fx:id="pfPassword" layoutX="360.0" layoutY="184.0" onMouseClicked="#tfPasswordOnClicked" prefHeight="25.0" prefWidth="211.0" promptText="Your password" />
@@ -44,5 +44,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="btnForgetPassword" layoutX="360.0" layoutY="218.0" mnemonicParsing="false" onAction="#btnForgetPasswordAction" text="Forget Password !!" />
    </children>
 </AnchorPane>

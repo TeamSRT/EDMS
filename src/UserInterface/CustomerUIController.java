@@ -247,7 +247,7 @@ public class CustomerUIController implements Initializable {
           alert.show();
       }
       else
-      {    
+      {   
         id = selected.getCustomerID();
         tfName.setText(selected.getName());
         tfPhone.setText(selected.getPhone());
