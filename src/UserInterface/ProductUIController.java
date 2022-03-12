@@ -310,11 +310,29 @@ public class ProductUIController implements Initializable {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ProductQuantityUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/CartItemUI.fxml"));
 
         Parent rootPane = (Parent) loader.load();
         Scene dialogScene = new Scene(rootPane);
         dialog.setScene(dialogScene);
         dialog.show();
+    }
+
+    @FXML
+    private void btnShowOrderOnAction(ActionEvent event) throws IOException {
+        if (orderList.size() <= 0) {
+            new SceneLoader().showAlert(AlertType.ERROR, "Empty!", "Order cart is empty!");
+        } else {
+            DataManager.orderList = orderList;
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/CartUI.fxml"));
+
+            Parent rootPane = (Parent) loader.load();
+            Scene dialogScene = new Scene(rootPane);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        }
     }
 }

@@ -18,13 +18,15 @@ public class Order {
     int productID;
     int quantity;
     Timestamp orderTime;
+    int cost;
 
-    public Order(int orderID, int customerID, int productID, int quantity, Timestamp orderTime) {
+    public Order(int orderID, int customerID, int productID, int quantity, Timestamp orderTime, int cost) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.productID = productID;
         this.quantity = quantity;
         this.orderTime = orderTime;
+        this.cost = cost;
     }
 
     public int getOrderID() {
@@ -65,6 +67,14 @@ public class Order {
 
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
     
     

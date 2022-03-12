@@ -11,11 +11,12 @@
    <children>
       <TableView fx:id="tvOrder" layoutX="10.0" layoutY="375.0" prefHeight="300.0" prefWidth="1060.0">
         <columns>
-          <TableColumn fx:id="tcOrderID" prefWidth="212.0" text="Order ID" />
-          <TableColumn fx:id="tcCustomerID" prefWidth="212.0" text="Customer ID" />
-            <TableColumn fx:id="tcProductID" prefWidth="212.0" text="Product ID" />
-            <TableColumn fx:id="tcQuantity" prefWidth="212.0" text="Quantity" />
-            <TableColumn fx:id="tcTime" prefWidth="212.0" text="Time" />
+          <TableColumn fx:id="tcOrderID" prefWidth="115.0" text="Order ID" />
+          <TableColumn fx:id="tcCustomerID" prefWidth="132.0" text="Customer ID" />
+            <TableColumn fx:id="tcProductID" prefWidth="165.0" text="Product ID" />
+            <TableColumn fx:id="tcQuantity" prefWidth="171.0" text="Quantity" />
+            <TableColumn fx:id="tcTime" prefWidth="277.0" text="Time" />
+            <TableColumn fx:id="tcCost" prefWidth="198.0" text="Cost" />
         </columns>
       </TableView>
       <TextField fx:id="tfOrderID" disable="true" layoutX="460.0" layoutY="44.0" opacity="0.0" prefHeight="25.0" prefWidth="160.0" />
@@ -26,9 +27,12 @@
       <Label alignment="CENTER_RIGHT" layoutX="380.0" layoutY="83.0" text="Customer ID" textAlignment="RIGHT" />
       <Label alignment="CENTER_RIGHT" layoutX="380.0" layoutY="118.0" prefHeight="17.0" prefWidth="67.0" text="Product ID" textAlignment="RIGHT" />
       <Label alignment="CENTER_RIGHT" layoutX="380.0" layoutY="153.0" prefHeight="17.0" prefWidth="67.0" text="Quantity" textAlignment="RIGHT" />
-      <Button fx:id="btnInsert" layoutX="514.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnInsertOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert" />
+      <Button fx:id="btnInsert" layoutX="490.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnInsertOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert" />
       <Button fx:id="btnDelete" layoutX="1010.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnDeleteOnClick" prefWidth="60.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete" />
       <Button fx:id="btnModify" layoutX="940.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnModifyOnClick" prefWidth="60.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify" />
       <Button disable="true" layoutX="842.0" layoutY="681.0" mnemonicParsing="false" onAction="#btnShowOrderOnClicked" prefHeight="25.0" prefWidth="87.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Order" visible="false" />
+      <TextField fx:id="tfCost" layoutX="460.0" layoutY="183.0" prefHeight="25.0" prefWidth="160.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="380.0" layoutY="187.0" prefHeight="17.0" prefWidth="67.0" text="Cost" textAlignment="RIGHT" />
+      <Button layoutX="547.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnClearOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Clear" />
    </children>
 </AnchorPane>

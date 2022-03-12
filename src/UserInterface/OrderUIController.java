@@ -7,6 +7,7 @@ package UserInterface;
 
 import Model.Order;
 import Utility.Database;
+import Utility.SceneLoader;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,6 +68,10 @@ public class OrderUIController implements Initializable {
     private boolean isEdit = false;
     @FXML
     private Label lblOrderID;
+    @FXML
+    private TableColumn<Order, String> tcCost;
+    @FXML
+    private TextField tfCost;
 
     /**
      * Initializes the controller class.
@@ -96,7 +101,7 @@ public class OrderUIController implements Initializable {
             rsOrder = db.getResult(query);
             while (rsOrder.next()) {
                 listOrder.add(new Order(rsOrder.getInt("orderID"), rsOrder.getInt("customerID"), rsOrder.getInt("productID"),
-                        rsOrder.getInt("quantity"), rsOrder.getTimestamp("orderTime")));
+                        rsOrder.getInt("quantity"), rsOrder.getTimestamp("orderTime"), rsOrder.getInt("Cost")));
             }
             db.disconnect();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -108,6 +113,7 @@ public class OrderUIController implements Initializable {
         tcProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         tcQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
+        tcCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tvOrder.setItems(listOrder);
 
     }
@@ -118,6 +124,7 @@ public class OrderUIController implements Initializable {
         String productID = tfProductID.getText();
         String customerID = tfCustomerID.getText();
         String quantity = tfQuantity.getText();
+        String cost = tfCost.getText();
         int stock = 0;
         System.out.println(orderID);
         String query;
@@ -136,10 +143,18 @@ public class OrderUIController implements Initializable {
                 alert.show();
                 return;
             }
+            if (cost.equals("")) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Input", "Insert cost!");
+                return;
+            }
+            if (Integer.parseInt(cost) <= 0) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Input", "Cost must be higher than 0!");
+                return;
+            }
             if (isEdit) {
-                query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + " WHERE orderID = " + tfOrderID.getText();
+                query = "UPDATE ORDERS SET customerID = " + customerID + ", productID = " + productID + ", quantity = " + quantity + ", Cost = " + cost + " WHERE orderID = " + tfOrderID.getText();
             } else {
-                query = "INSERT INTO ORDERS (customerID, productID, quantity) VALUES (" + customerID + "," + productID + "," + quantity + ")";
+                query = "INSERT INTO ORDERS (customerID, productID, quantity, Cost) VALUES (" + customerID + "," + productID + "," + quantity + ")";
             }
             System.out.println(query);
 
@@ -199,7 +214,7 @@ public class OrderUIController implements Initializable {
             alert.show();
             return;
         }
-        /*
+        
         tfProductID.setText(curr.getProductID() + "");
         tfCustomerID.setText(curr.getCustomerID() + "");
         tfQuantity.setText(curr.getQuantity() + "");
@@ -212,8 +227,8 @@ public class OrderUIController implements Initializable {
         lblOrderID.setOpacity(1);
 
         isEdit = true;
-        btnInsert.setText("Modify");*/
-        
+        btnInsert.setText("Modify");
+
     }
 
     private void resetFields() {
@@ -242,5 +257,10 @@ public class OrderUIController implements Initializable {
             query = "SELECT * FROM ORDERS WHERE customerID = " + curr.getCustomerID();
         }
         loadOrderTable(query);
+    }
+
+    @FXML
+    private void btnClearOnClick(ActionEvent event) {
+        resetFields();
     }
 }

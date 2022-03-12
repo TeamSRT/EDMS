@@ -100,6 +100,12 @@ public class SupplyUIController implements Initializable {
     private Button btnModify;
     @FXML
     private Label lblAlert;
+    @FXML
+    private TableColumn<?, ?> col_cost;
+    @FXML
+    private TextField tf_cost;
+    @FXML
+    private Label lbl_Quantity1;
 
     /**
      * Initializes the controller class.
@@ -117,14 +123,14 @@ public class SupplyUIController implements Initializable {
         String supplierID = tf_supplierID.getText();
         String productID = tf_productID.getText();
         String quantity = tf_quantity.getText();
-
+        String cost = tf_cost.getText();
         String query;
 
         if (!modify) {
-            query = "INSERT INTO  SUPPLIES(SupplierID,ProductID,Quantity) VALUES('" + supplierID + "', '" + productID + "' ,'" + quantity + "')";
+            query = "INSERT INTO  SUPPLIES(SupplierID,ProductID,Quantity,Cost) VALUES('" + supplierID + "', '" + productID + "' ,'" + quantity + "', " + cost + ")";
 
         } else {
-            query = "UPDATE SUPPLIES SET ProductID='" + productID + "', Quantity ='" + quantity +"' WHERE SupplierID = '" + id +"' AND Date_='"+date+"' ";
+            query = "UPDATE SUPPLIES SET ProductID='" + productID + "', Quantity ='" + quantity + "', Cost = " + cost + " WHERE SupplierID = '" + id + "' AND Date_='" + date + "' ";
 
         }
         try {
@@ -135,25 +141,27 @@ public class SupplyUIController implements Initializable {
             dbc.updateTable(query);
             lbl_SupplierID.setVisible(true);
             tf_supplierID.setVisible(true);
-             btn_insert.setText("Insert");
+            btn_insert.setText("Insert");
             dbc.disconnect();
 
             updateTable("SELECT * FROM SUPPLIES");
             clearTextFields();
 
         } catch (SQLException ex) {
-            
+
             if (ex.toString().contains("supplies_fk_supplierID")) {
                 new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Invalid SupplierID!");
             } else if (ex.toString().contains("supplies_fk_productID")) {
                 new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Invalid ProductID");
             } else if (ex.toString().contains("chk_quantity_supplies")) {
                 new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Quantity must be more than Zero");
+            } else if (ex.toString().contains("supp_chk_cost")) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Cost must be more than Zero");
             } else {
                 new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Unknown error. Try again later.");
             }
             System.out.println(ex);
-        /*
+            /*
             System.out.println(ex);
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("");
@@ -180,15 +188,15 @@ public class SupplyUIController implements Initializable {
             alert.setContentText("There was a problem updating stock in Product table!");
             alert.show();
         }
-       
+
     }
 
     @FXML
     private void btn_refresh_action(ActionEvent event) {
 
         //pressed = false;
-          lbl_SupplierID.setVisible(true);
-          tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         searchOption = 1;
         btn_searchBy.setText("ProductID");
 
@@ -196,7 +204,7 @@ public class SupplyUIController implements Initializable {
         date_picker.getEditor().clear();
         updateTable("SELECT * FROM SUPPLIES");
         clearTextFields();
-        
+
     }
 
     private void updateTable(String query) {
@@ -212,7 +220,7 @@ public class SupplyUIController implements Initializable {
             rsProduct = dbc.getResult(query);
             while (rsProduct.next()) {
                 supplies_list.add(new Supply(rsProduct.getInt(1), rsProduct.getInt(2), rsProduct.getString(3),
-                        rsProduct.getInt(4)));
+                        rsProduct.getInt(4), rsProduct.getInt(5)));
 
             }
             dbc.disconnect();
@@ -223,14 +231,13 @@ public class SupplyUIController implements Initializable {
         col_ProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
         col_Quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
+        col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         supplies_table.setItems(supplies_list);
-
     }
 
     public void searchBy() {
-          lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         String query = "SELECT * FROM SUPPLIES";
 
         if (searchOption == 1) {
@@ -257,8 +264,8 @@ public class SupplyUIController implements Initializable {
 
     @FXML
     private void search_action(ActionEvent event) {
-  lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         //if (pressed == true) {
         if (searchOption == 1) {
 
@@ -315,8 +322,8 @@ public class SupplyUIController implements Initializable {
 
     @FXML
     private void searchByProduct_action(ActionEvent event) {
-          lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         searchOption = 1;
         // pressed = true;
         btn_searchBy.setText("ProductID");
@@ -324,8 +331,8 @@ public class SupplyUIController implements Initializable {
 
     @FXML
     private void searchByDate_action(ActionEvent event) {
-         lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         searchOption = 3;
         // pressed = true;
         btn_searchBy.setText("Date");
@@ -333,25 +340,26 @@ public class SupplyUIController implements Initializable {
 
     @FXML
     private void searchByProductAndDate_action(ActionEvent event) {
-          lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         searchOption = 2;
         //pressed = true;
         btn_searchBy.setText("ProductID And Date");
     }
 
     public void clearTextFields() {
-          //lbl_SupplierID.setVisible(true);
-          //tf_supplierID.setVisible(true);
+        //lbl_SupplierID.setVisible(true);
+        //tf_supplierID.setVisible(true);
         tf_supplierID.clear();
         tf_productID.clear();
         tf_quantity.clear();
+        tf_cost.clear();
     }
 
     @FXML
     private void btnDeleteOnClicked(ActionEvent event) {
-            lbl_SupplierID.setVisible(true);
-            tf_supplierID.setVisible(true);
+        lbl_SupplierID.setVisible(true);
+        tf_supplierID.setVisible(true);
         try {
             Database db = new Database();
             db.connect();
@@ -370,15 +378,15 @@ public class SupplyUIController implements Initializable {
                 alert.getButtonTypes().setAll(yes, no);
                 Optional<ButtonType> choice = alert.showAndWait();
                 if (choice.get() == yes) {
-                    String query = "DELETE FROM SUPPLIES WHERE SupplierID = '"+selected.getSupplierID()+"' AND Date_= '"+selected.getDate()+"'AND Quantity='"+selected.getQuantity()+"'";
+                    String query = "DELETE FROM SUPPLIES WHERE SupplierID = '" + selected.getSupplierID() + "' AND Date_= '" + selected.getDate() + "'AND Quantity='" + selected.getQuantity() + "'";
                     System.out.println(query);
                     db.updateTable(query);
                     db.disconnect();
-                    lblAlert.setText("Data deleted successfully!");
-                    lblAlert.setOpacity(1);
-                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                   pause.setOnFinished(e -> lblAlert.setOpacity(0));
-                    pause.play();
+                    //lblAlert.setText("Data deleted successfully!");
+                    //lblAlert.setOpacity(1);
+                    //PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    //pause.setOnFinished(e -> lblAlert.setOpacity(0));
+                    //pause.play();
                 }
             }
             updateTable("SELECT * FROM SUPPLIES");
@@ -405,10 +413,10 @@ public class SupplyUIController implements Initializable {
             lbl_SupplierID.setVisible(false);
             tf_supplierID.setVisible(false);
             id = selected.getSupplierID();
-            date=selected.getDate();
+            date = selected.getDate();
             tf_productID.setText(Integer.toString(selected.getProductID()));
             tf_quantity.setText(Integer.toString(selected.getQuantity()));
-  
+
             btn_insert.setText("Update");
         }
     }

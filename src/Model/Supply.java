@@ -15,12 +15,14 @@ public class Supply {
     int productID;
     String date;
     int quantity;
+    int cost;
 
-    public Supply(int supplierID, int productID, String date, int quantity) {
+    public Supply(int supplierID, int productID, String date, int quantity, int cost) {
         this.supplierID = supplierID;
         this.productID = productID;
         this.date = date;
         this.quantity = quantity;
+        this.cost = cost;
     }
     
     
@@ -56,6 +58,10 @@ public class Supply {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getCost() {
+        return cost;
     }
     
     

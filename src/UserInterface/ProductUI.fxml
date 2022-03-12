@@ -42,5 +42,6 @@
       <Button layoutX="521.0" layoutY="108.0" mnemonicParsing="false" onAction="#btnClearFieldsOnAction" text="Reset" />
       <Button layoutX="969.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRefreshOnClick" text="Reload Page" />
       <Button fx:id="btnAddToOrder" layoutX="395.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnAddToOrderOnAction" text="Add To Order" />
+      <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnShowOrderOnAction" text="See Orders" />
    </children>
 </AnchorPane>

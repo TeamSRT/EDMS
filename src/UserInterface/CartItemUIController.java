@@ -17,13 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author ktouf
  */
-public class ProductQuantityUIController implements Initializable {
+public class CartItemUIController implements Initializable {
 
     @FXML
     private Label lblBrand;
@@ -72,11 +73,13 @@ public class ProductQuantityUIController implements Initializable {
             return;
         }
         prodController.orderList.add(new CartItem(curr.getProductID(), Integer.parseInt(tfQuantity.getText()), Integer.parseInt(tfMoney.getText())));
-        
+        ((Stage) tfMoney.getScene().getWindow()).close();
     }
 
     @FXML
-    private void btnCaccelOnClick(ActionEvent event) {
+    private void btnCancelOnClick(ActionEvent event) {
+        ((Stage) tfMoney.getScene().getWindow()).close();
+        
     }
 
 }
