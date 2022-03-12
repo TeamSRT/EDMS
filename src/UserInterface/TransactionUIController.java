@@ -113,13 +113,29 @@ public class TransactionUIController implements Initializable {
     private TableColumn<Service, String> tcGivenDate;
     ObservableList<Service> listService = FXCollections.observableArrayList();
     ObservableList<Supply> supplies_list = FXCollections.observableArrayList();
-
+    ObservableList<Order> listOrder = FXCollections.observableArrayList();
+    
+    int revOrders = 0;
+    int revServices = 0;
+    int expanseSupply = 0;
+    int profit = 0;
+    @FXML
+    private Label lblRevOrder;
+    @FXML
+    private Label lblExpSupp;
+    @FXML
+    private Label lblRevServices;
+    @FXML
+    private Label lblProfit;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showServiceTable("SELECT * FROM SERVICE_");
-        updateTable("SELECT * FROM SUPPLIES");
-
+        showSupplyTable("SELECT * FROM SUPPLIES");
+        showOrderTable("SELECT * FROM ORDERS");
+        showTotal();
     }
+    
 
     private void showServiceTable(String query) {
         try {
@@ -131,6 +147,7 @@ public class TransactionUIController implements Initializable {
             boolean check = false;
             while (rs.next()) {
                 listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"), rs.getString("givenDate")));
+                revServices += rs.getInt("serviceCharge");
             }
             tcServiceID.setCellValueFactory(new PropertyValueFactory("serviceID"));
             tcServicesProductID.setCellValueFactory(new PropertyValueFactory("productID"));
@@ -149,8 +166,8 @@ public class TransactionUIController implements Initializable {
         }
 
     }
-    
-    private void updateTable(String query) {
+
+    private void showSupplyTable(String query) {
 
         supplies_list.clear();
         modify = false;
@@ -164,7 +181,7 @@ public class TransactionUIController implements Initializable {
             while (rsProduct.next()) {
                 supplies_list.add(new Supply(rsProduct.getInt(1), rsProduct.getInt(2), rsProduct.getString(3),
                         rsProduct.getInt(4), rsProduct.getInt(5)));
-
+                expanseSupply += rsProduct.getInt(5);
             }
             dbc.disconnect();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -178,12 +195,63 @@ public class TransactionUIController implements Initializable {
         tvSupplies.setItems(supplies_list);
     }
 
+    private void showOrderTable(String query) {
+        listOrder.clear();
+        ResultSet rsOrder = null;
+        try {
+            Database db = new Database();
+            db.connect();
+            rsOrder = db.getResult(query);
+            while (rsOrder.next()) {
+                listOrder.add(new Order(rsOrder.getInt("orderID"), rsOrder.getInt("customerID"), rsOrder.getInt("productID"),
+                        rsOrder.getInt("quantity"), rsOrder.getTimestamp("orderTime"), rsOrder.getInt("Cost")));
+                revOrders += rsOrder.getInt("Cost");
+            }
+            db.disconnect();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ProductUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        tcOrderID.setCellValueFactory(new PropertyValueFactory<>("orderID"));
+        tcCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        tcProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        tcQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
+        tcCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        tvOrder.setItems(listOrder);
+        
+    }
+
     @FXML
     private void btnSearchOnClick(ActionEvent event) {
+        String from = "";
+        String to = "";
+        if (dpFrom.getValue() == null) {
+            from = "1000-01-01";
+        } else {
+            from = dpFrom.getValue().toString();
+        }
+        if (dpTo.getValue() == null) {
+            to = "3999-12-31";
+        } else {
+            to = dpTo.getValue().toString();
+        }
+        showServiceTable("SELECT * FROM SERVICE_ WHERE CONVERT(DATE,givenDate) >= '" + from + "' AND CONVERT(DATE,givenDate) <= '" + to + "'");
+        showSupplyTable("SELECT * FROM SUPPLIES WHERE CONVERT(DATE,DATE_) >= '" + from + "' AND CONVERT(DATE,DATE_) <= '" + to + "'");
+        showOrderTable("SELECT * FROM ORDERS WHERE CONVERT(DATE,orderTime) >= '" + from + "' AND CONVERT(DATE,orderTime) <= '" + to + "'");
+        showTotal();
     }
 
     @FXML
     private void btnModifyOnCliked(MouseEvent event) {
+
+    }
+
+    private void showTotal() {
+        lblExpSupp.setText(expanseSupply + "");
+        lblRevOrder.setText(revOrders + "");
+        lblRevServices.setText(revServices + "");
+        lblProfit.setText(expanseSupply + revOrders + revServices + "");
     }
 
 }
