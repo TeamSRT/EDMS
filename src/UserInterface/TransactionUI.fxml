@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <ScrollPane id="ScrollPane" fx:id="btn_modify" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#btnModifyOnCliked" prefHeight="1000.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.TransactionUIController">
-    <AnchorPane id="AnchorPane" prefHeight="845.0" prefWidth="1080.0">
+    <AnchorPane id="AnchorPane" prefHeight="982.0" prefWidth="1080.0">
         <children>
             <DatePicker fx:id="dpFrom" layoutX="294.0" layoutY="14.0" />
             <Label layoutX="260.0" layoutY="18.0" text="From: " />
@@ -27,7 +27,7 @@
                     <TableColumn fx:id="tcCost" prefWidth="198.0" text="Cost" />
                 </columns>
             </TableView>
-            <TableView fx:id="supplies_table" layoutX="10.0" layoutY="360.0" prefHeight="240.0" prefWidth="1030.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <TableView fx:id="tvSupplies" layoutX="10.0" layoutY="360.0" prefHeight="240.0" prefWidth="1030.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                 <columns>
                     <TableColumn fx:id="col_SupplierID" prefWidth="206.0" text="SupplierID" />
                     <TableColumn fx:id="col_ProductID" prefWidth="195.0" text="ProductID" />
@@ -46,10 +46,30 @@
                     <Font name="System Bold" size="18.0" />
                 </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="611.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Orders:" />
-            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="628.0" prefHeight="17.0" prefWidth="140.0" text="Expanse From Supplies:" />
-            <Label layoutX="913.0" layoutY="611.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
-            <Label layoutX="913.0" layoutY="628.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="898.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Orders:" />
+            <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="932.0" prefHeight="17.0" prefWidth="140.0" text="Expanse From Supplies:" />
+            <Label layoutX="913.0" layoutY="898.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+            <Label layoutX="913.0" layoutY="932.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+         <Label alignment="CENTER" layoutX="14.0" layoutY="620.0" prefHeight="17.0" prefWidth="1060.0" text="Services Provided" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="915.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Services:" />
+         <Label layoutX="913.0" layoutY="915.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+         <TableView fx:id="tvService" layoutX="19.0" layoutY="647.0" prefHeight="240.0" prefWidth="976.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <columns>
+               <TableColumn fx:id="tcServiceID" prefWidth="102.0" text="Service ID" />
+               <TableColumn fx:id="tcServicesProductID" prefWidth="125.0" text="Product ID" />
+               <TableColumn fx:id="tcCustomerID1" prefWidth="122.0" text="Customer ID" />
+               <TableColumn fx:id="tcDetails" prefWidth="256.0" text="Details" />
+               <TableColumn fx:id="tcServiceCharge" prefWidth="134.0" text="Service Charge" />
+               <TableColumn fx:id="tcServiceStatus" prefWidth="129.0" text="Service Status" />
+               <TableColumn fx:id="tcGivenDate" prefWidth="151.0" text="Add Date " />
+            </columns>
+         </TableView>
+         <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="949.0" prefHeight="17.0" prefWidth="140.0" text="Total:" />
+         <Label layoutX="913.0" layoutY="949.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
         </children>
     </AnchorPane>
 

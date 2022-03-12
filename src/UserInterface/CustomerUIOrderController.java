@@ -7,6 +7,7 @@ package UserInterface;
 
 import Model.Customer;
 import Model.CustomerOrder;
+import Model.CustomerService;
 import Utility.DataManager;
 import Utility.Database;
 import java.net.URL;
@@ -52,21 +53,21 @@ public class CustomerUIOrderController implements Initializable {
     @FXML
     private TextField tfCustomerID;
     ObservableList<CustomerOrder> listCustomerOrder = FXCollections.observableArrayList();
-    ObservableList<CustomerOrder> listCustomerService = FXCollections.observableArrayList();
+    ObservableList<CustomerService> listCustomerService = FXCollections.observableArrayList();
     @FXML
-    private TableView<CustomerOrder> tvCustomerService;
+    private TableView<CustomerService> tvCustomerService;
     @FXML
-    private TableColumn<CustomerOrder, Integer> tcServiceProductID;
+    private TableColumn<CustomerService, String> tcServiceProductID;
     @FXML
-    private TableColumn<CustomerOrder, String> tcServiceBrand;
+    private TableColumn<CustomerService, String> tcServiceBrand;
     @FXML
-    private TableColumn<CustomerOrder, String> tcServiceModel;
+    private TableColumn<CustomerService, String> tcServiceModel;
     @FXML
-    private TableColumn<CustomerOrder, Integer> tcServiceCharge;
+    private TableColumn<CustomerService, String> tcServiceCharge;
     @FXML
-    private TableColumn<CustomerOrder, String> tcServiceStatus;
+    private TableColumn<CustomerService, String> tcServiceStatus;
     @FXML
-    private TableColumn<CustomerOrder, String> tcServiceReceive;
+    private TableColumn<CustomerService, String> tcServiceReceive;
 
     /**
      * Initializes the controller class.
@@ -121,7 +122,7 @@ public class CustomerUIOrderController implements Initializable {
         tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
         tcDue.setCellValueFactory(new PropertyValueFactory("due"));
         tcWarrantyLeft.setCellValueFactory(new PropertyValueFactory("warrantyRemain"));
-        
+
         tvCustomerOrder.setItems(listCustomerOrder);
     }
 
@@ -130,16 +131,17 @@ public class CustomerUIOrderController implements Initializable {
         try {
             String query;
             query = "SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
-                    + "FROM (SELECT * FROM ORDERS where customerID = " + DataManager.selected.getCustomerID() + ") as ORDERS"
-                    + " INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.productID"
-                    + " INNER JOIN Service_ ON SERVICE_.productID = ORDERS.productID";
+                    + "FROM SERVICE_ "
+                    + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
+                    + "where Service_.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Total Service = " + query);
             Database db = new Database();
             db.connect();
             ResultSet rs = db.getResult(query);
             while (rs.next()) {
-                listCustomerService.add(new CustomerOrder(rs.getInt("productID"), rs.getString("Brand"), rs.getString("Model"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"), rs.getString("givenDate")));
-                System.out.println("Query Service= " + query);
+                listCustomerService.add(new CustomerService(rs.getInt("productID"), rs.getString("Brand"), rs.getString("Model"),
+                        rs.getInt("serviceCharge"), rs.getString("serviceStatus"), rs.getString("receiveDate")));
+                //System.out.println("Query Service= " + query);
             }
             tcServiceProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcServiceBrand.setCellValueFactory(new PropertyValueFactory("Brand"));
@@ -147,7 +149,7 @@ public class CustomerUIOrderController implements Initializable {
             tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
             tcServiceStatus.setCellValueFactory(new PropertyValueFactory("status"));
             tcServiceReceive.setCellValueFactory(new PropertyValueFactory("givenDate"));
-            tvCustomerOrder.setItems(listCustomerService);
+            tvCustomerService.setItems(listCustomerService);
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();

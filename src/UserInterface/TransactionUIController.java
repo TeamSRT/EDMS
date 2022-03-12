@@ -7,6 +7,8 @@ package UserInterface;
 
 import Model.Customer;
 import Model.Order;
+import Model.Service;
+import Model.Supply;
 import Utility.Database;
 import java.io.IOException;
 import Model.Transaction;
@@ -72,32 +74,108 @@ public class TransactionUIController implements Initializable {
     @FXML
     private TableColumn<Order, String> tcOrderID;
     @FXML
-    private TableColumn<?, ?> tcCustomerID;
+    private TableColumn<Order, String> tcCustomerID;
     @FXML
-    private TableColumn<?, ?> tcProductID;
+    private TableColumn<Order, String> tcProductID;
     @FXML
-    private TableColumn<?, ?> tcQuantity;
+    private TableColumn<Order, String> tcQuantity;
     @FXML
-    private TableColumn<?, ?> tcTime;
+    private TableColumn<Order, String> tcTime;
     @FXML
-    private TableColumn<?, ?> tcCost;
+    private TableColumn<Order, String> tcCost;
     @FXML
-    private TableView<?> supplies_table;
+    private TableColumn<Supply, String> col_SupplierID;
     @FXML
-    private TableColumn<?, ?> col_SupplierID;
+    private TableColumn<Supply, String> col_ProductID;
     @FXML
-    private TableColumn<?, ?> col_ProductID;
+    private TableColumn<Supply, String> col_date;
     @FXML
-    private TableColumn<?, ?> col_date;
+    private TableColumn<Supply, String> col_Quantity;
     @FXML
-    private TableColumn<?, ?> col_Quantity;
+    private TableColumn<Supply, String> col_cost;
     @FXML
-    private TableColumn<?, ?> col_cost;
+    private TableView<Supply> tvSupplies;
+    @FXML
+    private TableView<Service> tvService;
+    @FXML
+    private TableColumn<Service, String> tcServiceID;
+    @FXML
+    private TableColumn<Service, String> tcServicesProductID;
+    @FXML
+    private TableColumn<Service, String> tcCustomerID1;
+    @FXML
+    private TableColumn<Service, String> tcDetails;
+    @FXML
+    private TableColumn<Service, String> tcServiceCharge;
+    @FXML
+    private TableColumn<Service, String> tcServiceStatus;
+    @FXML
+    private TableColumn<Service, String> tcGivenDate;
+    ObservableList<Service> listService = FXCollections.observableArrayList();
+    ObservableList<Supply> supplies_list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODOE
+        showServiceTable("SELECT * FROM SERVICE_");
+        updateTable("SELECT * FROM SUPPLIES");
 
+    }
+
+    private void showServiceTable(String query) {
+        try {
+            listService.clear();
+            modify = false;
+            Database db = new Database();
+            db.connect();
+            ResultSet rs = db.getResult(query);
+            boolean check = false;
+            while (rs.next()) {
+                listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"), rs.getString("givenDate")));
+            }
+            tcServiceID.setCellValueFactory(new PropertyValueFactory("serviceID"));
+            tcServicesProductID.setCellValueFactory(new PropertyValueFactory("productID"));
+            tcCustomerID.setCellValueFactory(new PropertyValueFactory("customerID"));
+            tcDetails.setCellValueFactory(new PropertyValueFactory("details"));
+            tcServiceStatus.setCellValueFactory(new PropertyValueFactory("serviceStatus"));
+            tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
+            tcGivenDate.setCellValueFactory(new PropertyValueFactory("givenDate"));
+            tvService.setItems(listService);
+            db.disconnect();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Can't Show");
+            alert.setContentText("Unable to show table!");
+            alert.show();
+        }
+
+    }
+    
+    private void updateTable(String query) {
+
+        supplies_list.clear();
+        modify = false;
+        ResultSet rsProduct = null;
+
+        try {
+
+            Database dbc = new Database();
+            dbc.connect();
+            rsProduct = dbc.getResult(query);
+            while (rsProduct.next()) {
+                supplies_list.add(new Supply(rsProduct.getInt(1), rsProduct.getInt(2), rsProduct.getString(3),
+                        rsProduct.getInt(4), rsProduct.getInt(5)));
+
+            }
+            dbc.disconnect();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TransactionUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        col_SupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
+        col_ProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        col_Quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        tvSupplies.setItems(supplies_list);
     }
 
     @FXML
@@ -107,6 +185,5 @@ public class TransactionUIController implements Initializable {
     @FXML
     private void btnModifyOnCliked(MouseEvent event) {
     }
-
 
 }
