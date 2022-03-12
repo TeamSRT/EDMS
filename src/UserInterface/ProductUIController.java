@@ -67,21 +67,18 @@ public class ProductUIController implements Initializable {
 
     ObservableList<Product> listProduct = FXCollections.observableArrayList();
     private TextField tfProductID;
+    @FXML
     private TextField tfBrand;
+    @FXML
     private TextField tfModel;
-    private TextField tfWarranty;
-    private TextField tfPrice;
-    private TextField tfStock;
-    private TextArea tfDescription;
-    private Button btnInsertProduct;
 
-    private boolean isEdit = false;
     @FXML
     private Button btnModify;
     @FXML
     private Button btnDelete;
     @FXML
     private Button btnOrder;
+    @FXML
     private ComboBox<String> cbType;
     private Label lblProductID;
     @FXML
@@ -90,6 +87,10 @@ public class ProductUIController implements Initializable {
     private Button btnCreateProduct;
     @FXML
     private Button btnViewProduct;
+    @FXML
+    private TextField tfPriceMin;
+    @FXML
+    private TextField tfpriceMax;
 
     /**
      * Initializes the controller class.
@@ -99,6 +100,14 @@ public class ProductUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cbType.getItems().add("All");
+        cbType.getItems().add("Processor");
+        cbType.getItems().add("Motherboard");
+        cbType.getItems().add("RAM");
+        cbType.getItems().add("GPU");
+        cbType.getItems().add("PSU");
+        cbType.getItems().add("Other");
+        cbType.getSelectionModel().selectFirst();
         loadProductTable("SELECT * FROM PRODUCT");
     }
 
@@ -131,41 +140,6 @@ public class ProductUIController implements Initializable {
         tvProduct.setItems(listProduct);
     }
 
-    private void btnInsertProductOnClicked(ActionEvent event) throws ClassNotFoundException, SQLException {
-        String productID = tfProductID.getText();
-        String brand = tfBrand.getText();
-        String model = tfModel.getText();
-        String warranty = tfWarranty.getText();
-        String price = tfPrice.getText();
-        String description = tfDescription.getText();
-        String stock = tfStock.getText();
-        String type = cbType.getSelectionModel().getSelectedItem();
-        String query;
-        if (isEdit) {
-            query = "UPDATE PRODUCT SET Brand = '" + brand + "', Model = '" + model + "', Warranty = " + warranty + ", Price = " + price + ", Details = '" + description + "', Stock = " + stock + ", productType = '" + type + "' WHERE ProductID = " + productID;
-        } else {
-            query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details, Stock) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "'," + stock + ")";
-        }
-        System.out.println(query);
-        Database db = new Database();
-        db.connect();
-        try {
-            db.updateTable(query);
-        } catch (SQLException ex) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Input");
-            if (isEdit) {
-                alert.setContentText("Modification failed. Insert valid data!");
-            } else {
-                alert.setContentText("Insertion failed. Insert valid data!");
-            }
-            alert.show();
-        }
-        db.disconnect();
-        loadProductTable("SELECT * FROM PRODUCT");
-        resetFields();
-    }
-
     @FXML
     private void btnModifyOnCliked(ActionEvent event) throws IOException {
         Product curr = tvProduct.getSelectionModel().getSelectedItem();
@@ -194,23 +168,11 @@ public class ProductUIController implements Initializable {
     }
 
     private void resetFields() {
-
-        lblProductID.setVisible(false);
-        tfProductID.setVisible(false);
-        tfProductID.setDisable(true);
+        tfPriceMin.setText("");
+        tfpriceMax.setText("");
         tfBrand.setText("");
         tfModel.setText("");
-        tfWarranty.setText("");
-        tfPrice.setText("");
-        tfDescription.setText("");
-        tfStock.setText("");
-        isEdit = false;
-        tfProductID.setEditable(true);
-        btnInsertProduct.setText("Insert Product");
-    }
-
-    private void btnClearOnClicked(ActionEvent event) {
-        resetFields();
+        cbInStock.setSelected(false);
     }
 
     @FXML
@@ -247,15 +209,6 @@ public class ProductUIController implements Initializable {
         dialog.setScene(dialogScene);
         dialog.show();
 
-    }
-
-    @FXML
-    private void cbInStockOnAction(ActionEvent event) {
-        if (cbInStock.isSelected()) {
-            loadProductTable("SELECT * FROM PRODUCT WHERE Stock > 0");
-        } else {
-            loadProductTable("SELECT * FROM PRODUCT");
-        }
     }
 
     @FXML
@@ -298,5 +251,39 @@ public class ProductUIController implements Initializable {
         Scene dialogScene = new Scene(rootPane);
         dialog.setScene(dialogScene);
         dialog.show();
+    }
+
+    @FXML
+    private void btnFilterOnAction(ActionEvent event) {
+        int priceMin = Integer.parseInt(tfPriceMin.getText().equals("") ? "0" : tfPriceMin.getText());
+        int priceMax = Integer.parseInt(tfpriceMax.getText().equals("") ? "999999" : tfpriceMax.getText());
+        if (priceMin > priceMax) {
+            new SceneLoader().showAlert(AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
+            return;
+        }
+        String brand = tfBrand.getText().equals("") ? "%%" : tfBrand.getText();
+        String model = tfModel.getText().equals("") ? "%%" : tfModel.getText();
+        String type = cbType.getSelectionModel().getSelectedItem().equals("All") ? "%%" : cbType.getSelectionModel().getSelectedItem();
+        String query = "SELECT * FROM PRODUCT WHERE "
+                + "Brand LIKE '" + brand + "' "
+                + "AND Model LIKE '" + model + "' "
+                + "AND productType LIKE '" + type + "' "
+                + "AND Price >= " + priceMin + " "
+                + "AND Price <= " + priceMax;
+        if(cbInStock.isSelected()) {
+            query += " AND Stock > 0";
+        }
+        loadProductTable(query);
+    }
+
+    @FXML
+    private void btnClearFieldsOnAction(ActionEvent event) {
+        resetFields();
+        loadProductTable("SELECT * FROM PRODUCT");
+    }
+
+    @FXML
+    private void btnRefreshOnClick(ActionEvent event) {
+        loadProductTable("SELECT * FROM PRODUCT");
     }
 }
