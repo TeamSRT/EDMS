@@ -24,10 +24,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -64,7 +67,7 @@ public class OrderUIController implements Initializable {
     private TextField tfQuantity;
     @FXML
     private Button btnModify;
-
+    private String searchBy = "";
     private boolean isEdit = false;
     @FXML
     private Label lblOrderID;
@@ -72,13 +75,29 @@ public class OrderUIController implements Initializable {
     private TableColumn<Order, String> tcCost;
     @FXML
     private TextField tfCost;
+    @FXML
+    private TextField tfSearch;
+    @FXML
+    private TextField tfSearch2;
+    @FXML
+    private MenuButton menuBtnSearch;
+    @FXML
+    private MenuItem mitemOrderID;
+    @FXML
+    private MenuItem mitemCustomerID;
+    @FXML
+    private MenuItem mitemProductID;
+    @FXML
+    private MenuItem mitemQuantity;
+    @FXML
+    private MenuItem mitemCost;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        searchBy = "orderID";
         loadOrderTable("SELECT * FROM ORDERS");
 
         tfQuantity.setText("0");
@@ -262,5 +281,109 @@ public class OrderUIController implements Initializable {
     @FXML
     private void btnClearOnClick(ActionEvent event) {
         resetFields();
+    }
+
+    @FXML
+    private void searchOnKeyRelease(KeyEvent event) {
+        search();
+    }
+
+    @FXML
+    private void searchByOrderID(ActionEvent event) {
+        tfSearch2.setDisable(true);
+        tfSearch2.setOpacity(0);
+        searchBy = "orderID";
+        menuBtnSearch.setText("Order ID");       
+        tfSearch.setPromptText("Search by Order ID");
+        search();
+    }
+
+    @FXML
+    private void searchByCustomerID(ActionEvent event) {
+        tfSearch2.setDisable(true);
+        tfSearch2.setOpacity(0);
+        searchBy = "customerID";
+        menuBtnSearch.setText("Customer ID");       
+        tfSearch.setPromptText("Search by Customer ID");
+        search(); 
+    }
+
+    @FXML
+    private void searchByProductID(ActionEvent event){
+        tfSearch2.setDisable(true);
+        tfSearch2.setOpacity(0);
+        searchBy = "productID";
+        menuBtnSearch.setText("Product ID");       
+        tfSearch.setPromptText("Search by Product ID");
+        search();  
+    }
+
+    @FXML
+    private void searchByQuantity(ActionEvent event){
+        searchBy = "quantity";
+        menuBtnSearch.setText("Quantity");       
+        tfSearch.setPromptText("Search by minimum quantity");
+        tfSearch2.setOpacity(1);
+        tfSearch2.setPromptText("Search by maximum quantity");
+        tfSearch2.setDisable(false);
+        search();
+    }
+
+    @FXML
+    private void searchByCost(ActionEvent event) {
+        searchBy = "cost";
+        menuBtnSearch.setText("Cost");       
+        tfSearch.setPromptText("Search by minimum cost");
+        tfSearch2.setOpacity(1);
+        tfSearch2.setPromptText("Search by maximum cost");
+        tfSearch2.setDisable(false);
+        search();
+    }
+
+    private void search() {
+         if(tfSearch.getText().equals(""))
+        {
+            System.out.println("No text in the search field");
+            loadOrderTable("SELECT * FROM ORDERS");  
+        }       
+        else
+        {
+            String query;
+            switch (searchBy) {               
+                case "productID":
+                    query = "SELECT * FROM ORDERS WHERE productID LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("ProductID chosen");
+                    break;
+                case "customerID":
+                    query = "SELECT * FROM ORDERS WHERE customerID LIKE '%"+tfSearch.getText()+"%'";
+                    System.out.println("CustomerID Chosen");
+                    break;               
+                case "quantity":
+                     int quantityMin = Integer.parseInt(tfSearch.getText().equals("") ? "0" : tfSearch.getText());
+                     int quantityMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
+                     if (quantityMin > quantityMax) {
+                          new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
+                         return;
+                    }
+                    query = "SELECT * FROM ORDERS WHERE quantity >= "+quantityMin+" AND quantity <= "+quantityMax;        
+                    System.out.println("Quantity query = "+query);
+                    break;
+                 case "cost":
+                     int costMin = Integer.parseInt(tfSearch.getText().equals("") ? "0" : tfSearch.getText());
+                     int costMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
+                     if (costMin > costMax) {
+                          new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
+                         return;
+                    }
+                    query = "SELECT * FROM ORDERS WHERE Cost >= "+costMin+" AND Cost <= "+costMax;        
+                    System.out.println("Cost query = "+query);
+                    break;    
+                default:   
+                    query = "SELECT * FROM ORDERS WHERE orderID LIKE '%"+tfSearch.getText()+"%'";                          
+                    System.out.println("Order ID chosen");
+                    break;            
+            }
+            loadOrderTable(query);            
+        }
     }
 }

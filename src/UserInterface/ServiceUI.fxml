@@ -44,7 +44,7 @@
       <Button fx:id="btnModify" layoutX="903.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Service" AnchorPane.rightAnchor="30.0" />
       <Button fx:id="btnDelete" layoutX="766.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Service" AnchorPane.rightAnchor="170.0" />
       <TextField fx:id="tfSearch" layoutX="159.0" layoutY="31.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="354.0" promptText="Search by Service ID" />
-      <Label layoutX="951.0" layoutY="22.0" text="Search By">
+      <Label layoutX="978.0" layoutY="20.0" text="Search By">
          <font>
             <Font size="13.0" />
          </font>
