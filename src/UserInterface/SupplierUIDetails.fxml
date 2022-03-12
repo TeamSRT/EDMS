@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="UserInterface.SupplierUIDetailsController">
+   <children>
+      <TextField fx:id="tfCustomerID" editable="false" layoutX="374.0" layoutY="27.0" />
+      <Label alignment="CENTER" layoutX="104.0" layoutY="25.0" prefHeight="27.0" prefWidth="149.0" text="Total Supplies By">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="257.0" layoutY="25.0" text="Supplier ID:">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TableView layoutX="23.0" layoutY="99.0" prefHeight="417.0" prefWidth="554.0">
+        <columns>
+          <TableColumn prefWidth="119.0" text="Brand" />
+          <TableColumn prefWidth="156.0" text="Model" />
+            <TableColumn prefWidth="161.0" text="Quantity" />
+            <TableColumn prefWidth="117.0" text="Cost" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

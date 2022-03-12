@@ -15,18 +15,20 @@ public class CustomerOrder {
     int productID;
     String Brand;
     String Model;
-   
+    String warrantyRemain;
+    int due;
     public CustomerOrder()
     {
         
     }
-
-    public CustomerOrder(int orderID, String date, int productID, String Brand, String Model) {
+    public CustomerOrder(int orderID, String date, int productID, String Brand, String Model, String warrantyRemain, int due) {
         this.orderID = orderID;
         this.date = date;
         this.productID = productID;
         this.Brand = Brand;
         this.Model = Model;
+        this.warrantyRemain = warrantyRemain;
+        this.due = due;
     }
 
     public int getOrderID() {
@@ -69,6 +71,23 @@ public class CustomerOrder {
         this.Model = Model;
     }
 
+    public String getWarrantyRemain() {
+        return warrantyRemain;
+    }
+
+    public void setWarrantyRemain(String warrantyRemain) {
+        this.warrantyRemain = warrantyRemain;
+    }
+
+    public int getDue() {
+        return due;
+    }
+
+    public void setDue(int due) {
+        this.due = due;
+    }
+    
+   
     
     
 }

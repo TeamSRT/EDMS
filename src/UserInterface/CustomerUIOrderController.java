@@ -60,23 +60,41 @@ public class CustomerUIOrderController implements Initializable {
         listCustomerOrder.clear();
         tfCustomerID.setText(DataManager.selected.getCustomerID()+"");
         try {
-            String query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,Product.Model from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
+            String query;
+            query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,Product.Model,Product.Warranty,DATEDIFF(day, orderDate, Convert(DATE, getDate())) as dayDiff,(Product.Price - Orders.cost) as due from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID();
             System.out.println("Button Show Order = " + query);
             Database db = new Database();
             db.connect();
             ResultSet rs = db.getResult(query);
-            while (rs.next()) {                
-                listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model")));
-                System.out.println("OrderId = " +rs.getInt("orderID") + "ProductID = "+rs.getInt("productID"));    
-            }
-            
+            while (rs.next()) {
+                int warranty = Integer.parseInt(rs.getString("Product.warranty"));
+                int count = Integer.parseInt(rs.getString("dayDiff"));              
+                if(warranty * 365 > count)
+                {
+                   listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model"),rs.getString(count+" days"),rs.getInt("due")));
+                   System.out.println("OrderId = " +rs.getInt("orderID") + "ProductID = "+rs.getInt("productID"));
+                   System.out.println("Query = "+query);                   
+                }
+                else
+                {
+                    listCustomerOrder.add(new CustomerOrder(rs.getInt("orderID"),rs.getString("orderDate"), rs.getInt("productID"),rs.getString("Brand"),rs.getString("Model"),"Expired",rs.getInt("due")));
+                    System.out.println("OrderId = " +rs.getInt("orderID") + "ProductID = "+rs.getInt("productID"));
+                    System.out.println("Query = "+query); 
+                }
+                
+              
+            }            
             tcOrderID.setCellValueFactory(new PropertyValueFactory("orderID"));
             tcDate.setCellValueFactory(new PropertyValueFactory("date"));
             tcProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcBrand.setCellValueFactory(new PropertyValueFactory("Brand"));
             tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
             tvCustomerOrder.setItems(listCustomerOrder);
+            
+           
+            
         } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("exception in showing total order:"+ex);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
             alert.setContentText("Unable to show total orders by a customer");

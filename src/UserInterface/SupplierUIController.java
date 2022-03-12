@@ -235,6 +235,7 @@ public class SupplierUIController implements Initializable {
         lblAlert.setOpacity(0);
         tfSearch.setText("");
         btnInsertSupplier.setText("Insert Supplier");
+        showTable("SELECT * FROM SUPPLIER");
     }
 
     @FXML

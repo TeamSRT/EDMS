@@ -317,6 +317,7 @@ public class CustomerUIController implements Initializable {
         lblAlert.setOpacity(0);
         tfSearch.setText(""); 
         btnInsertCustomer.setText("Insert Customer");
+        showTable("SELECT * FROM CUSTOMER");  
     }
 
    

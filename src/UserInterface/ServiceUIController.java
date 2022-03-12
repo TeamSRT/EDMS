@@ -7,6 +7,7 @@ package UserInterface;
 
 import Model.Service;
 import Utility.Database;
+import Utility.SceneLoader;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,21 +150,13 @@ public class ServiceUIController implements Initializable {
         String serviceCharge = tfCharge.getText().trim();
         Alert alert = new Alert(AlertType.ERROR);
         if (productID.length() == 0) {
-            alert.setTitle("Product ID required!");
-            alert.setContentText("You can not keep the productID field empty!");
-            alert.show();
+            new SceneLoader().showAlert(AlertType.ERROR, "Product ID required!", "You can not keep the productID field empty!");
         } else if (customerID.length() == 0) {
-            alert.setTitle("Customer ID required!");
-            alert.setContentText("You can not keep the customerID field empty!");
-            alert.show();
+            new SceneLoader().showAlert(AlertType.ERROR, "Customer ID required!", "You can not keep the customerID field empty!");
         } else if (details.length() == 0) {
-            alert.setTitle("Details required!");
-            alert.setContentText("You can not keep the details field empty!");
-            alert.show();
+            new SceneLoader().showAlert(AlertType.ERROR, "Details required!", "You can not keep the details field empty!");
         } else if (serviceCharge.length() == 0) {
-            alert.setTitle("Service charge required!");
-            alert.setContentText("You can not keep the Service Charge field empty!");
-            alert.show();
+            new SceneLoader().showAlert(AlertType.ERROR, "Service charge required!", "You can not keep the Service Charge field empty!");
         } else {
             try {
                 Database db = new Database();
@@ -241,6 +234,7 @@ public class ServiceUIController implements Initializable {
         lblAlert.setOpacity(0);
         tfSearch.setText("");
         btnInsert.setText("Insert Service");
+        showTable("SELECT * FROM SERVICE_");
     }
 
     @FXML
@@ -351,15 +345,7 @@ public class ServiceUIController implements Initializable {
         {
             System.out.println("No text in the search field");
             showTable("SELECT * FROM SERVICE_");  
-        }
-        else if(tfSearch.getText().equals("") && tfSearch2.getText().equals(""))
-        {
-            showTable("SELECT * FROM SERVICE_");  
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Search not possible");
-            alert.setContentText("Fill up both the fields for search!");
-            alert.show();
-        }
+        }       
         else
         {
             String query;
@@ -377,14 +363,17 @@ public class ServiceUIController implements Initializable {
                     System.out.println("Details Chosen");
                     break;
                 case "serviceCharge":
-                    query = "SELECT * FROM SERVICE_ WHERE serviceCharge <= LIKE '%"+tfSearch.getText()+"%'"
-                            + "&& serviceCharge >= LIKE '%"+tfSearch2.getText()+"%'";
-                    System.out.println("Service Charge Chosen");
+                    int chargeMin = Integer.parseInt(tfSearch.getText().equals("") ? "0" : tfSearch.getText());
+                     int chargeMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
+                     if (chargeMin > chargeMax) {
+                          new SceneLoader().showAlert(AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
+                         return;
+                    }
+                    query = "SELECT * FROM SERVICE_ WHERE serviceCharge >= "+chargeMin+" AND serviceCharge <= "+chargeMax;        
                     System.out.println("Service charge query = "+query);
                     break;
                 default:   
-                    query = "SELECT * FROM SERVICE_ WHERE serviceID LIKE '%"+tfSearch.getText()+"%'";
-                          
+                    query = "SELECT * FROM SERVICE_ WHERE serviceID LIKE '%"+tfSearch.getText()+"%'";                          
                     System.out.println("Service ID chosen");
                     break;            
             }
