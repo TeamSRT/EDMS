@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorMain" prefHeight="550.0" prefWidth="1090.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.CreateProductController">
+   <children>
+      <TextField fx:id="tfProductID" layoutX="310.0" layoutY="28.0" prefHeight="25.0" prefWidth="180.0" promptText="Product ID" visible="false" />
+      <TextField fx:id="tfBrand" layoutX="310.0" layoutY="66.0" prefHeight="25.0" prefWidth="180.0" promptText="Brand" />
+      <TextField fx:id="tfModel" layoutX="310.0" layoutY="105.0" prefHeight="25.0" prefWidth="180.0" promptText="Model" />
+      <TextField fx:id="tfWarranty" layoutX="310.0" layoutY="145.0" prefHeight="25.0" prefWidth="180.0" promptText="Warranty" />
+      <TextField fx:id="tfPrice" layoutX="310.0" layoutY="181.0" prefHeight="25.0" prefWidth="180.0" promptText="Price" />
+      <TextArea fx:id="tfDescription" layoutX="568.0" layoutY="63.0" prefHeight="180.0" prefWidth="270.0" promptText="Description" />
+      <Label fx:id="lblProductID" layoutX="242.0" layoutY="32.0" text="Product ID" visible="false" />
+      <Label layoutX="242.0" layoutY="70.0" text="Brand" />
+      <Label layoutX="242.0" layoutY="109.0" text="Model" />
+      <Label layoutX="242.0" layoutY="149.0" text="Warranty" />
+      <Label layoutX="242.0" layoutY="185.0" text="Price" />
+      <Label layoutX="500.0" layoutY="67.0" text="Description" />
+      <Label layoutX="242.0" layoutY="222.0" text="Type" />
+      <ComboBox fx:id="cbType" disable="true" layoutX="310.0" layoutY="218.0" prefHeight="25.0" prefWidth="180.0" />
+      <CheckBox fx:id="cbAdditional" layoutX="453.0" layoutY="290.0" mnemonicParsing="false" text="Insert Additional Information" />
+      <Pane fx:id="paneMotherboard" layoutX="21.0" layoutY="319.0" prefHeight="187.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextField fx:id="tfChipset" layoutX="310.0" layoutY="17.0" prefHeight="25.0" prefWidth="180.0" promptText="Chipset" />
+            <Label fx:id="lblChipset" layoutX="229.0" layoutY="20.0" text="Chipset" />
+            <TextField fx:id="tfSocket" layoutX="310.0" layoutY="49.0" prefHeight="25.0" prefWidth="180.0" promptText="Socket" />
+            <Label fx:id="lblChipset1" layoutX="229.0" layoutY="52.0" text="Socket" />
+            <TextField fx:id="tfPCI" layoutX="310.0" layoutY="82.0" prefHeight="25.0" prefWidth="180.0" promptText="PCIe Slots" />
+            <Label fx:id="lblChipset11" layoutX="229.0" layoutY="85.0" text="PCIe Slots" />
+            <TextField fx:id="tfRamType" layoutX="310.0" layoutY="117.0" prefHeight="25.0" prefWidth="180.0" promptText="RAM Type" />
+            <Label fx:id="lblChipset111" layoutX="229.0" layoutY="120.0" text="RAM Type" />
+            <TextField fx:id="tfRamCapacity" layoutX="310.0" layoutY="148.0" prefHeight="25.0" prefWidth="180.0" promptText="RAM Capacity" />
+            <Label fx:id="lblChipset1111" layoutX="229.0" layoutY="151.0" text="RAM Capacity" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneProcessor" disable="true" layoutX="21.0" layoutY="319.0" prefHeight="118.0" prefWidth="1080.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextField fx:id="tfCoreCount" layoutX="310.0" layoutY="17.0" prefHeight="25.0" prefWidth="180.0" promptText="Core Count" />
+            <Label fx:id="lblChipset1" layoutX="229.0" layoutY="20.0" text="Core Count" />
+            <TextField fx:id="tfCpuClock" layoutX="310.0" layoutY="49.0" prefHeight="25.0" prefWidth="180.0" promptText="Clock Speed" />
+            <Label fx:id="lblChipset11" layoutX="229.0" layoutY="52.0" text="Clock Speed" />
+            <TextField fx:id="tfCache" layoutX="310.0" layoutY="82.0" prefHeight="25.0" prefWidth="180.0" promptText="Cache Size" />
+            <Label fx:id="lblChipset111" layoutX="229.0" layoutY="85.0" text="Cache" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneRAM" layoutX="21.0" layoutY="319.0" prefHeight="118.0" prefWidth="1080.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextField fx:id="tfFreq" layoutX="310.0" layoutY="17.0" prefHeight="25.0" prefWidth="180.0" promptText="Frequency" />
+            <Label fx:id="lblChipset11" layoutX="229.0" layoutY="20.0" text="Frequency" />
+            <TextField fx:id="tfDDRType" layoutX="310.0" layoutY="49.0" prefHeight="25.0" prefWidth="180.0" promptText="DDR Type" />
+            <Label fx:id="lblChipset111" layoutX="229.0" layoutY="52.0" text="DDR Type" />
+            <TextField fx:id="tfCapacity" layoutX="310.0" layoutY="82.0" prefHeight="25.0" prefWidth="180.0" promptText="Capacity" />
+            <Label fx:id="lblChipset1112" layoutX="229.0" layoutY="85.0" text="Capacity" />
+         </children>
+      </Pane>
+      <Pane fx:id="panePSU" layoutX="21.0" layoutY="319.0" prefHeight="118.0" prefWidth="1080.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextField fx:id="tfContPower" layoutX="310.0" layoutY="17.0" prefHeight="25.0" prefWidth="180.0" promptText="Cont. Power" />
+            <Label fx:id="lblChipset111" layoutX="229.0" layoutY="20.0" text="Cont. Power" />
+            <TextField fx:id="tfACInput" layoutX="310.0" layoutY="49.0" prefHeight="25.0" prefWidth="180.0" promptText="AC Input" />
+            <Label fx:id="lblChipset1112" layoutX="229.0" layoutY="52.0" text="AC Input" />
+            <TextField fx:id="tfDCoutput" layoutX="310.0" layoutY="82.0" prefHeight="25.0" prefWidth="180.0" promptText="DC Output" />
+            <Label fx:id="lblChipset11121" layoutX="229.0" layoutY="85.0" text="DC Output" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneGPU" layoutX="21.0" layoutY="319.0" prefHeight="118.0" prefWidth="1080.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextField fx:id="tfClockSpeed" layoutX="310.0" layoutY="17.0" prefHeight="25.0" prefWidth="180.0" promptText="Clock Speed" />
+            <Label fx:id="lblChipset1112" layoutX="229.0" layoutY="20.0" text="Clock Speed" />
+            <TextField fx:id="tfVRAM" layoutX="310.0" layoutY="49.0" prefHeight="25.0" prefWidth="180.0" promptText="VRAM Size" />
+            <Label fx:id="lblChipset11121" layoutX="229.0" layoutY="52.0" text="VRAM Size" />
+            <TextField fx:id="tfMemoryClock" layoutX="310.0" layoutY="82.0" prefHeight="25.0" prefWidth="180.0" promptText="Memory Clock" />
+            <Label fx:id="lblChipset111211" layoutX="229.0" layoutY="85.0" text="Memory Clock" />
+         </children>
+      </Pane>
+      <Button fx:id="btnCancel" layoutX="912.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnCancelOnClick" text="Cancel" />
+      <Button fx:id="btnCreate" layoutX="973.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnCreateProductOnClick" text="Create Product" />
+      <TextField fx:id="tfStock" disable="true" layoutX="568.0" layoutY="28.0" prefHeight="25.0" prefWidth="180.0" promptText="Stock" visible="false" />
+      <Label fx:id="lblStock" disable="true" layoutX="500.0" layoutY="32.0" text="Stock" visible="false" />
+   </children>
+</AnchorPane>

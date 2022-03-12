@@ -199,6 +199,7 @@ public class OrderUIController implements Initializable {
             alert.show();
             return;
         }
+        /*
         tfProductID.setText(curr.getProductID() + "");
         tfCustomerID.setText(curr.getCustomerID() + "");
         tfQuantity.setText(curr.getQuantity() + "");
@@ -211,7 +212,8 @@ public class OrderUIController implements Initializable {
         lblOrderID.setOpacity(1);
 
         isEdit = true;
-        btnInsert.setText("Modify");
+        btnInsert.setText("Modify");*/
+        
     }
 
     private void resetFields() {

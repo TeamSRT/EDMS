@@ -8,6 +8,7 @@ package UserInterface;
 import Model.Product;
 import Utility.DataManager;
 import Utility.Database;
+import Utility.SceneLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -65,38 +66,30 @@ public class ProductUIController implements Initializable {
     private TableColumn<Product, String> tcType;
 
     ObservableList<Product> listProduct = FXCollections.observableArrayList();
-    @FXML
     private TextField tfProductID;
-    @FXML
     private TextField tfBrand;
-    @FXML
     private TextField tfModel;
-    @FXML
     private TextField tfWarranty;
-    @FXML
     private TextField tfPrice;
-    @FXML
     private TextField tfStock;
-    @FXML
     private TextArea tfDescription;
-    @FXML
     private Button btnInsertProduct;
 
     private boolean isEdit = false;
     @FXML
     private Button btnModify;
     @FXML
-    private Button btnClear;
-    @FXML
     private Button btnDelete;
     @FXML
     private Button btnOrder;
-    @FXML
     private ComboBox<String> cbType;
-    @FXML
     private Label lblProductID;
     @FXML
     private CheckBox cbInStock;
+    @FXML
+    private Button btnCreateProduct;
+    @FXML
+    private Button btnViewProduct;
 
     /**
      * Initializes the controller class.
@@ -106,17 +99,6 @@ public class ProductUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lblProductID.setVisible(false);
-        tfProductID.setVisible(false);
-        tfProductID.setDisable(true);
-
-        cbType.getItems().add("Processor");
-        cbType.getItems().add("Motherboard");
-        cbType.getItems().add("RAM");
-        cbType.getItems().add("GPU");
-        cbType.getItems().add("PSU");
-        cbType.getItems().add("Other");
-        cbType.getSelectionModel().selectFirst();
         loadProductTable("SELECT * FROM PRODUCT");
     }
 
@@ -149,7 +131,6 @@ public class ProductUIController implements Initializable {
         tvProduct.setItems(listProduct);
     }
 
-    @FXML
     private void btnInsertProductOnClicked(ActionEvent event) throws ClassNotFoundException, SQLException {
         String productID = tfProductID.getText();
         String brand = tfBrand.getText();
@@ -186,7 +167,7 @@ public class ProductUIController implements Initializable {
     }
 
     @FXML
-    private void btnModifyOnCliked(ActionEvent event) {
+    private void btnModifyOnCliked(ActionEvent event) throws IOException {
         Product curr = tvProduct.getSelectionModel().getSelectedItem();
         if (curr == null) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -195,19 +176,21 @@ public class ProductUIController implements Initializable {
             alert.show();
             return;
         }
-        lblProductID.setVisible(true);
-        tfProductID.setVisible(true);
-        tfProductID.setDisable(false);
-        tfProductID.setText(curr.getProductID() + "");
-        tfBrand.setText(curr.getBrand());
-        tfModel.setText(curr.getModel());
-        tfWarranty.setText(curr.getWarranty() + "");
-        tfPrice.setText(curr.getPrice() + "");
-        tfDescription.setText(curr.getDescription());
-        tfStock.setText(curr.getStock() + "");
-        isEdit = true;
-        tfProductID.setEditable(false);
-        btnInsertProduct.setText("Update Product");
+        DataManager.createProdIsEdit = true;
+        DataManager.createProductId = curr.getProductID();
+        DataManager.createProdType = curr.getType();
+        DataManager.createProdIsView = false;
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/CreateProduct.fxml"));
+
+        Parent rootPane = (Parent) loader.load();
+        Scene dialogScene = new Scene(rootPane);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
     }
 
     private void resetFields() {
@@ -226,7 +209,6 @@ public class ProductUIController implements Initializable {
         btnInsertProduct.setText("Insert Product");
     }
 
-    @FXML
     private void btnClearOnClicked(ActionEvent event) {
         resetFields();
     }
@@ -274,5 +256,47 @@ public class ProductUIController implements Initializable {
         } else {
             loadProductTable("SELECT * FROM PRODUCT");
         }
+    }
+
+    @FXML
+    private void btnCreateProductOnClick(ActionEvent event) throws IOException {
+        DataManager.createProdIsEdit = false;
+        DataManager.createProdIsView = false;
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/CreateProduct.fxml"));
+
+        Parent rootPane = (Parent) loader.load();
+        Scene dialogScene = new Scene(rootPane);
+        dialog.setScene(dialogScene);
+        dialog.show();
+    }
+
+    @FXML
+    private void btnViewProductOnClick(ActionEvent event) throws IOException {
+        Product curr = tvProduct.getSelectionModel().getSelectedItem();
+        if (curr == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Select a product from table to view!");
+            alert.show();
+            return;
+        }
+        DataManager.createProdIsEdit = true;
+        DataManager.createProductId = curr.getProductID();
+        DataManager.createProdType = curr.getType();
+        DataManager.createProdIsView = true;
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/CreateProduct.fxml"));
+
+        Parent rootPane = (Parent) loader.load();
+        Scene dialogScene = new Scene(rootPane);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 }

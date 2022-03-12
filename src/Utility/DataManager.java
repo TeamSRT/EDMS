@@ -18,4 +18,10 @@ public class DataManager {
     public static Product product;
     public static Customer selected;
     public static String permission;
+    
+    public static boolean createProdIsEdit;
+    public static int createProductId;
+    public static String createProdType;
+    public static boolean createProdIsView;
+    
 }
