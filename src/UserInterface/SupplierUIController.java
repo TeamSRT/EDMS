@@ -130,9 +130,9 @@ public class SupplierUIController implements Initializable {
 
     @FXML
     private void btnInsertSupplierOnClicked(ActionEvent event) {
-        String name = tfName.getText();
-        String phone = tfPhone.getText();
-        String mail = tfMail.getText();
+        String name = tfName.getText().trim();
+        String phone = tfPhone.getText().trim();
+        String mail = tfMail.getText().trim();
         if (name.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Name field required");
@@ -171,11 +171,33 @@ public class SupplierUIController implements Initializable {
                 System.out.println("Exception in insert supplier:" + ex);
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Failed operation");
-                if (!modify) {
-                    alert.setContentText("Unable to insert data!Please check your inputs");
-                } else {
-                    alert.setContentText("Unable to update data!Please check your inputs");
-                }
+                if(ex.toString().contains("chk_supplierName"))
+                    {
+                        alert.setContentText("Please match the requested format in name field");                   
+                    }
+                    else if(ex.toString().contains("chk_phone"))
+                    {
+                        alert.setContentText("Please match the requested format and length in phone field"); 
+                    }
+                    else if(ex.toString().contains("us_phone"))
+                    {
+                        alert.setContentText("Phone number needs to be unique!");
+                    }
+                    else if(ex.toString().contains("us_mail"))
+                    {
+                        alert.setContentText("Mail needs to be unique!");
+                    }
+                    else
+                    {
+                        if(!modify)
+                        {
+                            alert.setContentText("Unable to insert data!");
+                        }
+                        else
+                        {
+                            alert.setContentText("Unable to modify data!");
+                        }
+                    }
                 alert.show();
             }
         }
@@ -217,6 +239,7 @@ public class SupplierUIController implements Initializable {
 
     @FXML
     private void btnDeleteOnClicked(ActionEvent event) {
+        resetFields();
         try {
             Database db = new Database();
             db.connect();

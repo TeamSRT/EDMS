@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.ServiceUIController">
+   <children>
+      <TableView fx:id="tvService" layoutX="-219.0" layoutY="298.0" prefHeight="350.0" prefWidth="976.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+        <columns>
+          <TableColumn fx:id="tcServiceID" prefWidth="159.0" text="Service ID" />
+          <TableColumn fx:id="tcProductID" prefWidth="158.0" text="Product ID" />
+            <TableColumn fx:id="tcCustomerID" prefWidth="173.0" text="Customer ID" />
+            <TableColumn fx:id="tcDetails" prefWidth="306.0" text="Details" />
+            <TableColumn fx:id="tcServiceCharge" prefWidth="223.0" text="Service Charge" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfProductID" layoutX="219.0" layoutY="100.0" />
+      <Label layoutX="105.0" layoutY="100.0" prefHeight="17.0" prefWidth="79.0" text="Product ID" />
+      <TextField fx:id="tfCustomerID" layoutX="219.0" layoutY="145.0" />
+      <Label layoutX="105.0" layoutY="145.0" prefHeight="0.0" prefWidth="79.0" text="Customer ID" />
+      <Label layoutX="190.0" layoutY="100.0" text="*" textFill="#ff0b0b" />
+      <Label layoutX="190.0" layoutY="145.0" prefHeight="0.0" text="*" textFill="#ff0b0b" />
+      <TextField fx:id="tfCharge" layoutX="219.0" layoutY="188.0" />
+      <Label layoutX="105.0" layoutY="188.0" prefHeight="17.0" prefWidth="79.0" text="Service Charge" />
+      <Label layoutX="190.0" layoutY="188.0" text="*" textFill="#ff0b0b" />
+      <TextArea fx:id="tfDetails" layoutX="489.0" layoutY="102.0" prefHeight="110.0" prefWidth="510.0" promptText="Why the product is given for servicing" />
+      <Button fx:id="btnInsert" layoutX="415.0" layoutY="240.0" mnemonicParsing="false" onAction="#btnInsertOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Insert Service" />
+      <Button fx:id="btnReset" layoutX="543.0" layoutY="240.0" mnemonicParsing="false" onAction="#btnResetOnClick" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Reset fields" />
+      <Label fx:id="lblAlert" layoutX="425.0" layoutY="271.0" opacity="0.0" text="Data Inserted Successfully!" textFill="#23b223">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnModify" layoutX="903.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Modify Service" AnchorPane.rightAnchor="30.0" />
+      <Button fx:id="btnDelete" layoutX="766.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Delete Service" AnchorPane.rightAnchor="170.0" />
+      <TextField fx:id="tfSearch" layoutX="159.0" layoutY="31.0" onKeyReleased="#searchOnKeyRelease" prefHeight="39.0" prefWidth="354.0" promptText="Search by Service ID" />
+      <Label layoutX="951.0" layoutY="22.0" text="Search By">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <MenuButton fx:id="menuBtnSearch" alignment="CENTER" layoutX="901.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Service ID" AnchorPane.rightAnchor="30.0">
+         <items>
+            <MenuItem fx:id="mitemServiceID" mnemonicParsing="false" onAction="#searchByServiceID" text="Service ID" />
+            <MenuItem fx:id="mitemProductID" mnemonicParsing="false" onAction="#searchByProductID" text="Product ID" />
+            <MenuItem fx:id="mitemCustomerID" mnemonicParsing="false" onAction="#searchByCustomerID" text="Customer ID" />
+            <MenuItem fx:id="mitemDetails" mnemonicParsing="false" onAction="#searchByDetails" text="Details" />
+            <MenuItem fx:id="mitemServiceCharge" mnemonicParsing="false" onAction="#searchByServiceCharge" text="Service Charge" />
+         </items>
+      </MenuButton>
+      <Label layoutX="407.0" layoutY="100.0" text="Details" />
+      <TextField fx:id="tfSearch2" disable="true" layoutX="530.0" layoutY="31.0" onKeyReleased="#searchOnKeyRelease" opacity="0.0" prefHeight="39.0" prefWidth="354.0" promptText="Search by Service ID" />
+      <Label layoutX="456.0" layoutY="100.0" text="*" textFill="#ff0b0b" />
+   </children>
+</AnchorPane>

@@ -42,6 +42,8 @@ public class HomeUIController implements Initializable {
     private Button btnAdmin;
     @FXML
     private Button btnSignOut;
+    @FXML
+    private Button btnService;
 
     /**
      * Initializes the controller class.
@@ -52,7 +54,7 @@ public class HomeUIController implements Initializable {
         loadScene("/UserInterface/ProductUI.fxml");
         if (!DataManager.permission.equalsIgnoreCase("ADMIN")) {
             
-            btnAdmin.setDisable(true);
+            btnAdmin.setDisable(true);            
             btnAdmin.setVisible(false);
         }
     }
@@ -109,5 +111,10 @@ public class HomeUIController implements Initializable {
         DataManager.product = null;
         DataManager.selected = null;
         DataManager.permission = "";
+    }
+
+    @FXML
+    private void btnServiceOnClick(ActionEvent event) {
+         loadScene("/UserInterface/ServiceUI.fxml");
     }
 }

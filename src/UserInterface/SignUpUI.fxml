@@ -5,16 +5,42 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SignUpUIController">
    <children>
-      <TextField fx:id="tfUsername" layoutX="259.0" layoutY="140.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="144.0" prefHeight="17.0" prefWidth="106.0" text="Username" textAlignment="RIGHT" />
-      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="176.0" prefHeight="17.0" prefWidth="106.0" text="Password" textAlignment="RIGHT" />
-      <Label alignment="CENTER_RIGHT" layoutX="142.0" layoutY="207.0" prefHeight="17.0" prefWidth="106.0" text="Confirm Password" textAlignment="RIGHT" />
-      <Button layoutX="284.0" layoutY="235.0" mnemonicParsing="false" onAction="#btnCreateAccountOnAction" text="Create Account" />
-      <PasswordField fx:id="tfPassword" layoutX="259.0" layoutY="172.0" />
-      <PasswordField fx:id="tfConfrimPassword" layoutX="259.0" layoutY="203.0" />
-      <Button layoutX="313.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnBackOnAction" text="Back" />
+      <TextField fx:id="tfUsername" layoutX="136.0" layoutY="141.0" promptText="Your username">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></TextField>
+      <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="144.0" prefHeight="17.0" prefWidth="106.0" text="Username" textAlignment="RIGHT">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Label>
+      <Label alignment="CENTER_RIGHT" layoutX="12.0" layoutY="176.0" prefHeight="17.0" prefWidth="106.0" text="Password" textAlignment="RIGHT">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Label>
+      <Label alignment="CENTER_RIGHT" layoutX="15.0" layoutY="207.0" prefHeight="17.0" prefWidth="106.0" text="Confirm Password" textAlignment="RIGHT">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Label>
+      <Button layoutX="103.0" layoutY="243.0" mnemonicParsing="false" onAction="#btnCreateAccountOnAction" prefHeight="25.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Create Account">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Button>
+      <PasswordField fx:id="tfPassword" layoutX="134.0" layoutY="172.0" promptText="Your password">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="tfConfrimPassword" layoutX="134.0" layoutY="203.0" promptText="Confirm password">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></PasswordField>
+      <Button layoutX="126.0" layoutY="282.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="25.0" prefWidth="50.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Back">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font></Button>
+      <AnchorPane layoutX="320.0" prefHeight="400.0" prefWidth="280.0" style="-fx-background-color: white;" stylesheets="@interfaceUI.css" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
