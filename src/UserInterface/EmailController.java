@@ -7,6 +7,7 @@ package UserInterface;
 
 import Password.Email;
 import Utility.Database;
+import Utility.SceneLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -39,8 +40,6 @@ public class EmailController implements Initializable {
     private TextField UpdateEmail_tf;
     @FXML
     private Button valid_btn;
-    @FXML
-    private Label otp_check_show;
 
     public static int sent_otp;
     Database d = new Database();
@@ -67,7 +66,7 @@ public class EmailController implements Initializable {
     private void valid_btn(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
 
         //String tf_get_otp = tf_OTP.getText();
-        String email = UpdateEmail_tf.getText();
+        email = UpdateEmail_tf.getText();
         String user_query = "SELECT COUNT(Email) FROM Users WHERE Email = '" + email + "'";
 
         try {
@@ -85,6 +84,7 @@ public class EmailController implements Initializable {
             if (count == 1) {
 
                 Password = tf_newpass.getText();
+                email = UpdateEmail_tf.getText();
                 Parent root = FXMLLoader.load(getClass().getResource("OTPcheck.fxml"));
                 Scene src = new Scene(root);
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -96,7 +96,7 @@ public class EmailController implements Initializable {
                 int rand = (int) (Math.random() * 4000);
                 EmailController.sent_otp = rand;
                 //Storing OTP
-                Email.send("samirsarker150@gmail.com", "Samir1234", email, "CodingBuddy Email Verification", rand);
+                Email.send("samirsarker150@gmail.com", "Samir1234", email, "EDMS Password Recovery", rand);
 
             } else {
                 Alert a = new Alert(Alert.AlertType.NONE);
@@ -112,5 +112,10 @@ public class EmailController implements Initializable {
             Logger.getLogger(TransactionUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void btnBackOnAction(ActionEvent event) {
+        new SceneLoader().LoadScene(event, "/UserInterface/Login.fxml");
     }
 }

@@ -130,6 +130,8 @@ public class CreateProductController implements Initializable {
     private Button btnCancel;
     @FXML
     private Button btnCreate;
+    @FXML
+    private Label lblNoAdd;
 
     /**
      * Initializes the controller class.
@@ -233,12 +235,17 @@ public class CreateProductController implements Initializable {
                     }
                     btnCreate.setText("Update Product");
                     if (isView) {
+                        if (rs.wasNull()) {
+                            lblNoAdd.setVisible(true);
+                        }
                         btnCreate.setVisible(false);
                         btnCreate.setDisable(false);
                         setAllEditable(false);
                         cbType.setEditable(false);
                         cbType.setDisable(true);
                         cbType.getEditor().setEditable(false);
+                        cbAdditional.setDisable(true);
+                        cbAdditional.setVisible(false);
                     }
                 }
             } catch (ClassNotFoundException | SQLException ex) {
@@ -297,7 +304,7 @@ public class CreateProductController implements Initializable {
     }
 
     @FXML
-    private void btnCreateProductOnClick(ActionEvent event) throws SQLException, ClassNotFoundException {
+    private void btnCreateProductOnClick(ActionEvent event) {
         if (tfBrand.getText().trim().length() <= 0) {
             new SceneLoader().showAlert(Alert.AlertType.ERROR, "Blank Field", "Brand cannot be empty!");
         } else if (tfModel.getText().trim().length() <= 0) {
@@ -370,108 +377,157 @@ public class CreateProductController implements Initializable {
                 }
             }
         }
-        String brand = tfBrand.getText();
-        String model = tfModel.getText();
-        String warranty = tfWarranty.getText();
-        String price = tfPrice.getText();
-        String description = tfDescription.getText();
-        String type = cbType.getSelectionModel().getSelectedItem();
-        String query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "')";
-        if (isEdit) {
-            query = "UPDATE PRODUCT SET productType = '" + type + "', "
-                    + "Brand = '" + brand + "', "
-                    + "Model = '" + model + "', "
-                    + "Warranty = '" + warranty + "', "
-                    + "Price = '" + price + "', "
-                    + "Details = '" + description + "' "
-                    + "WHERE ProductID = '" + eProductID + "'";
-        }
-        Database db = new Database();
-        db.connect();
-        System.out.println(query);
-        int productID = 0;
-        if (!isEdit) {
-            ResultSet rsPID = db.updateTableWithKeys(query);
-            if (rsPID.next()) {
-                productID = rsPID.getInt(1);
+        try {
+            String brand = tfBrand.getText();
+            String model = tfModel.getText();
+            String warranty = tfWarranty.getText();
+            String price = tfPrice.getText();
+            String description = tfDescription.getText();
+            String type = cbType.getSelectionModel().getSelectedItem();
+            String query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "')";
+            if (isEdit) {
+                query = "UPDATE PRODUCT SET productType = '" + type + "', "
+                        + "Brand = '" + brand + "', "
+                        + "Model = '" + model + "', "
+                        + "Warranty = '" + warranty + "', "
+                        + "Price = '" + price + "', "
+                        + "Details = '" + description + "' "
+                        + "WHERE ProductID = '" + eProductID + "'";
             }
-        } else {
-            productID = eProductID;
-            db.updateTable(query);
-        }
+            Database db = new Database();
+            db.connect();
+            System.out.println(query);
+            int productID = 0;
+            if (!isEdit) {
+                ResultSet rsPID = db.updateTableWithKeys(query);
+                if (rsPID.next()) {
+                    productID = rsPID.getInt(1);
+                }
+            } else {
+                productID = eProductID;
+                db.updateTable(query);
+            }
 
-        if (cbAdditional.isSelected()) {
-            String queryAdd = "";
-            if (cbType.getSelectionModel().getSelectedItem() == "Motherboard") {
-                queryAdd = "INSERT INTO MOTHERBOARD(Chipset, Socekt, pcieSlots, ramType, ramCapacity, productID) VALUES(?, ?, ?, ?, ?, ?)";
-                if (isEdit) {
-                    queryAdd = "UPDATE MOTHERBOARD SET Chipset = ?, Socket = ?, pcieSlots = ?, ramType = ?,"
-                            + "ramCapacity = ? WHERE productID = ?";
+            if (cbAdditional.isSelected()) {
+                String queryAdd = "";
+                if (cbType.getSelectionModel().getSelectedItem() == "Motherboard") {
+                    queryAdd = "INSERT INTO MOTHERBOARD(Chipset, Socekt, pcieSlots, ramType, ramCapacity, productID) VALUES(?, ?, ?, ?, ?, ?)";
+                    if (isEdit) {
+                        queryAdd = "UPDATE MOTHERBOARD SET Chipset = ?, Socket = ?, pcieSlots = ?, ramType = ?,"
+                                + "ramCapacity = ? WHERE productID = ?";
+                    }
+                    PreparedStatement ps = db.createStatement(queryAdd);
+                    ps.setString(1, tfChipset.getText());
+                    ps.setString(2, tfSocket.getText());
+                    ps.setInt(3, Integer.parseInt(tfPCI.getText()));
+                    ps.setString(4, tfRamType.getText());
+                    ps.setInt(5, Integer.parseInt(tfRamCapacity.getText()));
+                    ps.setInt(6, productID);
+                    int rows = ps.executeUpdate();
+                    if (isEdit && rows == 0) {
+                        ps = db.createStatement("INSERT INTO MOTHERBOARD(Chipset, Socekt, pcieSlots, ramType, ramCapacity, productID) VALUES(?, ?, ?, ?, ?, ?)");
+                        ps.setString(1, tfChipset.getText());
+                        ps.setString(2, tfSocket.getText());
+                        ps.setInt(3, Integer.parseInt(tfPCI.getText()));
+                        ps.setString(4, tfRamType.getText());
+                        ps.setInt(5, Integer.parseInt(tfRamCapacity.getText()));
+                        ps.setInt(6, productID);
+                        ps.executeUpdate();
+                    }
                 }
-                PreparedStatement ps = db.createStatement(queryAdd);
-                ps.setString(1, tfChipset.getText());
-                ps.setString(2, tfSocket.getText());
-                ps.setInt(3, Integer.parseInt(tfPCI.getText()));
-                ps.setString(4, tfRamType.getText());
-                ps.setInt(5, Integer.parseInt(tfRamCapacity.getText()));
-                ps.setInt(6, productID);
-                ps.executeUpdate();
-            }
-            if (cbType.getSelectionModel().getSelectedItem() == "Processor") {
-                queryAdd = "INSERT INTO Processor(productID, coreCount, clockSpeed, Cache) VALUES(?, ?, ?, ?)";
-                if (isEdit) {
-                    queryAdd = "UPDATE Processor SET coreCount = ?, clockSpeed = ?, Cache = ?"
-                            + " WHERE productID = ?";
-                }
-                PreparedStatement ps = db.createStatement(queryAdd);
+                if (cbType.getSelectionModel().getSelectedItem() == "Processor") {
+                    queryAdd = "INSERT INTO Processor(coreCount, clockSpeed, Cache, productID) VALUES(?, ?, ?, ?)";
+                    if (isEdit) {
+                        queryAdd = "UPDATE Processor SET coreCount = ?, clockSpeed = ?, Cache = ?"
+                                + " WHERE productID = ?";
+                    }
+                    PreparedStatement ps = db.createStatement(queryAdd);
 
-                ps.setInt(1, Integer.parseInt(tfCoreCount.getText()));
-                ps.setInt(2, Integer.parseInt(tfCpuClock.getText()));
-                ps.setInt(3, Integer.parseInt(tfCache.getText()));
-                ps.setInt(4, productID);
-                ps.executeUpdate();
-            }
-            if (cbType.getSelectionModel().getSelectedItem() == "RAM") {
-                queryAdd = "INSERT INTO RAM(productID, Frequency, ddrType, Capacity) VALUES(?, ?, ?, ?)";
-                if (isEdit) {
-                    queryAdd = "UPDATE RAM SET Frequency = ?, ddrType = ?, Capacity = ?"
-                            + " WHERE productID = ?";
+                    ps.setInt(1, Integer.parseInt(tfCoreCount.getText()));
+                    ps.setFloat(2, Float.parseFloat(tfCpuClock.getText()));
+                    ps.setInt(3, Integer.parseInt(tfCache.getText()));
+                    ps.setInt(4, productID);
+                    int rows = ps.executeUpdate();
+                    if (isEdit && rows == 0) {
+                        ps = db.createStatement("INSERT INTO Processor(coreCount, clockSpeed, Cache, productID) VALUES(?, ?, ?, ?)");
+                        ps.setInt(1, Integer.parseInt(tfCoreCount.getText()));
+                        ps.setFloat(2, Float.parseFloat(tfCpuClock.getText()));
+                        ps.setInt(3, Integer.parseInt(tfCache.getText()));
+                        ps.setInt(4, productID);
+                        ps.executeUpdate();
+                    }
                 }
-                PreparedStatement ps = db.createStatement(queryAdd);
-                ps.setFloat(1, (float) Double.parseDouble(tfFreq.getText()));
-                ps.setString(2, tfDDRType.getText());
-                ps.setString(3, tfCapacity.getText());
-                ps.setInt(4, productID);
-                ps.executeUpdate();
-            }
-            if (cbType.getSelectionModel().getSelectedItem() == "PSU") {
-                queryAdd = "INSERT INTO PSU(productID, contPower, ACInput, DCOutput) VALUES(?, ?, ?, ?)";
-                if (isEdit) {
-                    queryAdd = "UPDATE PSU SET contPower = ?, ACInput = ?, DCOutput = ?"
-                            + " WHERE productID = ?";
+                if (cbType.getSelectionModel().getSelectedItem() == "RAM") {
+                    queryAdd = "INSERT INTO RAM(Frequency, ddrType, Capacity, productID) VALUES(?, ?, ?, ?)";
+                    if (isEdit) {
+                        queryAdd = "UPDATE RAM SET Frequency = ?, ddrType = ?, Capacity = ?"
+                                + " WHERE productID = ?";
+                    }
+                    PreparedStatement ps = db.createStatement(queryAdd);
+                    ps.setFloat(1, (float) Double.parseDouble(tfFreq.getText()));
+                    ps.setString(2, tfDDRType.getText());
+                    ps.setString(3, tfCapacity.getText());
+                    ps.setInt(4, productID);
+                    int rows = ps.executeUpdate();
+                    if (isEdit && rows == 0) {
+                        ps = db.createStatement("INSERT INTO RAM(Frequency, ddrType, Capacity, productID) VALUES(?, ?, ?, ?)");
+                        ps.setFloat(1, (float) Double.parseDouble(tfFreq.getText()));
+                        ps.setString(2, tfDDRType.getText());
+                        ps.setString(3, tfCapacity.getText());
+                        ps.setInt(4, productID);
+                        ps.executeUpdate();
+                    }
                 }
-                PreparedStatement ps = db.createStatement(queryAdd);
-                ps.setInt(1, Integer.parseInt(tfContPower.getText()));
-                ps.setFloat(2, Float.parseFloat(tfACInput.getText()));
-                ps.setFloat(3, Float.parseFloat(tfDCoutput.getText()));
-                ps.setInt(4, productID);
-                ps.executeUpdate();
-            }
-            if (cbType.getSelectionModel().getSelectedItem() == "GPU") {
-                queryAdd = "INSERT INTO GPU(productID, clockSpeed, vRam, memClock) VALUES(?, ?, ?, ?)";
-                if (isEdit) {
-                    queryAdd = "UPDATE GPU SET clockSpeed = ?, vRam = ?, memClock = ?"
-                            + " WHERE productID = ?";
+                if (cbType.getSelectionModel().getSelectedItem() == "PSU") {
+                    queryAdd = "INSERT INTO PSU(contPower, ACInput, DCOutput, productID) VALUES(?, ?, ?, ?)";
+                    if (isEdit) {
+                        queryAdd = "UPDATE PSU SET contPower = ?, ACInput = ?, DCOutput = ?"
+                                + " WHERE productID = ?";
+                    }
+                    PreparedStatement ps = db.createStatement(queryAdd);
+                    ps.setInt(1, Integer.parseInt(tfContPower.getText()));
+                    ps.setFloat(2, Float.parseFloat(tfACInput.getText()));
+                    ps.setFloat(3, Float.parseFloat(tfDCoutput.getText()));
+                    ps.setInt(4, productID);
+                    int rows = ps.executeUpdate();
+                    if (isEdit && rows == 0) {
+                        ps = db.createStatement("INSERT INTO PSU(contPower, ACInput, DCOutput, productID) VALUES(?, ?, ?, ?)");
+                        ps.setInt(1, Integer.parseInt(tfContPower.getText()));
+                        ps.setFloat(2, Float.parseFloat(tfACInput.getText()));
+                        ps.setFloat(3, Float.parseFloat(tfDCoutput.getText()));
+                        ps.setInt(4, productID);
+                        ps.executeUpdate();
+                    }
                 }
-                PreparedStatement ps = db.createStatement(queryAdd);
-                ps.setFloat(1, Float.parseFloat(tfClockSpeed.getText()));
-                ps.setFloat(2, Float.parseFloat(tfVRAM.getText()));
-                ps.setInt(3, Integer.parseInt(tfMemoryClock.getText()));
-                ps.setInt(4, productID);
-                ps.executeUpdate();
+                if (cbType.getSelectionModel().getSelectedItem() == "GPU") {
+                    queryAdd = "INSERT INTO GPU(productID, clockSpeed, vRam, memClock) VALUES(?, ?, ?, ?)";
+                    if (isEdit) {
+                        queryAdd = "UPDATE GPU SET clockSpeed = ?, vRam = ?, memClock = ?"
+                                + " WHERE productID = ?";
+                    }
+                    PreparedStatement ps = db.createStatement(queryAdd);
+                    ps.setFloat(1, Float.parseFloat(tfClockSpeed.getText()));
+                    ps.setFloat(2, Float.parseFloat(tfVRAM.getText()));
+                    ps.setInt(3, Integer.parseInt(tfMemoryClock.getText()));
+                    ps.setInt(4, productID);
+                    int rows = ps.executeUpdate();
+                    if (isEdit && rows == 0) {
+                        db.createStatement("INSERT INTO GPU(productID, clockSpeed, vRam, memClock) VALUES(?, ?, ?, ?)");
+                        ps.setFloat(1, Float.parseFloat(tfClockSpeed.getText()));
+                        ps.setFloat(2, Float.parseFloat(tfVRAM.getText()));
+                        ps.setInt(3, Integer.parseInt(tfMemoryClock.getText()));
+                        ps.setInt(4, productID);
+                        ps.executeUpdate();
+                    }
+                }
             }
+        } catch (SQLException ex) {
+            new SceneLoader().showAlert(Alert.AlertType.ERROR, "Update failed!", "Operation failed!");
+        } catch (ClassNotFoundException ex) {
+            new SceneLoader().showAlert(Alert.AlertType.ERROR, "Update failed!", "Could not connect to Database!");
         }
         clearAllFields();
+        ((Stage) tfDescription.getScene().getWindow()).close();
     }
 
     private void clearAllFields() {

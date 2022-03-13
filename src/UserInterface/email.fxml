@@ -8,22 +8,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.EmailController">
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.EmailController">
    <children>
-      <TextField fx:id="UpdateEmail_tf" layoutX="520.0" layoutY="78.0" />
-      <Button fx:id="valid_btn" layoutX="553.0" layoutY="250.0" mnemonicParsing="false" onAction="#valid_btn" prefHeight="25.0" prefWidth="84.0" text="valid" />
-      <TextField fx:id="tf_newpass" layoutX="520.0" layoutY="142.0" />
-      <Label layoutX="409.0" layoutY="82.0" text="Enter Email" />
-      <Label layoutX="409.0" layoutY="146.0" text="Enter new Password" />
-      <ImageView fitHeight="416.0" fitWidth="410.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="UpdateEmail_tf" layoutX="502.0" layoutY="78.0" />
+      <Button fx:id="valid_btn" layoutX="460.0" layoutY="230.0" mnemonicParsing="false" onAction="#valid_btn" prefHeight="25.0" prefWidth="84.0" text="Get OTP" />
+      <TextField fx:id="tf_newpass" layoutX="502.0" layoutY="142.0" />
+      <Label layoutX="391.0" layoutY="82.0" text="Enter Email" />
+      <Label layoutX="391.0" layoutY="146.0" text="Enter new Password" />
+      <ImageView fitHeight="416.0" fitWidth="410.0" layoutX="-47.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/passupdate1.png" />
          </image>
       </ImageView>
-      <Label layoutX="231.0" layoutY="14.0" prefHeight="42.0" prefWidth="251.0" text="Forgot Password !!">
+      <Label layoutX="395.0" layoutY="14.0" prefHeight="42.0" prefWidth="251.0" text="Recover Password!">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
+      <Button layoutX="460.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="25.0" prefWidth="84.0" text="Back" />
    </children>
 </AnchorPane>

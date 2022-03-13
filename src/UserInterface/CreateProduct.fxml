@@ -84,5 +84,6 @@
       <Button fx:id="btnCreate" layoutX="973.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnCreateProductOnClick" text="Create Product" />
       <TextField fx:id="tfStock" disable="true" layoutX="568.0" layoutY="28.0" prefHeight="25.0" prefWidth="180.0" promptText="Stock" visible="false" />
       <Label fx:id="lblStock" disable="true" layoutX="500.0" layoutY="32.0" text="Stock" visible="false" />
+      <Label fx:id="lblNoAdd" alignment="CENTER" layoutX="421.0" layoutY="267.0" prefHeight="17.0" prefWidth="241.0" text="Additional Information Not Available" textFill="#c34747" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
