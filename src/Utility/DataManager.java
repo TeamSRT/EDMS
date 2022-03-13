@@ -10,6 +10,7 @@ package Utility;
 import Model.CartItem;
 import Model.Customer;
 import Model.Product;
+import Model.Supplier;
 import UserInterface.ProductUIController;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class DataManager {
     public static Product product;
     public static Customer selected;
+    public static Supplier selectedSupplier;
     public static String permission;
     
     public static boolean createProdIsEdit;

@@ -72,6 +72,6 @@
             <MenuItem fx:id="mitemKeyword" mnemonicParsing="false" onAction="#searchByKeyword" text="Keyword" />
          </items>
       </MenuButton>
-      <Button fx:id="btnDelete1" layoutX="654.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Details" AnchorPane.rightAnchor="305.0" />
+      <Button fx:id="btnShowDetails" layoutX="654.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnShowDetailsOnClicked" prefHeight="25.0" prefWidth="121.0" styleClass="btnStyle" stylesheets="@interfaceUI.css" text="Show Details" AnchorPane.rightAnchor="305.0" />
    </children>
 </AnchorPane>
