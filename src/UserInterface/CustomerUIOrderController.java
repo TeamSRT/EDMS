@@ -234,7 +234,9 @@ public class CustomerUIOrderController implements Initializable {
                    
                     break;            
             }
-                     
+            
+            showTotalServices(query);
+            showTotalOrder(query);
         }
         
     }
