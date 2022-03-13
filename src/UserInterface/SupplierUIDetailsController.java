@@ -46,45 +46,49 @@ public class SupplierUIDetailsController implements Initializable {
     private TableView<SupplyDetails> tvSupplies;
     @FXML
     private TextField tfSupplierID;
-     ObservableList<SupplyDetails> listSupplies = FXCollections.observableArrayList();
+    ObservableList<SupplyDetails> listSupplies = FXCollections.observableArrayList();
+    int supplierID = 0;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        supplierID = DataManager.selectedSupplier.getSupplierID() ;
         showSupplies();
-        tfSupplierID.setText(DataManager.selectedSupplier.getSupplierID() + "");
-    }    
+        tfSupplierID.setText(supplierID + "");
+    }
 
-    private void showSupplies(){
+    private void showSupplies() {
+        listSupplies.clear();
         try {
-            listSupplies.clear();
+            
             Database db = new Database();
             db.connect();
             String query = "SELECT PRODUCT.Brand, PRODUCT.Model, SUPPLIES.Quantity, SUPPLIES.Cost, Convert(DATE,SUPPLIES.Date_) as supplyrDate FROM"
-                    + " PRODUCT INNER JOIN SUPPLIES ON SUPPLIES.ProductID = PRODUCT.ProductID where SUPPLIES.supplierID = "+DataManager.selectedSupplier.getSupplierID();
-            System.out.println("Query = "+query);
+                    + " PRODUCT INNER JOIN SUPPLIES ON SUPPLIES.ProductID = PRODUCT.ProductID where SUPPLIES.supplierID = " + DataManager.selectedSupplier.getSupplierID();
+            System.out.println("Query = " + query);
             ResultSet rs = db.getResult(query);
             while (rs.next()) {
-              listSupplies.add(new SupplyDetails(rs.getString("Brand"), rs.getString("Model"), rs.getInt("quantity"), rs.getInt("Cost"), rs.getString("supplyDate")));
+                listSupplies.add(new SupplyDetails(rs.getString("Brand"), rs.getString("Model"), rs.getInt("quantity"), rs.getInt("Cost"), rs.getString("supplyrDate")));
             }
             db.disconnect();
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("Invalid Action");
-             alert.setContentText("Unable to show details of the supplier!!!");
-             alert.show();
-             ((Stage) tfSupplierID.getScene().getWindow()).close();
+            //ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setContentText("Unable to show details of the supplier!!!");
+            alert.show();
+            ((Stage) tfSupplierID.getScene().getWindow()).close();
         }
         tcBrand.setCellValueFactory(new PropertyValueFactory("Brand"));
         tcModel.setCellValueFactory(new PropertyValueFactory("Model"));
         tcQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         tcCost.setCellValueFactory(new PropertyValueFactory("cost"));
         tcSupplyDate.setCellValueFactory(new PropertyValueFactory("supplyDate"));
-        tvSupplies.setItems(listSupplies); 
-        
+        tvSupplies.setItems(listSupplies);
+
     }
-    
+
 }
