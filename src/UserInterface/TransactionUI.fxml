@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane id="ScrollPane" fx:id="btn_modify" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#btnModifyOnCliked" prefHeight="1000.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.TransactionUIController">
+<ScrollPane id="ScrollPane" fx:id="btn_modify" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#btnModifyOnCliked" prefHeight="720.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.TransactionUIController">
     <AnchorPane id="AnchorPane" prefHeight="982.0" prefWidth="1080.0">
         <children>
             <DatePicker fx:id="dpFrom" layoutX="294.0" layoutY="14.0" />
@@ -48,15 +48,15 @@
             </Label>
             <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="898.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Orders:" />
             <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="932.0" prefHeight="17.0" prefWidth="140.0" text="Expanse From Supplies:" />
-            <Label layoutX="913.0" layoutY="898.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
-            <Label layoutX="913.0" layoutY="932.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+            <Label fx:id="lblRevOrder" layoutX="913.0" layoutY="898.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+            <Label fx:id="lblExpSupp" layoutX="913.0" layoutY="932.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
          <Label alignment="CENTER" layoutX="14.0" layoutY="620.0" prefHeight="17.0" prefWidth="1060.0" text="Services Provided" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
          </Label>
          <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="915.0" prefHeight="17.0" prefWidth="140.0" text="Revenue From Services:" />
-         <Label layoutX="913.0" layoutY="915.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+         <Label fx:id="lblRevServices" layoutX="913.0" layoutY="915.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
          <TableView fx:id="tvService" layoutX="19.0" layoutY="647.0" prefHeight="240.0" prefWidth="976.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <columns>
                <TableColumn fx:id="tcServiceID" prefWidth="102.0" text="Service ID" />
@@ -69,7 +69,7 @@
             </columns>
          </TableView>
          <Label alignment="CENTER_RIGHT" layoutX="764.0" layoutY="949.0" prefHeight="17.0" prefWidth="140.0" text="Total:" />
-         <Label layoutX="913.0" layoutY="949.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+         <Label fx:id="lblProfit" layoutX="913.0" layoutY="949.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
         </children>
     </AnchorPane>
 
