@@ -81,8 +81,6 @@ public class ProductUIController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnOrder;
-    @FXML
     private ComboBox<String> cbType;
     private Label lblProductID;
     @FXML
@@ -201,7 +199,6 @@ public class ProductUIController implements Initializable {
         loadProductTable("SELECT * FROM PRODUCT");
     }
 
-    @FXML
     private void btnOrderOnClicked(ActionEvent event) throws IOException {
 
         DataManager.product = tvProduct.getSelectionModel().getSelectedItem();

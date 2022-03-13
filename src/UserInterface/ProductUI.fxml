@@ -24,11 +24,10 @@
          </columns>
       </TableView>
       <Button fx:id="btnModify" layoutX="953.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnModifyOnCliked" text="Modify Product" />
-      <Button fx:id="btnDelete" layoutX="839.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="99.0" text="Delete Product" />
-      <Button fx:id="btnOrder" layoutX="722.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnOrderOnClicked" prefHeight="25.0" prefWidth="99.0" text="Order Product" />
+      <Button fx:id="btnDelete" layoutX="847.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnDeleteOnClicked" prefHeight="25.0" prefWidth="99.0" text="Delete Product" />
       <CheckBox fx:id="cbInStock" layoutX="962.0" layoutY="68.0" mnemonicParsing="false" text="In Stock" />
-      <Button fx:id="btnCreateProduct" layoutX="607.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnCreateProductOnClick" prefHeight="25.0" prefWidth="99.0" text="Insert Product" />
-      <Button fx:id="btnViewProduct" layoutX="497.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnViewProductOnClick" prefHeight="25.0" prefWidth="99.0" text="View Product" />
+      <Button fx:id="btnCreateProduct" layoutX="740.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnCreateProductOnClick" prefHeight="25.0" prefWidth="99.0" text="Insert Product" />
+      <Button fx:id="btnViewProduct" layoutX="633.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnViewProductOnClick" prefHeight="25.0" prefWidth="99.0" text="View Product" />
       <TextField fx:id="tfPriceMin" layoutX="96.0" layoutY="64.0" prefHeight="25.0" prefWidth="64.0" promptText="From" />
       <Label layoutX="27.0" layoutY="68.0" text="Price Range: " />
       <TextField fx:id="tfpriceMax" layoutX="174.0" layoutY="64.0" prefHeight="25.0" prefWidth="64.0" promptText="To" />
@@ -41,7 +40,7 @@
       <Button layoutX="462.0" layoutY="108.0" mnemonicParsing="false" onAction="#btnFilterOnAction" text="Filter" />
       <Button layoutX="521.0" layoutY="108.0" mnemonicParsing="false" onAction="#btnClearFieldsOnAction" text="Reset" />
       <Button layoutX="969.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRefreshOnClick" text="Reload Page" />
-      <Button fx:id="btnAddToOrder" layoutX="395.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnAddToOrderOnAction" text="Add To Order" />
+      <Button fx:id="btnAddToOrder" layoutX="534.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnAddToOrderOnAction" text="Add To Order" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnShowOrderOnAction" text="See Orders" />
    </children>
 </AnchorPane>

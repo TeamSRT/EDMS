@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -100,6 +102,8 @@ public class CartUIController implements Initializable {
             tfPhone.setText(rs.getString("customerPhone"));
             tfAddress.setText(rs.getString("addresses"));
             btnInsert.setDisable(true);
+        } else {
+            new SceneLoader().showAlert(Alert.AlertType.INFORMATION, "0 Results", "No results found!");
         }
 
     }
@@ -119,6 +123,8 @@ public class CartUIController implements Initializable {
             tfPhone.setText(rs.getString("customerPhone"));
             tfAddress.setText(rs.getString("addresses"));
             btnInsert.setDisable(true);
+        } else {
+            new SceneLoader().showAlert(Alert.AlertType.INFORMATION, "0 Results", "No results found!");
         }
 
     }
@@ -147,7 +153,15 @@ public class CartUIController implements Initializable {
             }
             new SceneLoader().showAlert(Alert.AlertType.INFORMATION, "Customer Inserted", "New customer added!");
         } catch (SQLException ex) {
-            new SceneLoader().showAlert(Alert.AlertType.ERROR, "Action failed", "New customer Insertion failed!");
+            if (ex.toString().contains("uc_phone")) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Action failed", "Phone number already exists!");
+            } else if (ex.toString().contains("check_phone")) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Action failed", "Invalid phone number!");
+            } else if (ex.toString().contains("check_cusName")) {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Action failed", "Invalid customer name!");
+            } else {
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Action failed", "Insertion was unsuccessfull!");
+            }
             return;
         }
         db.disconnect();

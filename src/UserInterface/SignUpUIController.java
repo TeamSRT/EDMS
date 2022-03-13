@@ -31,7 +31,7 @@ public class SignUpUIController implements Initializable {
     @FXML
     private PasswordField tfConfrimPassword;
     @FXML
-    private PasswordField tfMail;
+    private TextField tfMail;
 
     /**
      * Initializes the controller class.
@@ -57,7 +57,7 @@ public class SignUpUIController implements Initializable {
         try {
             String query = "INSERT INTO Users(UserName, UserPassword, Email) VALUES"
                     + "('" + tfUsername.getText() + "'"
-                    + ",'" + tfPassword.getText() + ",'"
+                    + ",'" + tfPassword.getText() + "','"
                     + tfMail.getText() +"')";
             System.out.println(query);
             db.updateTable(query);

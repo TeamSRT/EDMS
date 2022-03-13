@@ -11,6 +11,8 @@ import Utility.DataManager;
 import Utility.SceneLoader;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,6 +54,28 @@ public class CartItemUIController implements Initializable {
         lblModel.setText(curr.getModel());
         lblStock.setText(curr.getStock());
         lblTotalCost.setText(curr.getPrice() + "");
+
+        tfQuantity.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfQuantity.setText(newValue.replaceAll("[^\\d]", ""));
+                } else {
+                    if (newValue.trim().length() > 0) {
+                        int q = Integer.parseInt(newValue);
+                        tfMoney.setText(q * curr.getPrice() + "");
+                    }
+                }
+            }
+        });
+        tfMoney.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfQuantity.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     @FXML
@@ -79,7 +103,7 @@ public class CartItemUIController implements Initializable {
     @FXML
     private void btnCancelOnClick(ActionEvent event) {
         ((Stage) tfMoney.getScene().getWindow()).close();
-        
+
     }
 
 }

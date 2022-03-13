@@ -54,6 +54,8 @@ public class AdminPanelUIController implements Initializable {
     private Button btnUpdate;
 
     ObservableList<User> listUser = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<User, String> tcEmail;
 
     /**
      * Initializes the controller class.
@@ -74,15 +76,16 @@ public class AdminPanelUIController implements Initializable {
         listUser.clear();
         Database db = new Database();
         db.connect();
-        ResultSet rsUser = db.getResult("SELECT UserName, UserPermission FROM Users");
+        ResultSet rsUser = db.getResult("SELECT UserName, UserPermission, Email FROM Users");
         while (rsUser.next()) {
             if (rsUser.getString(2).equalsIgnoreCase("ADMIN")) {
                 continue;
             }
-            listUser.add(new User(rsUser.getString(1), rsUser.getString(2).toUpperCase()));
+            listUser.add(new User(rsUser.getString(1), rsUser.getString(2).toUpperCase(), rsUser.getString(3)));
         }
         tcUsername.setCellValueFactory(new PropertyValueFactory("username"));
         tcPermission.setCellValueFactory(new PropertyValueFactory("permission"));
+        tcEmail.setCellValueFactory(new PropertyValueFactory("email"));
         tvUsers.setItems(listUser);
     }
 

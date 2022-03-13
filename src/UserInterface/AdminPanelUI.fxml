@@ -8,13 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="UserInterface.AdminPanelUIController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AdminPanelUIController">
    <children>
-      <TableView fx:id="tvUsers" layoutX="340.0" layoutY="299.0" prefHeight="290.0" prefWidth="400.0">
+      <TableView fx:id="tvUsers" layoutX="256.0" layoutY="300.0" prefHeight="290.0" prefWidth="614.0">
         <columns>
           <TableColumn fx:id="tcUsername" prefWidth="200.0" text="Username" />
           <TableColumn fx:id="tcPermission" prefWidth="200.0" text="Permission" />
+            <TableColumn fx:id="tcEmail" prefWidth="200.0" text="Email" />
         </columns>
       </TableView>
       <Button layoutX="548.0" layoutY="604.0" mnemonicParsing="false" onAction="#btnDeleteOnClick" text="Delete" />

@@ -13,10 +13,12 @@ package Model;
 public class User {
     String username;
     String permission;
+    String email;
 
-    public User(String username, String permission) {
+    public User(String username, String permission, String email) {
         this.username = username;
         this.permission = permission;
+        this.email = email;
     }
 
     public String getUsername() {
@@ -34,6 +36,16 @@ public class User {
     public void setPermission(String permission) {
         this.permission = permission;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
     
     
 }
