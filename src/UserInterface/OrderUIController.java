@@ -237,7 +237,7 @@ public class OrderUIController implements Initializable {
         tfProductID.setText(curr.getProductID() + "");
         tfCustomerID.setText(curr.getCustomerID() + "");
         tfQuantity.setText(curr.getQuantity() + "");
-
+        tfCost.setText(curr.getCost()+"");
         tfOrderID.setDisable(false);
         tfOrderID.setOpacity(1);
         tfOrderID.setEditable(false);
@@ -254,6 +254,7 @@ public class OrderUIController implements Initializable {
         tfProductID.setText("");
         tfCustomerID.setText("");
         tfQuantity.setText("");
+        tfCost.setText("");
         isEdit = false;
         tfOrderID.setDisable(true);
         tfOrderID.setOpacity(0);
