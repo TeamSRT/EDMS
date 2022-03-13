@@ -84,7 +84,7 @@ public class CustomerUIOrderController implements Initializable {
     private MenuItem mItemModel;
     @FXML
     private TextField tfSearch;
-     private String searchBy = "";
+    private String searchBy = "";
 
     /**
      * Initializes the controller class.
@@ -93,24 +93,24 @@ public class CustomerUIOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         searchBy = "brand";
         showTotalOrder("SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
-                    + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
-                    + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID());
+                + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
+                + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID());
         showTotalServices("SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
-                    + "FROM SERVICE_ "
-                    + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
-                    + "where Service_.customerID = " + DataManager.selected.getCustomerID());
+                + "FROM SERVICE_ "
+                + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
+                + "where Service_.customerID = " + DataManager.selected.getCustomerID());
         tfCustomerID.setText(DataManager.selected.getCustomerID() + "");
 
     }
 
     private void showTotalOrder(String query) {
         listCustomerOrder.clear();
-        try {                       
-            System.out.println("Button Show Order = " + query);            
+        try {
+            System.out.println("Button Show Order = " + query);
             Database db = new Database();
             db.connect();
             ResultSet rs = db.getResult(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 int warranty = Integer.parseInt(rs.getString("Warranty"));
                 int count = warranty * 365 - Integer.parseInt(rs.getString("dayDiff"));
                 if (count > 0) {
@@ -125,12 +125,14 @@ public class CustomerUIOrderController implements Initializable {
                 }
             }
 
-        } catch (ClassNotFoundException | SQLException ex) {            
+        } catch (ClassNotFoundException | SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
             alert.setContentText("Unable to show total orders by a customer");
             alert.show();
             ((Stage) tfCustomerID.getScene().getWindow()).close();
+            ex.printStackTrace();
+            System.out.println(query);
         }
         tcOrderID.setCellValueFactory(new PropertyValueFactory("orderID"));
         tcDate.setCellValueFactory(new PropertyValueFactory("date"));
@@ -145,7 +147,7 @@ public class CustomerUIOrderController implements Initializable {
 
     private void showTotalServices(String query) {
         listCustomerService.clear();
-        try {                       
+        try {
             System.out.println("Button Show Total Service = " + query);
             Database db = new Database();
             db.connect();
@@ -161,16 +163,19 @@ public class CustomerUIOrderController implements Initializable {
             tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
             tcServiceStatus.setCellValueFactory(new PropertyValueFactory("status"));
             tcServiceReceive.setCellValueFactory(new PropertyValueFactory("givenDate"));
-            tfTotalServices.setText(listCustomerService.size()+"");
+            tfTotalServices.setText(listCustomerService.size() + "");
             tvCustomerService.setItems(listCustomerService);
 
-        } catch (ClassNotFoundException | SQLException ex) {           
+        } catch (ClassNotFoundException | SQLException ex) {
 //System.out.println("exception in showing total order:" + ex);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Action");
             alert.setContentText("Unable to show total services by a customer");
             alert.show();
             ((Stage) tfCustomerID.getScene().getWindow()).close();
+            ex.printStackTrace();
+            System.out.println(query);
+
         }
     }
 
@@ -182,22 +187,21 @@ public class CustomerUIOrderController implements Initializable {
     @FXML
     private void searchByBrand(ActionEvent event) {
         searchBy = "brand";
-        menuBtnSearch.setText("Brand");       
+        menuBtnSearch.setText("Brand");
         tfSearch.setPromptText("Search by Brand");
         search();
     }
 
     @FXML
-    private void searchByModel(ActionEvent event){
+    private void searchByModel(ActionEvent event) {
         searchBy = "model";
-        menuBtnSearch.setText("model");       
+        menuBtnSearch.setText("model");
         tfSearch.setPromptText("Search by Model");
         search();
     }
 
     private void search() {
-        if(tfSearch.getText().equals(""))
-        {
+        if (tfSearch.getText().equals("")) {
             System.out.println("No text in the search field");
             showTotalServices("SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
                     + "FROM SERVICE_ "
@@ -206,39 +210,37 @@ public class CustomerUIOrderController implements Initializable {
             showTotalOrder("SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
                     + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
                     + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where ORDERS.customerID = " + DataManager.selected.getCustomerID());
-        }
-        else
-        {
-            String query;
-            switch (searchBy) {               
+        } else {
+            String query, query1;
+            switch (searchBy) {
                 case "model":
-                   query = "SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
-                    + "FROM SERVICE_ "
-                    + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
-                    + "where Product.model = " + tfSearch.getText();
-                   
-                   query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
-                    + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
-                    + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where PRODUCT.model = " + tfSearch.getText();
-                   
-                    break;                
-                default:   
                     query = "SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
-                    + "FROM SERVICE_ "
-                    + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
-                    + "where Product.Brand = " + tfSearch.getText();
-                   
-                   query = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
-                    + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
-                    + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where PRODUCT.Brand = " + tfSearch.getText();
-                   
-                    break;            
+                            + "FROM SERVICE_ "
+                            + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
+                            + "where Product.model LIKE '%" + tfSearch.getText() + "%'" ; 
+
+                    query1 = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
+                            + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
+                            + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where PRODUCT.model LIKE '%" + tfSearch.getText() + "%'";
+
+                    break;
+                default:
+                    query = "SELECT PRODUCT.productID,PRODUCT.Brand,PRODUCT.Model,SERVICE_.serviceCharge, SERVICE_.serviceStatus, Convert(DATE,SERVICE_.givenDate) as receiveDate "
+                            + "FROM SERVICE_ "
+                            + "LEFT JOIN PRODUCT ON Service_.productID = PRODUCT.productID "
+                            + "where Product.Brand LIKE '%" + tfSearch.getText() + "%'";
+
+                    query1 = "SELECT Orders.orderID,Convert(DATE,Orders.orderTime) as orderDate,Product.productID,Product.Brand,"
+                            + "Product.Model,PRODUCT.Warranty, DATEDIFF(day, Convert(DATE,Orders.orderTime), Convert(DATE, getDate())) as dayDiff,(Product.Price * Orders.quantity - Orders.cost) as due "
+                            + "from ORDERS INNER JOIN PRODUCT ON ORDERS.productID = PRODUCT.ProductID where PRODUCT.Brand LIKE '%" + tfSearch.getText() + "%'";
+
+                    break;
             }
-            
+
             showTotalServices(query);
-            showTotalOrder(query);
+            showTotalOrder(query1);
         }
-        
+
     }
 
 }
