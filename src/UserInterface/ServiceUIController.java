@@ -25,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -74,7 +75,7 @@ public class ServiceUIController implements Initializable {
     private TableColumn<Service, String> tcDetails;
     @FXML
     private TableColumn<Service, Integer> tcServiceCharge;
-      @FXML
+    @FXML
     private TableColumn<Service, String> tcServiceStatus;
     @FXML
     private TableColumn<Service, String> tcGivenDate;
@@ -103,13 +104,9 @@ public class ServiceUIController implements Initializable {
     private MenuItem mitemDetails;
     @FXML
     private MenuItem mitemServiceCharge;
+
     @FXML
-    private RadioButton rbStatusResolved;
-    @FXML
-    private ToggleGroup searchStatus;
-    @FXML
-    private RadioButton rbStatusUnresolved;
-  
+    private Label lblMaxAlert;
 
     /**
      * Initializes the controller class.
@@ -130,7 +127,7 @@ public class ServiceUIController implements Initializable {
             boolean check = false;
             while (rs.next()) {
                 check = true;
-                listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"),rs.getString("givenDate")));
+                listService.add(new Service(rs.getInt("serviceID"), rs.getInt("productID"), rs.getInt("customerID"), rs.getString("details"), rs.getInt("serviceCharge"), rs.getString("serviceStatus"), rs.getString("givenDate")));
             }
             if (check == false) {
                 btnModify.setDisable(true);
@@ -142,7 +139,7 @@ public class ServiceUIController implements Initializable {
             tcServiceID.setCellValueFactory(new PropertyValueFactory("serviceID"));
             tcProductID.setCellValueFactory(new PropertyValueFactory("productID"));
             tcCustomerID.setCellValueFactory(new PropertyValueFactory("customerID"));
-            tcDetails.setCellValueFactory(new PropertyValueFactory("details"));           
+            tcDetails.setCellValueFactory(new PropertyValueFactory("details"));
             tcServiceStatus.setCellValueFactory(new PropertyValueFactory("serviceStatus"));
             tcServiceCharge.setCellValueFactory(new PropertyValueFactory("serviceCharge"));
             tcGivenDate.setCellValueFactory(new PropertyValueFactory("givenDate"));
@@ -217,7 +214,7 @@ public class ServiceUIController implements Initializable {
                 alert.show();
             }
         }
-        
+
     }
 
     @FXML
@@ -247,6 +244,7 @@ public class ServiceUIController implements Initializable {
         modify = false;
         id = -1;
         lblAlert.setOpacity(0);
+        lblMaxAlert.setOpacity(0);
         tfSearch.setText("");
         btnInsert.setText("Insert Service");
         showTable("SELECT * FROM SERVICE_");
@@ -282,7 +280,7 @@ public class ServiceUIController implements Initializable {
                     pause.setOnFinished(e -> lblAlert.setOpacity(0));
                     pause.play();
                 }
-            }            
+            }
             showTable("SELECT * FROM SERVICE_");
         } catch (SQLException ex) {
             System.out.println("Exception in btnDelete FOR SERVICING: " + ex);
@@ -299,7 +297,6 @@ public class ServiceUIController implements Initializable {
         search();
     }
 
-
     @FXML
     private void btnResetOnClick(ActionEvent event) {
         resetFields();
@@ -310,7 +307,7 @@ public class ServiceUIController implements Initializable {
         tfSearch2.setDisable(true);
         tfSearch2.setOpacity(0);
         searchBy = "serviceID";
-        menuBtnSearch.setText("Service ID");       
+        menuBtnSearch.setText("Service ID");
         tfSearch.setPromptText("Search by Service ID");
         search();
     }
@@ -320,7 +317,7 @@ public class ServiceUIController implements Initializable {
         tfSearch2.setDisable(true);
         tfSearch2.setOpacity(0);
         searchBy = "productID";
-        menuBtnSearch.setText("Product ID");       
+        menuBtnSearch.setText("Product ID");
         tfSearch.setPromptText("Search by Product ID");
         search();
     }
@@ -330,7 +327,7 @@ public class ServiceUIController implements Initializable {
         tfSearch2.setDisable(true);
         tfSearch2.setOpacity(0);
         searchBy = "customerID";
-        menuBtnSearch.setText("Customer ID");       
+        menuBtnSearch.setText("Customer ID");
         tfSearch.setPromptText("Search by Customer ID");
         search();
     }
@@ -340,61 +337,77 @@ public class ServiceUIController implements Initializable {
         tfSearch2.setDisable(true);
         tfSearch2.setOpacity(0);
         searchBy = "details";
-        menuBtnSearch.setText("Details");       
+        menuBtnSearch.setText("Details");
         tfSearch.setPromptText("Search by details");
         search();
     }
 
     @FXML
-    private void searchByServiceCharge(ActionEvent event){
+    private void searchByServiceCharge(ActionEvent event) {
         searchBy = "serviceCharge";
-        menuBtnSearch.setText("Service Charge");       
+        menuBtnSearch.setText("Service Charge");
         tfSearch.setPromptText("Search by minimum service charge");
         tfSearch2.setOpacity(1);
         tfSearch2.setPromptText("Search by maximum service charge");
         tfSearch2.setDisable(false);
         search();
     }
+
     private void search() {
-        if(tfSearch.getText().equals(""))
-        {
+        if (tfSearch.getText().equals("")) {
             System.out.println("No text in the search field");
-            showTable("SELECT * FROM SERVICE_");  
-        }       
-        else
-        {
+            showTable("SELECT * FROM SERVICE_");
+        } else {
             String query;
-            switch (searchBy) {               
+            switch (searchBy) {
                 case "productID":
-                    query = "SELECT * FROM SERVICE_ WHERE productID LIKE '%"+tfSearch.getText()+"%'";
-                    System.out.println("ProductID chosen");
+                    query = "SELECT * FROM SERVICE_ WHERE productID LIKE '%" + tfSearch.getText() + "%'";
                     break;
                 case "customerID":
-                    query = "SELECT * FROM SERVICE_ WHERE customerID LIKE '%"+tfSearch.getText()+"%'";
+                    query = "SELECT * FROM SERVICE_ WHERE customerID LIKE '%" + tfSearch.getText() + "%'";
                     System.out.println("CustomerID Chosen");
                     break;
                 case "details":
-                    query = "SELECT * FROM SERVICE_ WHERE details LIKE '%"+tfSearch.getText()+"%'";
+                    query = "SELECT * FROM SERVICE_ WHERE details LIKE '%" + tfSearch.getText() + "%'";
                     System.out.println("Details Chosen");
                     break;
                 case "serviceCharge":
                     int chargeMin = Integer.parseInt(tfSearch.getText().equals("") ? "0" : tfSearch.getText());
-                     int chargeMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
-                     if (chargeMin > chargeMax) {
-                          new SceneLoader().showAlert(AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
-                         return;
+                    int chargeMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
+                    lblMaxAlert.setOpacity(0);
+                    if (chargeMin > chargeMax) {
+                        lblMaxAlert.setOpacity(1);
                     }
-                    query = "SELECT * FROM SERVICE_ WHERE serviceCharge >= "+chargeMin+" AND serviceCharge <= "+chargeMax;        
-                    System.out.println("Service charge query = "+query);
+                    query = "SELECT * FROM SERVICE_ WHERE serviceCharge >= " + chargeMin + " AND serviceCharge <= " + chargeMax;
+                    System.out.println("Service charge query = " + query);
                     break;
-                default:   
-                    query = "SELECT * FROM SERVICE_ WHERE serviceID LIKE '%"+tfSearch.getText()+"%'";                          
+                default:
+                    query = "SELECT * FROM SERVICE_ WHERE serviceID LIKE '%" + tfSearch.getText() + "%'";
                     System.out.println("Service ID chosen");
-                    break;            
+                    break;
             }
-            showTable(query);            
+            showTable(query);
         }
-       
+
+    }
+
+    @FXML
+    private void btnResolveonAction(ActionEvent event) throws ClassNotFoundException, SQLException {
+        Service selected = tvService.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Can't modify");
+            alert.setContentText("You need to select a row to modify!");
+            alert.show();
+        }
+        String query = "UPDATE SERVICE_ SET serviceStatus = 'RESOLVED' WHERE serviceID = '" + selected.getServiceID()
+                + "'";
+        Database db = new Database();
+        db.connect();
+        db.updateTable(query);
+        db.disconnect();
+        showTable("SELECT * FROM SERVICE_");
+
     }
 
 }

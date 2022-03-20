@@ -114,7 +114,7 @@ public class TransactionUIController implements Initializable {
     ObservableList<Service> listService = FXCollections.observableArrayList();
     ObservableList<Supply> supplies_list = FXCollections.observableArrayList();
     ObservableList<Order> listOrder = FXCollections.observableArrayList();
-    
+
     int revOrders = 0;
     int revServices = 0;
     int expanseSupply = 0;
@@ -127,7 +127,7 @@ public class TransactionUIController implements Initializable {
     private Label lblRevServices;
     @FXML
     private Label lblProfit;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showServiceTable("SELECT * FROM SERVICE_");
@@ -135,7 +135,6 @@ public class TransactionUIController implements Initializable {
         showOrderTable("SELECT * FROM ORDERS");
         showTotal();
     }
-    
 
     private void showServiceTable(String query) {
         try {
@@ -219,7 +218,7 @@ public class TransactionUIController implements Initializable {
         tcTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
         tcCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tvOrder.setItems(listOrder);
-        
+
     }
 
     @FXML
@@ -251,7 +250,7 @@ public class TransactionUIController implements Initializable {
         lblExpSupp.setText(expanseSupply + "");
         lblRevOrder.setText(revOrders + "");
         lblRevServices.setText(revServices + "");
-        lblProfit.setText(expanseSupply + revOrders + revServices + "");
+        lblProfit.setText(-expanseSupply + revOrders + revServices + "");
     }
 
 }

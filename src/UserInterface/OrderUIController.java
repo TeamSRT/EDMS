@@ -91,6 +91,8 @@ public class OrderUIController implements Initializable {
     private MenuItem mitemQuantity;
     @FXML
     private MenuItem mitemCost;
+    @FXML
+    private Label lblMaxAlert;
 
     /**
      * Initializes the controller class.
@@ -260,6 +262,7 @@ public class OrderUIController implements Initializable {
         tfOrderID.setOpacity(0);
         lblOrderID.setDisable(true);
         lblOrderID.setOpacity(0);
+        lblMaxAlert.setOpacity(0);
         btnInsert.setText("Insert");
     }
 
@@ -362,9 +365,9 @@ public class OrderUIController implements Initializable {
                 case "quantity":
                      int quantityMin = Integer.parseInt(tfSearch.getText().equals("") ? "0" : tfSearch.getText());
                      int quantityMax = Integer.parseInt(tfSearch2.getText().equals("") ? "999999" : tfSearch2.getText());
+                     lblMaxAlert.setOpacity(0);
                      if (quantityMin > quantityMax) {
-                          new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Input", "Minimum price cannot be larger than Max");
-                         return;
+                        lblMaxAlert.setOpacity(1);
                     }
                     query = "SELECT * FROM ORDERS WHERE quantity >= "+quantityMin+" AND quantity <= "+quantityMax;        
                     System.out.println("Quantity query = "+query);

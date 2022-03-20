@@ -72,7 +72,7 @@ public class CartItemUIController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (!newValue.matches("\\d*")) {
-                    tfQuantity.setText(newValue.replaceAll("[^\\d]", ""));
+                    tfMoney.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
         });

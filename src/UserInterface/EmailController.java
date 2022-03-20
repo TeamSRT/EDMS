@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -53,6 +54,8 @@ public class EmailController implements Initializable {
     ResultSet rsProduct = null;
     @FXML
     private TextField tf_newpass;
+    @FXML
+    private PasswordField tf_confirm;
 
     /**
      * Initializes the controller class.
@@ -82,8 +85,16 @@ public class EmailController implements Initializable {
                 count = rsProduct.getInt(1);
             }
             if (count == 1) {
-
+                if(tf_newpass.getText().trim().length() <= 6) {
+                    new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Password", "Password must be larger than 6!");
+                    return;
+                }
+                if(!tf_newpass.getText().trim().equals(tf_confirm.getText().trim())) {
+                    new SceneLoader().showAlert(Alert.AlertType.ERROR, "Invalid Password", "Password doesn't match!");
+                    return;
+                }
                 Password = tf_newpass.getText();
+                
                 email = UpdateEmail_tf.getText();
                 Parent root = FXMLLoader.load(getClass().getResource("OTPcheck.fxml"));
                 Scene src = new Scene(root);

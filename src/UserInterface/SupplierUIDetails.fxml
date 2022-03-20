@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="528.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SupplierUIDetailsController">
+<AnchorPane id="AnchorPane" prefHeight="429.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.SupplierUIDetailsController">
    <children>
       <TextField fx:id="tfSupplierID" editable="false" layoutX="374.0" layoutY="27.0" />
       <Label alignment="CENTER" layoutX="104.0" layoutY="25.0" prefHeight="27.0" prefWidth="149.0" text="Total Supplies By">

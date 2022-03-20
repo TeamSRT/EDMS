@@ -132,12 +132,15 @@ public class CreateProductController implements Initializable {
     private Button btnCreate;
     @FXML
     private Label lblNoAdd;
+    
+    ProductUIController prodControl;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //prodControl = DataManager.prodControl;
         isEdit = DataManager.createProdIsEdit;
         eProductID = DataManager.createProductId;
         eProductType = DataManager.createProdType;
@@ -150,6 +153,7 @@ public class CreateProductController implements Initializable {
         cbType.getItems().add("Other");
         cbType.getSelectionModel().selectFirst();
         hideAllPane();
+        cbType.setDisable(false);
         cbType.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -384,6 +388,7 @@ public class CreateProductController implements Initializable {
             String price = tfPrice.getText();
             String description = tfDescription.getText();
             String type = cbType.getSelectionModel().getSelectedItem();
+            String stock = tfStock.getText();
             String query = "INSERT INTO PRODUCT(productType, Brand, Model, Warranty, Price, Details) VALUES('" + type + "','" + brand + "','" + model + "'," + warranty + "," + price + ",'" + description + "')";
             if (isEdit) {
                 query = "UPDATE PRODUCT SET productType = '" + type + "', "
@@ -391,7 +396,8 @@ public class CreateProductController implements Initializable {
                         + "Model = '" + model + "', "
                         + "Warranty = '" + warranty + "', "
                         + "Price = '" + price + "', "
-                        + "Details = '" + description + "' "
+                        + "Details = '" + description + "', "
+                        + "Stock = " + stock + " "
                         + "WHERE ProductID = '" + eProductID + "'";
             }
             Database db = new Database();
@@ -500,7 +506,7 @@ public class CreateProductController implements Initializable {
                     }
                 }
                 if (cbType.getSelectionModel().getSelectedItem() == "GPU") {
-                    queryAdd = "INSERT INTO GPU(productID, clockSpeed, vRam, memClock) VALUES(?, ?, ?, ?)";
+                    queryAdd = "INSERT INTO GPU(clockSpeed, vRam, memClock, productID) VALUES(?, ?, ?, ?)";
                     if (isEdit) {
                         queryAdd = "UPDATE GPU SET clockSpeed = ?, vRam = ?, memClock = ?"
                                 + " WHERE productID = ?";
@@ -523,6 +529,7 @@ public class CreateProductController implements Initializable {
             }
         } catch (SQLException ex) {
             new SceneLoader().showAlert(Alert.AlertType.ERROR, "Update failed!", "Operation failed!");
+            ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             new SceneLoader().showAlert(Alert.AlertType.ERROR, "Update failed!", "Could not connect to Database!");
         }

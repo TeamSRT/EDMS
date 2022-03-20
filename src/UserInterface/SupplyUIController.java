@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -115,6 +117,39 @@ public class SupplyUIController implements Initializable {
         searchOption = 1;
         btn_searchBy.setText("ProductID");
         updateTable("SELECT * FROM SUPPLIES");
+        
+        tf_cost.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf_cost.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        tf_supplierID.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf_supplierID.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        tf_quantity.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf_quantity.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        tf_productID.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf_productID.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
     }
 
@@ -158,9 +193,10 @@ public class SupplyUIController implements Initializable {
             } else if (ex.toString().contains("supp_chk_cost")) {
                 new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Cost must be more than Zero");
             } else {
-                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Unknown error. Try again later.");
+                new SceneLoader().showAlert(Alert.AlertType.ERROR, "Failed", "Invalid Input. Insert Valid data...");
             }
             System.out.println(ex);
+            return;
             /*
             System.out.println(ex);
             Alert alert = new Alert(AlertType.ERROR);

@@ -33,5 +33,6 @@ public class DataManager {
     public static Product orderSelect;
     
     public static List<CartItem> orderList;
+    public static ProductUIController prodControl;
     
 }

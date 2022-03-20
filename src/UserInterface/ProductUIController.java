@@ -270,8 +270,8 @@ public class ProductUIController implements Initializable {
         String model = tfModel.getText().equals("") ? "%%" : tfModel.getText();
         String type = cbType.getSelectionModel().getSelectedItem().equals("All") ? "%%" : cbType.getSelectionModel().getSelectedItem();
         String query = "SELECT * FROM PRODUCT WHERE "
-                + "Brand LIKE '" + brand + "' "
-                + "AND Model LIKE '" + model + "' "
+                + "Brand LIKE '%" + brand + "%' "
+                + "AND Model LIKE '%" + model + "%' "
                 + "AND productType LIKE '" + type + "' "
                 + "AND Price >= " + priceMin + " "
                 + "AND Price <= " + priceMax;
